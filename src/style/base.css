@@ -1,0 +1,299 @@
+/**
+ * @author flyerjay
+**/
+body,html{
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+    overflow:hidden;
+    position: relative;
+    z-index:0;
+}
+
+*{
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif!important;
+}
+
+.clearfix:after,.clearfix:before{
+    display:table;
+    content:'';
+}
+
+.clearfix:after{
+    clear:both;
+}
+
+#pagecontainer{
+	width: 100%;
+	height: 100%;
+	background-color:#efefef;
+	color:#4b4b4b;
+	overflow: hidden;
+	position: relative;
+    z-index:1;
+}
+
+.page-container{
+    height:100%;
+    width:100%;
+    position: absolute;
+    overflow:hidden;
+}
+.page-container .page{
+    overflow:hidden;
+    z-index:1;
+    position:absolute;
+}
+
+.page-content{
+	font-size: 0.6rem;
+}
+
+/*预设vue向下滑入向上滑出动画*/
+.slide-down-enter-active {
+    transition: all .2s ease-out;
+    transform: translate3d(0,0%,0);
+}
+.slide-down-leave-active {
+    transition: all .2s ease-out;
+    transform: translate3d(0,-100%,0);
+}
+.slide-down-leave{
+    transform: translate3d(0,0%,0);
+}
+.slide-down-enter{
+    transform: translate3d(0,-100%,0);
+}
+/*预设vue上滑动画*/
+.slide-up-enter-active {
+    transition: all .2s ease-out;
+    transform: translate3d(0,0%,0);
+}
+.slide-up-leave-active {
+    transition: all .2s ease-out;
+    transform: translate3d(0,100%,0);
+}
+.slide-up-leave{
+    transform: translate3d(0,0%,0);
+}
+.slide-up-enter{
+    transform: translate3d(0,100%,0);
+}
+/*预设vue淡入淡出动画*/
+.fade-enter,.fade-leave-active{
+    transition: all .2s ease-out;
+    opacity:0;
+}
+.fade-leave,.fade-enter-active{
+    opacity:1;
+}
+/*左滑动画*/
+.left-enter-active {
+	transition: all .3s ease-out;
+	transform: translate3d(0%,0,0);
+}
+.left-leave-active {
+	transition: all .3s ease-out;
+	transform: translate3d(-100%,0,0);
+}
+.left-leave{
+	transform: translate3d(0%,0,0);
+}
+.left-enter{
+	transform: translate3d(100%,0,0);
+}
+/*右滑动画*/
+.right-enter-active {
+	transition: all .3s ease-out;
+	transform: translate3d(0%,0,0);
+}
+.right-leave-active {
+	transition: all .3s ease-out;
+	transform: translate3d(100%,0,0);
+}
+.right-leave{
+	transform: translate3d(0%,0,0);
+}
+.right-enter{
+	transform: translate3d(-100%,0,0);
+}
+
+/*修改mint-ui中的默认样式，使其能够自适应 */
+.picker {
+    overflow: hidden;
+}
+
+.picker-items {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    text-align: right;
+    font-size: 0.51rem;
+    position: relative;
+}
+
+.mint-datetime-action{
+    font-size:0.684rem;
+}
+
+.picker-center-highlight {
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 50%;
+    margin-top: -0.38rem;
+    pointer-events: none
+}
+
+.picker-center-highlight:before,
+.picker-center-highlight:after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: #eaeaea;
+    display: block;
+    z-index: 15;
+    transform: scaleY(0.5);
+}
+
+.picker-center-highlight:before {
+    left: 0;
+    top: 0;
+    bottom: auto;
+    right: auto;
+}
+
+.picker-center-highlight:after {
+    left: 0;
+    bottom: 0;
+    right: auto;
+    top: auto;
+}
+
+.picker-slot {
+    font-size: 0.67rem;
+    overflow: hidden;
+    position: relative;
+    max-height: 100%
+}
+
+.picker-slot.picker-slot-left {
+    text-align: left;
+}
+
+.picker-slot.picker-slot-center {
+    text-align: center;
+}
+
+.picker-slot.picker-slot-right {
+    text-align: right;
+}
+
+.picker-slot.picker-slot-divider {
+    color: #000;
+    display: flex;
+    align-items: center
+}
+
+.picker-slot-wrapper {
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+    backface-visibility: hidden;
+}
+
+.picker-slot-wrapper.dragging,
+.picker-slot-wrapper.dragging .picker-item {
+    transition-duration: 0s;
+}
+
+.picker-item {
+    height: 0.76rem;
+    line-height: 0.76rem;
+    padding: 0 10px;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #707274;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-sizing: border-box;
+    transition-duration: .3s;
+    backface-visibility: hidden;
+}
+
+.picker-slot-absolute .picker-item {
+    position: absolute;
+}
+
+.picker-item.picker-item-far {
+    pointer-events: none
+}
+
+.picker-item.picker-selected {
+    color: #000;
+    transform: translate3d(0, 0, 0) rotateX(0);
+}
+
+.picker-3d .picker-items {
+    overflow: hidden;
+    perspective: 15rem;
+}
+
+.picker-3d .picker-item,
+.picker-3d .picker-slot,
+.picker-3d .picker-slot-wrapper {
+    transform-style: preserve-3d
+}
+
+.picker-3d .picker-slot {
+    overflow: visible
+}
+
+.picker-3d .picker-item {
+    transform-origin: center center;
+    backface-visibility: hidden;
+    transition-timing-function: ease-out
+}
+
+.mint-popup.mint-popup-bottom{
+    width:100%;
+}
+
+.mint-indicator .mint-indicator-mask {
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 1;
+}
+
+.mint-indicator-wrapper {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 2;
+}
+
+.mint-indicator-text {
+    display: block;
+    color: #fff;
+    text-align: center;
+    margin-top: 0.43rem;
+    font-size: 0.68rem;
+}
+
