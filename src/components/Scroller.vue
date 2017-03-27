@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" ref='wrapper' @touchstart.prevent="">
+    <div class="wrapper" ref='wrapper'>
         <div class="scroller">
             <slot></slot>
         </div>
@@ -47,6 +47,8 @@
                 scrollY: true,
                 mouseWheel: true,
                 isPullToRefresh: true,
+                click:true,
+                tap:true,
             })
             this.active = true;
             this.mySroller.on('scrollEnd',function(e){

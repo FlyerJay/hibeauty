@@ -54,7 +54,7 @@
                 })
             },
             viewAlbum:function(item){
-                this.$router.push({name:'gallery',params:item})
+                this.$router.push({path:'/gallery',query:item})
             }, 
             loadMore:function(){
                 this.page ++;

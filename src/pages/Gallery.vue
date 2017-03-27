@@ -62,7 +62,7 @@
             }
         },
         activated:function(){
-            this.albumInfo = this.$route.params;
+            this.albumInfo = this.$route.query;
             this.getImageList();
         },
         deactivated:function(){
@@ -116,6 +116,7 @@
                 position:absolute;
                 top:50%;
                 transform:translateY(-50%);
+                width:100%;
                 img{
                     width:100%;
                 }

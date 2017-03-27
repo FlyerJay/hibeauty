@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" ref='wrapper' @touchstart.prevent="">
+    <div class="wrapper" ref='wrapper'>
         <div class="x-scroller">
             <slot></slot>
         </div>
