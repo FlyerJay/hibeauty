@@ -3,25 +3,6 @@ import Vuex from 'vuex';
 import Tool from '../utils/Tool'
 Vue.use(Vuex)
 
-const subscribeDefault = {
-    carInfo:{
-        plate:'',
-        seriesName:'',
-        vehicleTypeId:'',
-    },
-    time:'',
-    showTime:'',
-    fcmc:'',
-    storeInfo:{
-        id:'',
-        storeName:'',
-    },
-    mile:'',
-    contact:'',
-    phone:'',
-    description:''
-}
-
 const store = new Vuex.Store({
     state:{
         pageStack:[],
