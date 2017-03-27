@@ -18,7 +18,7 @@ const Util = {
         var UA = navigator.userAgent;
         var agents = ["Android", "iPhone", "Windows Phone", "iPad", "iPod"];
         for (var i = 0;i < agents.length;i++){
-            if(UA.indexOf(agents[i])){
+            if(UA.indexOf(agents[i]) > 0){
                 return false;
             }
         }
@@ -66,6 +66,7 @@ const Tap = {
                 if (binding.modifiers.prevent)
                     e.preventDefault();
                 el.handler(e)
+                
             },false)
         }else{
             el.addEventListener('touchstart',(e)=>{
