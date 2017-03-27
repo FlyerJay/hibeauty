@@ -6,9 +6,7 @@ import router from '../router';
 import store from '../store';
 
 const Tool = {};
-//const target = 'http://192.168.191.2:8080/maintenance-plug/app/';//内网测试环境地址
 const target = 'http://www.flyerjay.date/flymm/';
-//const target = 'http://service.mall.changan.com.cn/maintenance-plug/app/';//公网测试环境
 const CLOSE_NETWORK = false;//在本地调试时关闭网络，只调整静态页面
 var requestPool = [];//请求池
 
