@@ -1,25 +1,28 @@
 <template>
     <div class="page-container">
-        <div class="page page-gallery" flex="dir:top box:first">
+        <div class="page page-gallery">
             <nav-bar
-                :title="albumInfo.albumName"
+                :title="(index+1)+'/'+(imageList.length)"
             />
-            <div class="page-content" flex="dir:top">
-                <div class="image-container" flex="dir:top">
-                    <img :src="serverPath + imageList[index].picUrl" alt="" v-if="imageList.length > 0">
+            <x-scroller>
+                <div class="page-content">
+                    <div class="image-container">
+                        <img :src="serverPath + imageList[index].picUrl" alt="" v-if="imageList.length > 0">
+                    </div>
                 </div>
-            </div>
+            </x-scroller>
         </div>
         <div class="toolbar" flex="dir:left box:mean cross:center">
-            <div class="prev" @click="prev"><i class="iconfont icon-back"></i></div>
-            <div class="picture-index" flex="dir:left main:center">{{index+1}}/{{imageList.length}}</div>
-            <div class="next" @click="next" flex="dir:left main:right"><i class="iconfont icon-go"></i></div>
+            <div class="prev"><i class="iconfont icon-back" v-tap="prev"></i></div>
+            <div class="picture-index" flex="dir:left main:center"></div>
+            <div class="next" flex="dir:left main:right"><i class="iconfont icon-go" v-tap="next"></i></div>
         </div>
     </div>
 </template>
 <script>
     import NavBar from '../components/NavBar';
     import Tool from '../utils/Tool';
+    import XScroller from '../components/XScroller';
     export default{
         data () {
             return {
@@ -31,7 +34,8 @@
             }
         },
         components:{
-            NavBar
+            NavBar,
+            XScroller,
         },
         methods:{
             getImageList:function(){
@@ -71,15 +75,30 @@
 <style lang="less" scoped>
     .page-container{
         position:relative;
+        background-color:#000;
         .toolbar{
             position:absolute;
             height:2rem;
             width:100%;
-            bottom:0;
+            top:50%;
+            margin-top:-1rem;
             z-index:2;
             .iconfont{
                 font-size:1.5rem;
                 color:rgba(255,255,255,0.5);
+                background-color:rgba(0,0,0,0.2);
+                border-radius:1.5rem;
+                height:1.5rem;
+                display:block;
+                width:1.5rem;
+                &:before{
+                    position:relative;
+                    top:-0.1rem;
+                    left:-0.1rem;
+                }
+                &.icon-go:before{
+                    left:0.1rem;
+                }
             }
             .picture-index{
                 font-size:0.8rem;
@@ -91,17 +110,14 @@
         height:100%;
         position:absolute;
         width:100%;
-        
         .page-content{
-            background-color: #fff;
-            height:100%;
-            overflow: auto;
+            background-color: #000;
             .image-container{
-                width:100%;
-                height:100%;
+                position:absolute;
+                top:50%;
+                transform:translateY(-50%);
                 img{
                     width:100%;
-                    height:100%;
                 }
             }
         }

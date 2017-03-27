@@ -52,9 +52,11 @@
 <style scoped lang="less">
     .nav-bar{
         height:2.1rem;
-        background-color:rgba(0,0,0,0.9);
-        border-bottom:1px solid #cfcfcf;
+        background-color:rgba(0,0,0,0.2);
         color:#ccc;
+        position:absolute;
+        width:100%;
+        z-index:2;
         .button{
             height: 2.1rem;
             line-height:2.1rem;
