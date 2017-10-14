@@ -20,7 +20,8 @@
     "vue": "^2.1.10",
     "vue-images": "^1.0.3",
     "vue-router": "^2.2.0",
-    "vuex": "^2.1.2"
+    "vuex": "^2.1.2",
+    "photoswipe": "^4.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",

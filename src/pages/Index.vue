@@ -12,6 +12,9 @@
                         <div class="loading" flex="dir:left cross:center main:center" v-if="loading">加载中<mt-spinner type="fading-circle" :size="12" color="#6b6b6b"></mt-spinner></div>
                         <div class="load-more" v-tap="loadMore" v-else="loading">加载更多</div>
                     </div>
+                    <div class="preview-img-list" style="display:none;">
+                        <img class="preview-img-item" v-for="item,index in items" :src="item.src" v-if="items.length > 0" @click="$photoswipe.open(index, items)">
+                    </div>
                 </scroller>
             </div>
         </div>
@@ -29,6 +32,8 @@
                 pageSize:20,
                 totalCount:0,
                 loading:false,
+                items: [],
+                serverPath:'http://115.29.150.218/static/images/',
             }
         },
         components:{
@@ -54,7 +59,27 @@
                 })
             },
             viewAlbum:function(item){
-                this.$router.push({path:'/gallery',query:item})
+                this.items = [];
+                Tool.get('album/'+item.albumId,{},(data)=>{
+                    if(data.code == 200){
+                        data.data.list.forEach((v,i)=>{
+                            if(i > 0){
+                                var img = new Image();
+                                img.src = this.serverPath + v.picUrl;
+                                var w = img.width,
+                                    h =img.height;
+                                this.items.push({
+                                    src: this.serverPath + v.picUrl,
+                                    w: w || 750,
+                                    h: h || 1334
+                                })
+                            }
+                        })
+                        this.$nextTick(()=>{
+                            this.$photoswipe.open(0, this.items);
+                        })
+                    }
+                })
             }, 
             loadMore:function(){
                 this.page ++;

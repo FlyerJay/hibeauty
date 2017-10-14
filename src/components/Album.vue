@@ -10,7 +10,7 @@
     export default {
         data () {
             return{
-                serverPath:'http://www.flyerjay.date/static/images/'
+                serverPath:'http://115.29.150.218/static/images/'
             }
         },
         props:{

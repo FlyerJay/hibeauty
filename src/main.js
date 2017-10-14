@@ -11,8 +11,11 @@ import './style/base.css';
 import './style/iconfont.less';
 import Tool from './utils/Tool';
 import './utils/Tap';
+import VuePhotoSwipe from './plugin'
+
 const FastClick = require('fastclick')
 Vue.use(MintUI);
+Vue.use(VuePhotoSwipe)
 
 $(function(){
 	FastClick.attach(document.body)//移动端添加fastClick支持

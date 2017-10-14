@@ -1,21 +1,12 @@
 <template>
     <div class="page-container">
         <div class="page page-gallery">
-            <nav-bar
-                :title="(index+1)+'/'+(imageList.length)"
-            />
-            <x-scroller>
-                <div class="page-content">
-                    <div class="image-container">
-                        <img :src="serverPath + imageList[index].picUrl" alt="" v-if="imageList.length > 0">
-                    </div>
+            <nav-bar title="相册"/>
+            <div class="page-content">
+                <div class="preview-img-list">
+                    <img class="preview-img-item" v-for="item,index in items" :src="item.src" v-if="items.length > 0 && index < 1" @click="$photoswipe.open(index, items)">
                 </div>
-            </x-scroller>
-        </div>
-        <div class="toolbar" flex="dir:left box:mean cross:center">
-            <div class="prev"><i class="iconfont icon-back" v-tap="prev"></i></div>
-            <div class="picture-index" flex="dir:left main:center"></div>
-            <div class="next" flex="dir:left main:right"><i class="iconfont icon-go" v-tap="next"></i></div>
+            </div>
         </div>
     </div>
 </template>
@@ -28,46 +19,42 @@
             return {
                 title:'hiBeauty',
                 albumInfo:{},
-                serverPath:'http://www.flyerjay.date/static/images/',
-                index:0,
-                imageList:[],
+                serverPath:'http://115.29.150.218/static/images/',
+                items: [],
             }
         },
         components:{
             NavBar,
-            XScroller,
         },
         methods:{
             getImageList:function(){
                 Tool.get('album/'+this.albumInfo.albumId,{},(data)=>{
                     if(data.code == 200){
-                        this.imageList = data.data.list;
-                        this.imageList.splice(0,1);
+                        data.data.list.forEach((v,i)=>{
+                            if(i > 0){
+                                this.items.push({
+                                    src: this.serverPath + v.picUrl,
+                                    w: 100,
+                                    height: 200,
+                                })
+                            }
+                        })
+                        this.$nextTick(()=>{
+                            this.$photoswipe.open(0, this.items);
+                        })
                     }
                 })
             },
-            prev:function(){
-                if(this.index>0){
-                    this.index--;
-                }else{
-                    this.index = this.imageList.length - 1;
-                }
-            },
-            next:function(){
-                if(this.index<this.imageList.length-1){
-                    this.index++
-                }else{
-                    this.index = 0;
-                }
-            }
+        },
+        mounted: function(){
+            
         },
         activated:function(){
             this.albumInfo = this.$route.query;
             this.getImageList();
         },
         deactivated:function(){
-            this.imageList = [];
-            this.index = 0;
+            this.items = [];
         }
         
     }
@@ -118,7 +105,8 @@
                 transform:translateY(-50%);
                 width:100%;
                 img{
-                    width:100%;
+                    width: 100%;
+                    height: 100%;
                 }
             }
         }
