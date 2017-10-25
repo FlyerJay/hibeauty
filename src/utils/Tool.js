@@ -6,7 +6,7 @@ import router from '../router';
 import store from '../store';
 
 const Tool = {};
-const target = 'http://115.29.150.218/flymm/';
+const target = 'http://118.190.127.183/flymm/';
 const CLOSE_NETWORK = false;//在本地调试时关闭网络，只调整静态页面
 var requestPool = [];//请求池
 
