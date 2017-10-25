@@ -64,14 +64,10 @@
                     if(data.code == 200){
                         data.data.list.forEach((v,i)=>{
                             if(i > 0){
-                                var img = new Image();
-                                img.src = this.serverPath + v.picUrl;
-                                var w = img.width,
-                                    h =img.height;
                                 this.items.push({
                                     src: this.serverPath + v.picUrl,
-                                    w: w || 750,
-                                    h: h || 1334
+                                    w: v.width || 750,
+                                    h: v.height || 1334
                                 })
                             }
                         })
