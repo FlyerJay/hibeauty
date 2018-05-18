@@ -15,26 +15,24 @@ const actions = {
     if (!state.albumList.length) {
       return axios.get(`${host}/app/api/album`, param)
         .then(response => {
-          let data = response.data;
+          const data = response.data;
           commit(Type.SET_ALBUM_LIST, data);
           return data;
-        })
+        });
     }
     return Promise.resolve();
   },
 
   FETCH_ALBUM_DETAIL: ({ commit, dispatch, state }, { id }) => {
-    if (state.album.id != id) {
+    if (state.album.id !== id) {
       return axios.get(`${host}/app/api/album/${id}`)
         .then(response => {
-          let data = response.data;
+          const data = response.data;
           commit(Type.SET_ALBUM_DETAIL, data);
-        })
+        });
     }
     return Promise.resolve();
   }
 };
 
 export default actions;
-
-
