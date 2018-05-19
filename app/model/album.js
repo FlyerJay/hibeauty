@@ -32,7 +32,7 @@ module.exports = app => {
 
     Album.list = async function (options) {
         let rs = await this.findAndCountAll({
-            limit: options.pageSize - 0 || 20,
+            limit: options.pageSize - 0 || 60,
             offset: (options.page - 1) * (options.pageSize - 0) || 0,
         })
         return {

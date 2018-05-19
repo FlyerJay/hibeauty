@@ -1,3 +1,11 @@
 @import "./normalize.css";
-@import "./bootstrap.css";
-@import "./app.css";
+
+html,body{
+    font-size: 14px;
+}
+
+.clearfix::after,.clearfix:before{
+    content: "";
+    clear: both;
+    display: table;
+}

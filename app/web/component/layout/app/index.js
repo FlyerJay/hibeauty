@@ -29,7 +29,13 @@ export default {
     <meta name="keywords" :content="vKeywords">
     <meta name="description" :content="vDescription">
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-transform "/>
+    <meta name="format-detection" content="telephone=no, address=no">
+    <meta name="apple-touch-fullscreen" content="yes" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script src="http://www.snowyet.cc/static/js/flexible.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     </head>
     <body :class="baseClass">
