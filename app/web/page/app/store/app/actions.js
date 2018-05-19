@@ -7,12 +7,12 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
-const host = 'http://127.0.0.1:7002';
+const host = 'http://snowyet.cc/hibeauty';
 
 const actions = {
 
   FETCH_ALBUM_LIST: ({ commit, dispatch, state }, params) => {
-    return axios.get(`${host}/app/api/album`, { params })
+    return axios.get(`${host}/api/album`, { params })
       .then(response => {
         const data = response.data;
         if (params.append) {
