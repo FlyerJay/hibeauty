@@ -1,15 +1,35 @@
 <template>
-    <img class="album" :src="'http://www.snowyet.cc/static/images/' + cover" :alt="title">
+    <img class="album" :src="'http://www.snowyet.cc/static/images/' + cover" :alt="title" @click="viewAlbum">
 </template>
 <script>
-export default {
-    props: ['albumId', 'cover', 'title'],
-    data () {
-        return {
-            staticURI: "http://www.snowyet.cc/static/images/"
+    export default {
+        props: ['albumId', 'cover', 'title', 'albumId'],
+        data () {
+            return {
+                staticURI: "http://www.snowyet.cc/static/images/",
+                thumbnailList: [],
+            }
+        },
+        computed: {
+            album() {
+                return this.$store.state.album;
+            }
+        },
+        methods: {
+            viewAlbum() {
+                this.$store.dispatch('FETCH_ALBUM_DETAIL', this.albumId)
+                    .then(data => {
+                        this.$photoswipe.open(0, this.album.map(v => {
+                            return {
+                                src: this.staticURI + v.picUrl,
+                                w: 375,
+                                h: 667,
+                            }
+                        }))
+                    })
+            }
         }
     }
-}
 </script>
 <style scoped lang="less">
     @import "../../../../asset/style/mixin-px.less";

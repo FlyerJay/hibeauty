@@ -15,12 +15,16 @@ const actions = {
     return axios.get(`${host}/app/api/album`, { params })
       .then(response => {
         const data = response.data;
-        commit(Type.SET_ALBUM_LIST, data);
+        if (params.append) {
+          commit(Type.APPEND_TO_ALBUM_LIST, data);
+        } else {
+          commit(Type.SET_ALBUM_LIST, data);
+        }
         return data;
       });
   },
 
-  FETCH_ALBUM_DETAIL: ({ commit, dispatch, state }, { id }) => {
+  FETCH_ALBUM_DETAIL: ({ commit, dispatch, state }, id) => {
     return axios.get(`${host}/app/api/album/${id}`)
       .then(response => {
         const data = response.data;

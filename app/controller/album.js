@@ -9,7 +9,7 @@ module.exports = app => {
         }
         async picture() {
             const ctx = this.ctx;
-            ctx.body = await ctx.model.Picture.list(ctx.query);
+            ctx.body = await ctx.model.Picture.list(ctx.params);
         }
     }
     return albumController;
