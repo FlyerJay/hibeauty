@@ -25,7 +25,7 @@ const actions = {
   },
 
   FETCH_ALBUM_DETAIL: ({ commit, dispatch, state }, id) => {
-    return axios.get(`${host}/app/api/album/${id}`)
+    return axios.get(`${host}/api/album/${id}`)
       .then(response => {
         const data = response.data;
         commit(Type.SET_ALBUM_DETAIL, data);
