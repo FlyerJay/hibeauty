@@ -8,7 +8,10 @@
   @import "../../../asset/style/mixin-px.less";
   .page-container{
     max-width: 675px;
-    margin: 0 auto;
+    position: fixed;
+    top: 0;
+    .px2rem(bottom, 80);
+    overflow-x: auto;
   }
 </style>
 <script type="text/babel">

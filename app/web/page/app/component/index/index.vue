@@ -1,13 +1,16 @@
 <template>
-    <div class="album-list clearfix">
-        <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>
-        <div class="preview-img-list" style="display:none;">
-            <img class="preview-img-item" v-for="(item, index) in album" :key="index" :src="item">
+    <refresh-page :onLoading="onLoading">
+        <div class="album-list clearfix">
+            <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>
+            <div class="preview-img-list" style="display:none;">
+                <img class="preview-img-item" v-for="(item, index) in album" :key="index" :src="item">
+            </div>
         </div>
-    </div>
+    </refresh-page>
 </template>
 <script>
     import Album from "../album";
+    import RefreshPage from "../refreshpage";
     export default {
         data() {
             return {
@@ -15,7 +18,8 @@
             }
         },
         components: {
-            Album
+            Album,
+            RefreshPage
         },
         computed: {
             albumList() {
@@ -39,6 +43,9 @@
             refreshAlbum() {
                 this.page = 1;
                 this.$store.dispatch('FETCH_ALBUM_LIST', {page: this.page})
+            },
+            onLoading() {
+                this.appendAlbum();
             }
         }
     }

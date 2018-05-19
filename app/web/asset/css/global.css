@@ -2,6 +2,7 @@
 
 html,body{
     font-size: 14px;
+    height: 100%;
 }
 
 .clearfix::after,.clearfix:before{
@@ -9,3 +10,10 @@ html,body{
     clear: both;
     display: table;
 }
+
+.icon {
+    width: 1em; height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+ }

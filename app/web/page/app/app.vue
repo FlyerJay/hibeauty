@@ -1,8 +1,11 @@
 <template>
   <layout>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <div>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+      <bottom-tab></bottom-tab>
+    </div>
   </layout>
 </template>
 <script type="text/babel">
@@ -11,12 +14,14 @@
   import { sync } from "vuex-router-sync";
   import store from "./store/app";
   import router from "./component/router";
+  import BottomTab from "./component/bottomtab";
   sync(store, router);
   Vue.use(PhotoSwipe);
   export default {
     router,
     store,
     computed: {},
-    mounted() {}
+    mounted() {},
+    components: { BottomTab }
   };
 </script>
