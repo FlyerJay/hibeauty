@@ -8,9 +8,9 @@ import axios from 'axios';
 Vue.use(Vuex);
 let host;
 if (typeof document === 'object') {
-  host = '/app';
+  host = '/hibeauty';
 } else {
-  host = 'http://127.0.0.1:7002/app';
+  host = 'http://127.0.0.1:7002/hibeauty';
 }
 
 const actions = {
