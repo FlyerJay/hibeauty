@@ -6,8 +6,12 @@ import Vuex from 'vuex';
 import axios from 'axios';
 
 Vue.use(Vuex);
-
-const host = 'http://snowyet.cc/hibeauty';
+let host;
+if (typeof document === 'object') {
+  host = '/app';
+} else {
+  host = 'http://127.0.0.1:7002/app';
+}
 
 const actions = {
 

@@ -40,9 +40,9 @@ module.exports = app => {
             code: 200,
             data: rs.rows || [],
             pageInfo: {
-                pageSize: options.pageSize,
+                pageSize: options.pageSize || 60,
                 totalCount: rs.count,
-                page: options.page
+                page: Number(options.page)
             }
         }
     }

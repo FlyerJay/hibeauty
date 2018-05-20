@@ -97,17 +97,17 @@
                 }, options)
                 this.photoswipe = new PhotoSwipe(this.$el, PhotoSwipeDefaultUI, items, opts)
                 this.photoswipe.init()
-                this.photoswipe.listen('imageLoadComplete', (index, item) => { 
-                    var image = new Image()
-                    image.src = item.src;
-                    var me = this;
-                    image.onload = function() {
-                        item.w = image.width;
-                        item.h = image.height;
-                        me.photoswipe.updateSize(true);
-                    }
+                // this.photoswipe.listen('imageLoadComplete', (index, item) => { 
+                //     var image = new Image()
+                //     image.src = item.src;
+                //     var me = this;
+                //     image.onload = function() {
+                //         item.w = image.width;
+                //         item.h = image.height;
+                //         me.photoswipe.updateSize(true);
+                //     }
                     
-                })
+                // })
             },
             close () {
                 this.photoswipe.close()

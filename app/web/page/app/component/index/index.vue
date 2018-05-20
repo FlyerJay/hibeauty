@@ -1,5 +1,5 @@
 <template>
-    <refresh-page :onLoading="onLoading">
+    <refresh-page :onLoading="onLoading" :isLoadAbel="isLoadAbel">
         <div class="album-list clearfix">
             <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>
             <div class="preview-img-list" style="display:none;">
@@ -15,6 +15,7 @@
         data() {
             return {
                 page: 1,
+                pageSize: 60,
             }
         },
         components: {
@@ -27,6 +28,12 @@
             },
             album() {
                 return this.$store.state.album;
+            },
+            albumListTotal() {
+                return this.$store.state.albumListTotal;
+            },
+            isLoadAbel() {
+                return this.page * this.pageSize < this.albumListTotal;
             }
         },
         preFetch({ state, dispatch, commit }) {
@@ -38,14 +45,14 @@
         },
         methods: {
             appendAlbum() {
-                this.$store.dispatch('FETCH_ALBUM_LIST', {page: ++this.page, append: true});
+                return this.$store.dispatch('FETCH_ALBUM_LIST', {page: ++this.page, append: true});
             },
             refreshAlbum() {
                 this.page = 1;
                 this.$store.dispatch('FETCH_ALBUM_LIST', {page: this.page})
             },
             onLoading() {
-                this.appendAlbum();
+                return this.appendAlbum();
             }
         }
     }

@@ -9,6 +9,7 @@ import {
 const mutations = {
   [SET_ALBUM_LIST](state, items) {
     state.albumList = items.data;
+    state.albumListTotal = items.pageInfo.totalCount;
   },
   [APPEND_TO_ALBUM_LIST](state, items) {
     state.albumList = state.albumList.concat(items.data);

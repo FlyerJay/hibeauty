@@ -10,13 +10,13 @@ export default {
   },
   computed: {
     vTitle() {
-      return this.$root.title || this.title || 'SnowYet-做专业的技术社区';
+      return this.$root.title || this.title || 'hibeauty-你想要的这里都有';
     },
     vKeywords() {
-      return this.$root.keywords || this.keywords || 'snowyet,雪依旧,tatel Zhang,论坛,编辑器';
+      return this.$root.keywords || this.keywords || 'hibeauty,雪依旧,tatel Zhang,性感美女,图片分享，福利';
     },
     vDescription() {
-      return this.$root.description || this.description || 'snowyet-做专业的技术社区';
+      return this.$root.description || this.description || 'hibeauty-你想要的这里都有';
     },
     baseClass() {
       return this.$root.baseClass;
@@ -34,6 +34,8 @@ export default {
     <meta name="format-detection" content="telephone=no, address=no">
     <meta name="apple-touch-fullscreen" content="yes" >
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="full-screen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <script src="http://www.snowyet.cc/static/js/flexible.js"></script>
     <script src="//at.alicdn.com/t/font_673098_txa1c6d666pkqpvi.js"></script>

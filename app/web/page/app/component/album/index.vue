@@ -22,8 +22,8 @@
                         this.$photoswipe.open(0, this.album.map(v => {
                             return {
                                 src: this.staticURI + v.picUrl,
-                                w: 375,
-                                h: 667,
+                                w: v.width,
+                                h: v.height,
                             }
                         }))
                     })

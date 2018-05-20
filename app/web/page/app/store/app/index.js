@@ -10,6 +10,7 @@ Vue.use(Vuex);
 
 const state = {
   albumList: [],
+  albumListTotal: 0,
   album: []
 };
 
