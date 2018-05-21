@@ -60,5 +60,6 @@
 <style scoped lang="less">
     .album-list{
         overflow-y: auto;
+        background-color: #ddd;
     }
 </style>

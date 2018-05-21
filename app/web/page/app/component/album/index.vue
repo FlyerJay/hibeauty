@@ -1,5 +1,6 @@
 <template>
-    <img class="album" :src="'http://www.snowyet.cc/static/images/' + cover" :alt="title" @click="viewAlbum">
+    <!-- <img class="album" :src="'http://www.snowyet.cc/static/images/' + cover" :alt="title" @click="viewAlbum"> -->
+    <img class="album" :src="'http://www.snowyet.cc/static/naruto.jpg'" :alt="title" @click="viewAlbum">
 </template>
 <script>
     export default {

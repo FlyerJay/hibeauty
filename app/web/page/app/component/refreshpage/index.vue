@@ -28,7 +28,7 @@ export default {
             touchStart: 0, //触摸开始
             touchEnd: 0, //触摸结束
             scrollTop: 0, //距离顶部距离
-            threshold: 0.2, //预设滑动系数
+            threshold: 0.1, //预设滑动系数
             scrollOb: "", //滚动条观察者
         }
     },
@@ -46,6 +46,14 @@ export default {
     destroyed() {
         //销毁时清除观察者避免内存泄露
         window.clearInterval(this.scrollOb);
+    },
+    watch: {
+        upglideMode(val) {
+            if(val === 0) {
+                this.$el.style.transform = 'translateY(0px)';
+                this.$el.style.transition = '300ms';
+            }
+        }
     },
     methods: {
         touch(event) {
@@ -75,21 +83,23 @@ export default {
                     }
                     break;
                 case 'touchend':
-                    this.$el.style.transition = '300ms';
                     if(this.upglideMode === 1) {
                         this.upglideMode = 2;
                         this.onLoading().then(() => {
                             this.upglideMode = 0;
                             this.scrollTop = -1;
-                            let transitionY = this.$el.style.transform.match(/\d+/)[0];
+                            // let transitionY = this.$el.style.transform.match(/\d+/)[0];
+                            let upglideHeight = this.$refs.upglideWidget.clientHeight;
                             this.$nextTick(() => {
-                                window.document.body.scrollTop ? window.document.body.scrollTop += transitionY : window.document.documentElement.scrollTop += transitionY;
-                                this.$el.style.transform = 'translateY(0px)';
+                                window.document.body.scrollTop ? window.document.body.scrollTop += upglideHeight : window.document.documentElement.scrollTop += upglideHeight;
                             })
+                        }, () => {
+                            this.upglideMode = 0;
+                        }).catch(err => {
+                            this.upglideMode = 0;
                         })
                     }else{
                         this.upglideMode = 0;
-                        this.$el.style.transform = 'translateY(0px)';
                     }
                     break;
             }
