@@ -1,5 +1,5 @@
 <template>
-    <refresh-page :onLoading="onLoading" :isLoadAbel="isLoadAbel">
+    <refresh-page :onLoading="onLoading" :isLoadAbel="isLoadAbel" :onRefresh="onRefresh" ref="refreshPage">
         <div class="album-list clearfix">
             <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>
             <div class="preview-img-list" style="display:none;">
@@ -15,7 +15,7 @@
         data() {
             return {
                 page: 1,
-                pageSize: 60,
+                pageSize: 30,
             }
         },
         components: {
@@ -42,6 +42,9 @@
             ])
         },
         mounted() {
+            this.$bus.$on('refresh', () => {
+                this.$refs.refreshPage && this.$refs.refreshPage.forceRefresh();
+            })
         },
         methods: {
             appendAlbum() {
@@ -49,10 +52,13 @@
             },
             refreshAlbum() {
                 this.page = 1;
-                this.$store.dispatch('FETCH_ALBUM_LIST', {page: this.page})
+                return this.$store.dispatch('FETCH_ALBUM_LIST', {page: this.page})
             },
             onLoading() {
                 return this.appendAlbum();
+            },
+            onRefresh() {
+                return this.refreshAlbum();
             }
         }
     }
@@ -60,6 +66,7 @@
 <style scoped lang="less">
     .album-list{
         overflow-y: auto;
-        background-color: #ddd;
+        background-color: #f7f7f7;
+        min-height: 100vh;
     }
 </style>

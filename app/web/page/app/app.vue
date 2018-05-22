@@ -17,6 +17,9 @@
   import BottomTab from "./component/bottomtab";
   sync(store, router);
   Vue.use(PhotoSwipe);
+  if(typeof document === 'object') {
+    Vue.prototype.$bus = new Vue();
+  }
   export default {
     router,
     store,

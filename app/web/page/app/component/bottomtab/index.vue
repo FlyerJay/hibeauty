@@ -1,10 +1,12 @@
 <template>
     <div class="bottom-tab">
         <router-link :to="item.link" v-for="(item, index) in routes" :key="index" class="tab-item">
-            <svg class="icon" aria-hidden="true">
-                <use :xlink:href="item.icon"></use>
-            </svg>
-            {{item.text}}
+            <div @click="onRouteClick">
+                <svg class="icon" aria-hidden="true">
+                    <use :xlink:href="item.icon"></use>
+                </svg>
+                {{item.text}}
+            </div>
         </router-link>
     </div>
 </template>
@@ -30,6 +32,13 @@
                         index: 2
                     }
                 ]
+            }
+        },
+        methods: {
+            onRouteClick(event) {
+                if(event.currentTarget.parentNode.className.indexOf('router-link-active') > -1) {
+                    this.$bus.$emit('refresh');
+                }
             }
         }
     }
