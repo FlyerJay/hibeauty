@@ -11,5 +11,5 @@ module.exports = app => {
   app.get('/hibeauty/api/album', 'album.album');
   app.get('/hibeauty/api/album/:id', 'album.picture');
   
-  app.get('(/.+)?', app.controller.app.index);
+  app.get('/hibeauty(/.+)?', app.controller.app.index);
 };

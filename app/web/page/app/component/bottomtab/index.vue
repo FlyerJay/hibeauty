@@ -16,17 +16,17 @@
             return {
                 routes: [
                     {
-                        link: '/',
+                        link: '/hibeauty/',
                         icon: "#icon-recommend",
                         text: '推荐',
                         index: 0,
                     }, {
-                        link: '/collection',
+                        link: '/hibeauty/collection',
                         icon: '#icon-collection',
                         text: '收藏',
                         index: 1,
                     }, {
-                        link: '/mine',
+                        link: '/hibeauty/mine',
                         icon: '#icon-mine',
                         text: '我的',
                         index: 2
