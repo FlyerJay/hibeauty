@@ -97,18 +97,6 @@
                 }, options)
                 this.photoswipe = new PhotoSwipe(this.$el, PhotoSwipeDefaultUI, items, opts)
                 this.photoswipe.init()
-                // 图片加载完成后自适应大小，实际跑起来效果太次了，现在是在抓图的时候图片大小信息直接落库，省去这一步
-                // this.photoswipe.listen('imageLoadComplete', (index, item) => { 
-                //     var image = new Image()
-                //     image.src = item.src;
-                //     var me = this;
-                //     image.onload = function() {
-                //         item.w = image.width;
-                //         item.h = image.height;
-                //         me.photoswipe.updateSize(true);
-                //     }
-                    
-                // })
             },
             close () {
                 this.photoswipe.close()

@@ -216,17 +216,6 @@ export default {
                 }
             }
             frameId = requestAnimationFrame(scroll)
-            // let time = Math.floor(duration / 20);
-            // let interval = setInterval(() => {
-            //     ob.scrollTop -= ob.scrollTop / (duration / 20);
-            //     // if(time === 0) {
-            //     //     ob.scrollTop = 0;
-            //     // }
-            //     if(ob.scrollTop === 0) {
-            //         clearInterval(interval);
-            //     }
-            //     time --;
-            // }, 20)
         }
     }
 }

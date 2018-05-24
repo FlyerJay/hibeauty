@@ -31,6 +31,7 @@
     "egg-validate": "^1.0.0",
     "egg-view-vue-ssr": "^3.0.2",
     "element-ui": "^2.0.8",
+    "fastclick": "^1.0.6",
     "lodash": "^4.17.4",
     "moment": "^2.17.1",
     "mysql2": "^1.5.3",
@@ -62,9 +63,7 @@
     "imagemin-webpack-plugin": "^2.0.0",
     "ip": "^1.1.5",
     "less": "^2.7.2",
-    "less-loader": "^4.0.5",
-    "node-sass": "^4.5.3",
-    "sass-loader": "^6.0.6"
+    "less-loader": "^4.0.5"
   },
   "engines": {
     "node": ">=8.0.0"

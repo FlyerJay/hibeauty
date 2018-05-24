@@ -19,6 +19,9 @@
   Vue.use(PhotoSwipe);
   if(typeof document === 'object') {
     Vue.prototype.$bus = new Vue();
+    // document.addEventListener('DOMContentLoaded', () => {
+    //   FastClick.attach(document.body);
+    // }, false)
   }
   export default {
     router,
