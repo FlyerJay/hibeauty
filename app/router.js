@@ -4,8 +4,8 @@ module.exports = app => {
   //     await app.model.sync();
   // });
   //用户
-  app.get('/hibeauty/api/login','user.login');
-  app.get('/hibeauty/api/register','user.register');
+  app.post('/hibeauty/api/login','user.login');
+  app.post('/hibeauty/api/register','user.register');
 
   //相册图片相关接口
   app.get('/hibeauty/api/album', 'album.album');

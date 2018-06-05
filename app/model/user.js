@@ -96,7 +96,7 @@ module.exports = app => {
         let query = { loginId: { $eq: opts.loginId }, password: { $eq: opts.password } };
         let exist = await this.findOne({
             where: query,
-            attributes: ['nickName','avator','level','exp','lastLoginTime'] //获取简要的用户信息作为展示使用
+            attributes: ['nickName','avator','level','exp','lastLoginTime']
         });
         return exist ? exist : false;
     }

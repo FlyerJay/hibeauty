@@ -1,16 +1,17 @@
 'use strict';
 
-module.exports = app => {
-    class UserController extends app.Controller {
-        async login() {
-            const { ctx, service } = this;
-            const user = await service.login(ctx.request.body);
-            ctx.body = user;
-        }
-        async register() {
-            const { ctx, service } = this;
-            ctx.body = service.register(ctx.request.body);
-        }
+const Controller = require('egg').Controller;
+
+class UserController extends Controller {
+    async login() {
+        const { ctx, service } = this;
+        const user = await ctx.service.user.login(ctx.request.body);
+        ctx.body = user;
     }
-    return UserController;
+    async register() {
+        const { ctx, service } = this;
+        ctx.body = await ctx.service.user.register(ctx.request.body);
+    }
 }
+
+module.exports = UserController;

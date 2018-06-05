@@ -34,6 +34,14 @@ const actions = {
         const data = response.data;
         commit(Type.SET_ALBUM_DETAIL, data);
       });
+  },
+
+  FETCH_BOTTOM_SHOW: ({ commit, dispatch, state }, status) => {
+    commit(Type.SET_BOTTOM_SHOW, status);
+  },
+
+  REGISTER_USER: ({ dispatch }, params) => {
+    return axios.post(`${host}/api/register`, params);
   }
 };
 

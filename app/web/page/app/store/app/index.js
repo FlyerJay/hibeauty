@@ -11,7 +11,8 @@ Vue.use(Vuex);
 const state = {
   albumList: [],
   albumListTotal: 0,
-  album: []
+  album: [],
+  pageBottomShow: true
 };
 
 export default new Vuex.Store({

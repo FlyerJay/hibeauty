@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-tab">
+    <div class="bottom-tab" v-show="pageBottomShow">
         <router-link :to="item.link" v-for="(item, index) in routes" :key="index" class="tab-item">
             <div @click="onRouteClick">
                 <svg class="icon" aria-hidden="true">
@@ -26,12 +26,17 @@
                         text: '收藏',
                         index: 1,
                     }, {
-                        link: '/mine',
+                        link: '/register',
                         icon: '#icon-mine',
                         text: '我的',
                         index: 2
                     }
                 ]
+            }
+        },
+        computed: {
+            pageBottomShow() {
+                return this.$store.state.pageBottomShow
             }
         },
         methods: {
@@ -67,7 +72,7 @@
                 .px2rem(font-size, 32);
             }
             &.router-link-exact-active{
-                color: #19be6b;
+                color: #41bfaa;
             }
         }
     }

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Index from './page/index';
+import Register from './page/register';
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,10 @@ const router = new VueRouter({
     {
       path: '/',
       component: Index
+    },
+    {
+      path: '/register',
+      component: Register
     }
   ]
 });

@@ -1,6 +1,6 @@
 {
   "name": "hibeauty",
-  "version": "4.0.1",
+  "version": "2.0.1",
   "description": "hibeauty",
   "scripts": {
     "debug": "egg-bin debug",
