@@ -13,7 +13,7 @@
   import PhotoSwipe from "./component/photoswipe";
   import { sync } from "vuex-router-sync";
   import store from "./store/app";
-  import router from "./component/router";
+  import router from "./router";
   import BottomTab from "./component/bottomtab";
   sync(store, router);
   Vue.use(PhotoSwipe);

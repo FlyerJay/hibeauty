@@ -6,7 +6,7 @@
 
 'use strict';
 //注意：实体的classmthods中不要出现sequelize中的保留方法，否则会覆盖保留方法如(create,update,destroy,find等);
-//复杂的业务逻辑卸载service中，classMethods只处理简单逻辑
+//复杂的业务逻辑写在service中，classMethods只处理简单逻辑
 
 module.exports = app => {
     const { STRING, INTEGER, BIGINT } = app.Sequelize;
@@ -40,7 +40,7 @@ module.exports = app => {
             comment: '生日，时间戳格式'
         },
         password: {
-            type: STRING(30),
+            type: STRING(64),
             allowNull: false,
             comment: '经过简单加密的密码密文'
         },
@@ -83,83 +83,47 @@ module.exports = app => {
         freezeTabName: true,
 		tableName: "user",
         underscored: true,
-        timestamps: false//sequelize V4不再支持classMethods的写法了,使用model.methods代替classMethods,model.prototype.methods代替instanceMthods，目的是为了兼容es6（are you ok?还是原来的写法好看）。
+        timestamps: false
     });
 
-    User.login = async function (options) {
-        if(!options.loginId) return {
-            code: -1,
-            msg: '用户名不能为空'
-        }
-        if(!options.password) return {
-            code: -1,
-            msg: '密码不能为空'
-        }
-        var exist = await this.findOne({
-            where: {
-                loginId: {
-                    $eq: options.loginId
-                },
-                password: {
-                    $eq: options.password
-                }
-            },
-            attributes:['nickName','avator','level','exp','lastLoginTime'] //获取简要的用户信息作为展示使用
+    /**
+     * sequelize V4不再支持classMethods的写法了,
+     * 使用model.methods代替classMethods,model.prototype.methods
+     * 代替instanceMthods，目的是为了兼容es6（are you ok?还是原来的写法好看）。
+     **/
+    User.getUser = async function (opts) {
+        if(!opts.loginId || !opts.password) return false;
+        let query = { loginId: { $eq: opts.loginId }, password: { $eq: opts.password } };
+        let exist = await this.findOne({
+            where: query,
+            attributes: ['nickName','avator','level','exp','lastLoginTime'] //获取简要的用户信息作为展示使用
         });
-
-        if(!exist) return {
-            code: -1,
-            msg: '用户名或密码错误' //直接提示用户名或密码错误，不验证是否注册
-        }
-        exist.lastLoginTime = new Date().getTime(); //更新最后登录时间
-        exist.save();
-        return { //简单返回登录信息,主要还是在于设置cookie
-            code: 200,
-            msg: '登录成功',
-            data: exist
-        }
+        return exist ? exist : false;
     }
 
-    User.register = async function(options) {
-        if(!options.loginId) return {
-            code: -1,
-            msg: '缺少用户名'
-        }
-        if(!options.password) return {
-            code: -1,
-            msg: '缺少密码'
-        }
-        var exist = await this.findOne({
-            where: {
-                loginId: {
-                    $eq: options.loginId
-                }
-            }
-        })
-
-        if(exist) return {
-            code: -1,
-            msg: '用户名已经被注册啦~~~'
-        }
-
-        var defaultInfo = {
+    User.initUser = async function (opts) {
+        if(!opts.loginId || !opts.password) return false;
+        let query = { loginId: { $eq: opts.loginId } }
+        let exist = await this.findOne({ where: query })
+        let userInfo = {
+            loginId: opts.loginId,
+            password: opts.password,
+            nickName: randomNickName(),
+            sex: 0,
             registerTime: new Date().getTime(),
-            level: 0,
+            level: 1,
             exp: 0,
+            avator: 'http://www.gravatar.com/avatar/'
         }
-        try{
-            await this.create(Object.assign(options,defaultInfo));
-        }catch(err){
-            return {
-                code: -1,
-                msg: '发生了意外',
-                err: err,
-            }
-        }
-        return {
-            code: 200,
-            msg: '注册成功'
-        }
+        return exist ? false : await this.create(userInfo);
+    }
+
+    //随机生成用户昵称
+    function randomNickName() {
+        const firstName = ['上官', '司马', '轩辕', '南宫', '欧阳', '端木', '夏侯', '皇甫', '慕容'];
+        const lastName = ['遇', '旖', '恍', '情', '游', '弋', '斐', '棋', '瑟', '狐'];
+        let nickName = firstName[Math.floor(Math.random() * firstName.length)] + lastName[Math.floor(Math.random() * lastName.length)];
+        return nickName;
     }
 
     return User;

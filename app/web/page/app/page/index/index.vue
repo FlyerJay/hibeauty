@@ -9,8 +9,8 @@
     </refresh-page>
 </template>
 <script>
-    import Album from "../album";
-    import RefreshPage from "../refreshpage";
+    import Album from "../../component/album";
+    import RefreshPage from "../../component/refreshpage";
     export default {
         data() {
             return {
@@ -41,16 +41,19 @@
                 dispatch('FETCH_ALBUM_LIST', {page: this.page})
             ])
         },
-        mounted() {
+        mounted() { //强制刷新
             this.$bus.$on('refresh', () => {
                 this.$refs.refreshPage && this.$refs.refreshPage.forceRefresh();
-            })
+            });
+            if(this.albumList.length === 0) {
+                this.refreshAlbum();
+            }
         },
         methods: {
-            appendAlbum() {
+            appendAlbum() { //添加到相册列表
                 return this.$store.dispatch('FETCH_ALBUM_LIST', {page: ++this.page, append: true});
             },
-            refreshAlbum() {
+            refreshAlbum() { //刷新相册列表
                 this.page = 1;
                 return this.$store.dispatch('FETCH_ALBUM_LIST', {page: this.page})
             },

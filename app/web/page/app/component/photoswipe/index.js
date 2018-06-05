@@ -3,7 +3,9 @@ import PhotoSwipeComponent from './index.vue';
 let $vm;
 
 export default {
+  // 组件注册
   install(Vue) {
+    // ssr时避免代码在后端执行
     if (typeof document !== 'object') {
       return;
     }
@@ -22,7 +24,7 @@ export default {
         $vm.close();
       }
     };
-
+    // 混合，类似于给Vue.prototype加属性
     Vue.mixin({
       created() {
         this.$photoswipe = Vue.$photoswipe;

@@ -1,6 +1,8 @@
 <template>
-    <img class="album" :src="'http://www.snowyet.cc/static/images/' + cover" :alt="title" @click="viewAlbum">
-    <!-- <img class="album" :src="'http://www.snowyet.cc/static/naruto.jpg'" :alt="title" @click.stop="viewAlbum"> -->
+    <!-- 正式环境启用 -->
+    <!-- <img class="album" :src="'http://www.snowyet.cc/static/images/' + cover" :alt="title" @click="viewAlbum"> -->
+    <!-- 开发阶段和谐一下图片 -->
+    <img class="album" :src="'http://www.snowyet.cc/static/naruto.jpg'" :alt="title" @click.stop="viewAlbum">
 </template>
 <script>
     export default {

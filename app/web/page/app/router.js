@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Index from './index';
+import Index from './page/index';
 
 Vue.use(VueRouter);
 
