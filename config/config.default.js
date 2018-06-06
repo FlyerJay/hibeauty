@@ -43,5 +43,12 @@ module.exports = app => {
     'access'
   ];
 
+  exports.security = { 
+    csrf: {
+      queryName: '_csrf',
+      bodyName: '_csrf'
+    }
+  };
+
   return exports;
 };

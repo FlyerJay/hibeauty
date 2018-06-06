@@ -4,6 +4,7 @@ import * as Type from './mutation-type';
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import { getCookie } from '../../util/cookie';
 
 Vue.use(Vuex);
 let host;
@@ -41,7 +42,8 @@ const actions = {
   },
 
   REGISTER_USER: ({ dispatch }, params) => {
-    return axios.post(`${host}/api/register`, params);
+    const _csrf = getCookie('csrfToken');
+    return axios.post(`${host}/api/register`, Object.assign(params, { _csrf }));
   }
 };
 

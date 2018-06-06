@@ -33,10 +33,7 @@ module.exports = app => {
   });
 
   exports.security = { 
-    domainWhiteList,
-    csrf: {
-      enable: false,
-    }
+    domainWhiteList
   };
 
   return exports;
