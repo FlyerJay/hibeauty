@@ -1,16 +1,20 @@
 <template>
-    <refresh-page :onLoading="onLoading" :isLoadAbel="isLoadAbel" :onRefresh="onRefresh" ref="refreshPage">
-        <div class="album-list clearfix">
-            <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>
-            <div class="preview-img-list" style="display:none;">
-                <img class="preview-img-item" v-for="(item, index) in album" :key="index" :src="item">
+    <div>
+        <refresh-page :onLoading="onLoading" :isLoadAbel="isLoadAbel" :onRefresh="onRefresh" ref="refreshPage">
+            <div class="album-list clearfix">
+                <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>
+                <div class="preview-img-list" style="display:none;">
+                    <img class="preview-img-item" v-for="(item, index) in album" :key="index" :src="item">
+                </div>
             </div>
-        </div>
-    </refresh-page>
+        </refresh-page>
+        <bottom-tab></bottom-tab>
+    </div>
 </template>
 <script>
     import Album from "../../component/album";
     import RefreshPage from "../../component/refreshpage";
+    import BottomTab from "../../component/bottomtab";
     export default {
         data() {
             return {
@@ -20,7 +24,8 @@
         },
         components: {
             Album,
-            RefreshPage
+            RefreshPage,
+            BottomTab
         },
         computed: {
             albumList() {

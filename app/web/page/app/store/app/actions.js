@@ -37,10 +37,6 @@ const actions = {
       });
   },
 
-  FETCH_BOTTOM_SHOW: ({ commit, dispatch, state }, status) => {
-    commit(Type.SET_BOTTOM_SHOW, status);
-  },
-
   REGISTER_USER: ({ dispatch }, params) => {
     const _csrf = getCookie('csrfToken');
     return axios.post(`${host}/api/register`, Object.assign(params, { _csrf }));
@@ -49,7 +45,15 @@ const actions = {
   USER_LOGIN: ({ dispatch }, params) => {
     const _csrf = getCookie('csrfToken');
     return axios.post(`${host}/api/login`, Object.assign(params, { _csrf }));
-  }
+  },
+
+  CHANGE_PAGE_TURN_ANIMATE: ({ commit, dispatch, state }, animate) => {
+    commit(Type.CHANGE_PAGE_TURN_ANIMATE, animate);
+  },
+
+  SET_JUMP_PAGE: ({ commit, dispatch, state }, jump) => {
+    commit(Type.SET_JUMP_PAGE, jump);
+  },
 };
 
 export default actions;

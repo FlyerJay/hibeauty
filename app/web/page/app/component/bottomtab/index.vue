@@ -1,5 +1,5 @@
 <template>
-    <div class="bottom-tab" v-show="pageBottomShow">
+    <div class="bottom-tab">
         <router-link :to="item.link" v-for="(item, index) in routes" :key="index" class="tab-item">
             <div @click="onRouteClick">
                 <svg class="icon" aria-hidden="true">
@@ -32,11 +32,6 @@
                         index: 2
                     }
                 ]
-            }
-        },
-        computed: {
-            pageBottomShow() {
-                return this.$store.state.pageBottomShow
             }
         },
         methods: {

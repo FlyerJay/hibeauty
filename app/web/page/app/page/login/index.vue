@@ -83,11 +83,10 @@ export default {
     components: {
         SHeader
     },
-    created() {
-        return this.$store.dispatch('FETCH_BOTTOM_SHOW', false);
-    },
-    destroyed() {
-        return this.$store.dispatch('FETCH_BOTTOM_SHOW', true);
+    computed: {
+        jumpPage() {
+            return this.$store.state.jumpPage;
+        }
     },
     methods: {
         login() {
@@ -103,7 +102,11 @@ export default {
                 loginId: this.loginParam.loginId,
                 password: aesEncrypt(this.loginParam.password)
             }
-            this.$store.dispatch('USER_LOGIN', param);
+            this.$store.dispatch('USER_LOGIN', param).then(rs => {
+                if(rs.data.code === 200) {
+                    this.$router.push({path: this.jumpPage});
+                }
+            })
         }
     }
 }

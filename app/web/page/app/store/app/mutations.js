@@ -4,7 +4,8 @@ import {
   SET_ALBUM_LIST,
   SET_ALBUM_DETAIL,
   APPEND_TO_ALBUM_LIST,
-  SET_BOTTOM_SHOW
+  CHANGE_PAGE_TURN_ANIMATE,
+  SET_JUMP_PAGE
 } from './mutation-type';
 
 const mutations = {
@@ -18,8 +19,11 @@ const mutations = {
   [SET_ALBUM_DETAIL](state, data) {
     state.album = data.data.slice(1, data.data.length);
   },
-  [SET_BOTTOM_SHOW](state, status) {
-    state.pageBottomShow = status;
+  [CHANGE_PAGE_TURN_ANIMATE](state, animate) {
+    state.pageTurnAnimate = animate;
+  },
+  [SET_JUMP_PAGE](state, jump) {
+    state.jumpPage = jump;
   }
 };
 export default mutations;
