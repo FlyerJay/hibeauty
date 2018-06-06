@@ -40,7 +40,7 @@
                 input{
                     border: none;
                     outline: none;
-                    .px2rem(width, 590);
+                    .px2rem(width, 500);
                 }
             }
             .register-btn{
