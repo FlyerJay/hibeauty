@@ -44,6 +44,11 @@ const actions = {
   REGISTER_USER: ({ dispatch }, params) => {
     const _csrf = getCookie('csrfToken');
     return axios.post(`${host}/api/register`, Object.assign(params, { _csrf }));
+  },
+
+  USER_LOGIN: ({ dispatch }, params) => {
+    const _csrf = getCookie('csrfToken');
+    return axios.post(`${host}/api/login`, Object.assign(params, { _csrf }));
   }
 };
 

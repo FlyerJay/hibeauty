@@ -96,7 +96,7 @@ module.exports = app => {
         let query = { loginId: { $eq: opts.loginId }, password: { $eq: opts.password } };
         let exist = await this.findOne({
             where: query,
-            attributes: ['nickName','avator','level','exp','lastLoginTime']
+            attributes: ['loginId', 'nickName','avator','level','exp','lastLoginTime']
         });
         return exist ? exist : false;
     }
@@ -118,7 +118,7 @@ module.exports = app => {
         return exist ? false : await this.create(userInfo);
     }
 
-    //随机生成用户昵称
+    // 随机生成用户昵称
     function randomNickName() {
         const firstName = ['上官', '司马', '轩辕', '南宫', '欧阳', '端木', '夏侯', '皇甫', '慕容'];
         const lastName = ['遇', '旖', '恍', '情', '游', '弋', '斐', '棋', '瑟', '狐'];

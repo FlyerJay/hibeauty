@@ -26,7 +26,7 @@
                         text: '收藏',
                         index: 1,
                     }, {
-                        link: '/register',
+                        link: '/mine',
                         icon: '#icon-mine',
                         text: '我的',
                         index: 2

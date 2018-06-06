@@ -1,3 +1,9 @@
+/**
+ * @author flyerjay
+ * @desc Aes加解密
+ * @since 2018-06-06
+ */
+
 import CryptoJS from 'crypto-js';
 
 // aes加密
