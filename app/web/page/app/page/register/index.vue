@@ -70,6 +70,7 @@
 </style>
 <script>
 import SHeader from '../../component/header';
+import { aesEncrypt } from '../../util/crypto';
 export default {
     data () {
         return {
@@ -98,7 +99,11 @@ export default {
             if(!regPwd.test(this.registerParam.password)) {
                 return false;
             }
-            this.$store.dispatch('REGISTER_USER', this.registerParam);
+            var param = {
+                loginId: this.registerParam.loginId,
+                password: aesEncrypt(this.registerParam.password)
+            }
+            this.$store.dispatch('REGISTER_USER', param);
         }
     }
 }
