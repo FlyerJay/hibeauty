@@ -51,9 +51,8 @@
         .px2rem(height, 80);
         position: fixed;
         bottom: 0;
-        background-color: #f7f7f7;
+        background-color: #fff;
         z-index: 100;
-        box-shadow: 1px 1px 30px #888;
         .tab-item{
             .px2rem(line-height, 80);
             .px2rem(height, 80);

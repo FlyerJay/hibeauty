@@ -38,7 +38,7 @@ export default {
     <meta name="full-screen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <script src="http://www.snowyet.cc/static/js/flexible.js"></script>
-    <script src="//at.alicdn.com/t/font_673098_jy1p6l4c078k6gvi.js"></script>
+    <script src="//at.alicdn.com/t/font_673098_tw0o9j1scfnljtt9.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     </head>
     <body :class="baseClass">

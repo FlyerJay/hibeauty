@@ -33,6 +33,13 @@ class UserService extends Service {
         if(user) return { code: 200, msg: '恭喜您，注册成为会员用户！' }
         return { code: -1, msg: '亲，账户名已经被使用了！' }
     }
+
+    async detail(opts) {
+        let { loginId } = opts;
+        let user = await this.ctx.model.User.getUserById(loginId);
+        if(user) return { code: 200, data: user };
+        return { code: -1, msg: '获取用户信息出错了！' }
+    }
 }
 
 module.exports = UserService;

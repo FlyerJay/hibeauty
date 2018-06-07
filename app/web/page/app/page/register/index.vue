@@ -66,6 +66,9 @@
         :-ms-input-placeholder{
             color:#ddd;
         }
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset;
+        }
     }
 </style>
 <script>
@@ -82,12 +85,6 @@ export default {
     },
     components: {
         SHeader
-    },
-    created() {
-        return this.$store.dispatch('FETCH_BOTTOM_SHOW', false);
-    },
-    destroyed() {
-        return this.$store.dispatch('FETCH_BOTTOM_SHOW', true);
     },
     methods: {
         register() {

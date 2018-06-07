@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="index">
         <refresh-page :onLoading="onLoading" :isLoadAbel="isLoadAbel" :onRefresh="onRefresh" ref="refreshPage">
             <div class="album-list clearfix">
                 <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>

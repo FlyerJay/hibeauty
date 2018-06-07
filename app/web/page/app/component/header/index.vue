@@ -6,7 +6,9 @@
             </svg>
         </div>
         <div class="header-title">{{title}}</div>
-        <div class="header-rbtn"></div>
+        <div class="header-rbtn">
+            <slot></slot>
+        </div>
     </div>
 </template>
 <style lang="less" scoped>
@@ -22,7 +24,7 @@
         border-bottom: 1px solid #eee;
         .header-lbtn,.header-rbtn{
             float: left;
-            width: 10%;
+            width: 15%;
             height: 100%;
             text-align: center;
             .px2rem(font-size, 36);
@@ -30,7 +32,7 @@
         }
         .header-title{
             float: left;
-            width: 80%;
+            width: 70%;
             text-align: center;
             .px2rem(font-size, 32);
             color: #666;

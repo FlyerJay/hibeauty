@@ -20,7 +20,7 @@
         <!-- 页面主体插槽 -->
         <slot></slot>
         <!-- 上滑加载组件 -->
-        <div class="upglide-widget" key="upglideWidget" ref="upglideWidget" v-if="isLoadAbel && hasMounted">
+        <div class="upglide-widget" key="upglideWidget" ref="upglideWidget" v-if="isLoadAbel && hasMounted && upglideAble">
             <svg class="icon glide" aria-hidden="true" :class="{'upglide': upglideMode === 0}" v-show="upglideMode !== 2">
                 <use xlink:href="#icon-glide"></use>
             </svg>
@@ -62,6 +62,10 @@ export default {
             }
         },
         isLoadAbel: {
+            type: Boolean,
+            default: true
+        },
+        upglideAble: {
             type: Boolean,
             default: true
         }
@@ -119,7 +123,7 @@ export default {
             }
             let touch = event.touches[0];
             //获取上滑加载组件的高度，下拉组件高度与之一样，不再重复获取
-            let upglideHeight = this.$refs.upglideWidget.clientHeight;
+            let upglideHeight = this.$refs.slideWidget.clientHeight;
             switch(event.type) {
                 case 'touchstart':
                     this.$el.style.transition = 'none';
@@ -131,7 +135,7 @@ export default {
                     let transitionU = this.touchStart - this.touchEnd - this.scrollBottom;
                     let transitionS = this.touchStart - this.touchEnd - this.scrollTop;
                     //上滑判断
-                    if(this.scrollBottom <= 0) {
+                    if(this.scrollBottom <= 0 && this.upglideAble) {
                         if(transitionU > 0) {
                             event.preventDefault();
                             this.$el.style.transform = 'translateY('+ (transitionU > upglideHeight ? -upglideHeight : -transitionU) + 'px)';
@@ -153,7 +157,7 @@ export default {
                     }
                     break;
                 case 'touchend':
-                    if(this.upglideMode === 1) { //上滑加载
+                    if(this.upglideMode === 1 && this.upglideAble) { //上滑加载
                         this.upglideMode = 2;
                         this.onLoading().then(() => { //加载数据
                             this.upglideMode = 0;
@@ -223,12 +227,12 @@ export default {
 <style lang="less" scoped>
     @import "../../../../asset/style/mixin-px.less";
     .refresh-page{
+        min-height: 100vh;
         .upglide-widget,.slide-widget{
             .px2rem(height, 80);
             .px2rem( line-height, 80 );
             .px2rem( margin-bottom, -80 );
             width: 100%;
-            background-color: #fff;
             text-align: center;
             color: #999;
             .slide-release,.upglide-release{

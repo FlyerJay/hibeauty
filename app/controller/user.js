@@ -12,6 +12,15 @@ class UserController extends Controller {
         const { ctx, service } = this;
         ctx.body = await ctx.service.user.register(ctx.request.body);
     }
+    async detail() {
+        const { ctx, service } = this;
+        ctx.body = await ctx.service.user.detail(ctx.userInfo);
+    }
+    async logout() {
+        const { ctx, service } = this;
+        ctx.cookies.set('access_token', null);
+        ctx.redirect('/');
+    }
 }
 
 module.exports = UserController;

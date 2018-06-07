@@ -37,6 +37,14 @@ const actions = {
       });
   },
 
+  FETCH_USER_INFO: ({ commit, dispatch, state }) => {
+    return axios.get(`${host}/api/user/detail`)
+      .then(response => {
+        const data = response.data;
+        commit(Type.SET_USER_INFO, data);
+      });
+  },
+
   REGISTER_USER: ({ dispatch }, params) => {
     const _csrf = getCookie('csrfToken');
     return axios.post(`${host}/api/register`, Object.assign(params, { _csrf }));

@@ -75,7 +75,7 @@ module.exports = app => {
             comment: '经验'
         },
         avator: {
-            type: STRING(50),
+            type: STRING(256),
             allowNull: true,
             comment: '头像'
         }
@@ -96,9 +96,16 @@ module.exports = app => {
         let query = { loginId: { $eq: opts.loginId }, password: { $eq: opts.password } };
         let exist = await this.findOne({
             where: query,
-            attributes: ['loginId', 'nickName','avator','level','exp','lastLoginTime']
+            attributes: ['loginId', 'nickName', 'avator', 'lastLoginTime']
         });
         return exist ? exist : false;
+    }
+
+    User.getUserById = async function (loginId) {
+        if(!loginId) return false;
+        let query = { loginId: { $eq: loginId } };
+        let userInfo = await this.findOne({ where: query });
+        return userInfo ? userInfo : false;
     }
 
     User.initUser = async function (opts) {

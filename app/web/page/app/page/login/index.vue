@@ -1,6 +1,8 @@
 <template>
     <div class="login">
-        <s-header title="登录"></s-header>
+        <s-header title="登录">
+            <router-link class='register-link' to="/register">注册</router-link>
+        </s-header>
         <form class="user-form">
             <div class="input-control clearfix">
                 <span class="append">账号</span>
@@ -8,7 +10,7 @@
             </div>
             <div class="input-control clearfix">
                 <span class="append">密码</span>
-                <input type="password" name="password" v-model="loginParam.password" placeholder="大小写字母、数字或@_，8-15位">
+                <input type="password" name="pwd" v-model="loginParam.password" placeholder="大小写字母、数字或@_，8-15位">
             </div>
             <div class="btn login-btn" @click="login">登录</div>
         </form>
@@ -20,6 +22,11 @@
         min-height: 100vh;
         background-color: #f7f7f7;
         overflow: hidden;
+        .register-link{
+            .px2rem(font-size, 28);
+            text-decoration: none;
+            color: #41bfaa;
+        }
         .user-form{
             .px2rem(margin-top, 400);
             border-top: 1px solid #f1f1f1;
@@ -65,6 +72,9 @@
         }
         :-ms-input-placeholder{
             color:#ddd;
+        }
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset;
         }
     }
 </style>

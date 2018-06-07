@@ -13,7 +13,8 @@ const state = {
   albumListTotal: 0,
   album: [],
   pageTurnAnimate: 'default',
-  jumpPage: '/'
+  jumpPage: '/',
+  userInfo: {}
 };
 
 export default new Vuex.Store({

@@ -5,7 +5,8 @@ import {
   SET_ALBUM_DETAIL,
   APPEND_TO_ALBUM_LIST,
   CHANGE_PAGE_TURN_ANIMATE,
-  SET_JUMP_PAGE
+  SET_JUMP_PAGE,
+  SET_USER_INFO
 } from './mutation-type';
 
 const mutations = {
@@ -24,6 +25,9 @@ const mutations = {
   },
   [SET_JUMP_PAGE](state, jump) {
     state.jumpPage = jump;
+  },
+  [SET_USER_INFO](state, userInfo) {
+    state.userInfo = userInfo.data;
   }
 };
 export default mutations;
