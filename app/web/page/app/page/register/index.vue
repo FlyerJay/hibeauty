@@ -100,7 +100,24 @@ export default {
                 loginId: this.registerParam.loginId,
                 password: aesEncrypt(this.registerParam.password)
             }
-            this.$store.dispatch('REGISTER_USER', param);
+            var me = this;
+            this.$store.dispatch('REGISTER_USER', param).then(rs => {
+                if (rs.data.code === 200) {
+                    this.$tip({
+                        message: rs.data.msg,
+                        type: 'success',
+                        onClose() {
+                            me.$router.go(-1);
+                        }
+                    });
+                }else{
+                    this.$tip({
+                        message: rs.data.msg,
+                        type: 'error'
+                    });
+                }
+                
+            });
         }
     }
 }

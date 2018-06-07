@@ -8,14 +8,16 @@
 <script type="text/babel">
   import Vue from "vue";
   import PhotoSwipe from "./component/photoswipe";
+  import Tip from "./component/tip";
   import { sync } from "vuex-router-sync";
   import store from "./store/app";
   import router from "./router";
   
   sync(store, router);
   Vue.use(PhotoSwipe);
-  if(typeof document === 'object') {
+  if(!Vue.prototype.$isServer) {
     Vue.prototype.$bus = new Vue();
+    Vue.prototype.$tip = Tip;
     // document.addEventListener('DOMContentLoaded', () => {
     //   FastClick.attach(document.body);
     // }, false)
@@ -23,7 +25,7 @@
   export default {
     data() {
       return {
-        routesHistory: []
+        routesHistory: [], // 记录页面访问历史
       }
     },
     router,
@@ -59,7 +61,12 @@
       }
     },
     mounted() {
-      this.routesHistory.push(this.$route.path);
+      if(this.$route.path === '/login') { // 登录页不能是首屏
+        this.$router.push('/');
+        this.routesHistory.push('/');
+      }else{
+        this.routesHistory.push(this.$route.path);
+      }
     },
   };
 </script>

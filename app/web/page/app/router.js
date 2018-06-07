@@ -43,7 +43,7 @@ const router = new VueRouter({
 const routeFilters = ['/mine', '/collection'];
 
 router.beforeEach((to, from, next) => {
-  if (!(typeof document === 'object')) return;
+  if (Vue.prototype.$isServer) return;
   if (routeFilters.indexOf(to.path) > -1) {
     const accessToken = getCookie('access_token');
     if (!accessToken) {

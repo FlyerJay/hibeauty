@@ -81,7 +81,13 @@
 <script>
 import SHeader from '../../component/header';
 import { aesEncrypt } from '../../util/crypto';
+import { getCookie } from '../../util/cookie';
+import router from '../../router';
 export default {
+    beforeRouteEnter(to, from, next) {
+        // 登录后不允许进入登录页，直接返回前一个页面
+        getCookie('access_token') ? router.go(-1) : next();
+    },
     data () {
         return {
             loginParam: {

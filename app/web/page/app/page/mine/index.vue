@@ -35,7 +35,7 @@
                 </div>
                 <div class="us-info-item">
                     <i class="label">性别</i>
-                    <span>{{userInfo.sex || '未知'}}</span>
+                    <span>{{userInfo.sex | sexFilter}}</span>
                 </div>
                 <div class="us-info-item">
                     <i class="label">生日</i>
@@ -160,6 +160,11 @@ export default {
     methods: {
         getUserInfo() {
             return this.$store.dispatch('FETCH_USER_INFO', {page: this.page});
+        }
+    },
+    filters: {
+        sexFilter(val) {
+            return val === 0 ? '未知' : val === 1 ? '男' : '女';
         }
     }
 }
