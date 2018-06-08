@@ -14,11 +14,11 @@
                         </i>
                     </div>
                 </div>
-                <i class="us-edit">
+                <router-link to="/mine/edit" class="us-edit">
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-edit"></use>
                     </svg>
-                </i>
+                </router-link>
             </div>
             <div class="us-info">
                 <div class="us-info-item">
@@ -57,6 +57,7 @@
     @import "../../../../asset/style/mixin-px.less";
     .mine{
         background-color: #f1f1f1;
+        height: 100%;
         .us-card{
             .px2rem(height, 200);
             .px2rem(padding-left, 30);

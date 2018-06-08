@@ -227,7 +227,7 @@ export default {
 <style lang="less" scoped>
     @import "../../../../asset/style/mixin-px.less";
     .refresh-page{
-        min-height: 100vh;
+        min-height: 100%;
         .upglide-widget,.slide-widget{
             .px2rem(height, 80);
             .px2rem( line-height, 80 );

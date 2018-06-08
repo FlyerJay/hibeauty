@@ -15,7 +15,7 @@ export default {
 </script>
 <style scoped lang="less">
     .collection{
-        min-height: 100vh;
+        min-height: 100%;
         background-color: #f1f1f1;
     }
 </style>

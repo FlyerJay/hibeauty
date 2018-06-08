@@ -31,7 +31,7 @@ class UserService extends Service {
         let { password, loginId } = opts;
         let user = await this.ctx.model.User.initUser(opts);
         if(user) return { code: 200, msg: '恭喜您，注册成为会员用户！' }
-        return { code: -1, msg: '亲，账户名已经被使用了！' }
+        return { code: -1, msg: '亲，账号已经被使用了！' }
     }
 
     async detail(opts) {

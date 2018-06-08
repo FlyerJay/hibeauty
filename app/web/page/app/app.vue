@@ -1,7 +1,7 @@
 <template>
   <layout>
     <transition :name="pageTurnAnimate">
-      <router-view></router-view>
+      <router-view class="router-view"></router-view>
     </transition>
   </layout>
 </template>
@@ -71,132 +71,103 @@
   };
 </script>
 <style lang="less">
-  .popover-enter-active {
-    transition: all .3s ease-out;
-    transform: translate3d(0,0%,0);
+  @import "../../asset/css/global.css";
+  @import "../../asset/style/mixin-px.less";
+  #app{
+    height: 100%;
+  }
+
+  .page-container{
+    max-width: 675px;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  .slideInRight{
+    animation: slideInRight .3s linear;
+  }
+
+  .slideOutLeft{
+    animation: slideOutLeft .3s linear;
+  }
+
+  .slideOutRight{
+    animation: slideOutRight .3s linear;
+  }
+
+  .slideInLeft{
+    animation: slideInLeft .3s linear;
+  }
+
+  .slideInUp{
+    animation: slideInUp .3s ease-in;
+  }
+
+  .slideInDown{
+    animation: slideInDown .3s linear;
+  }
+
+  .slideOutDown{
+    animation: slideOutDown .3s ease-in;
+  }
+
+  .slideOutUp{
+    animation: slideOutUp .3s linear;
+  }
+
+  .animateTotal{
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+  }
+
+  .slideup-enter-active {
+    .slideInUp;
     z-index: 1000;
-    width: 100%;
-    position: fixed;
-    height: 100%;
+    .animateTotal
   }
-  .popover-leave-active {
-    transition: all .3s ease-out;
+
+  .slideup-leave-active {
+    // .slideOutUp;
+    transition: .25s all linear;
+    .animateTotal;
     z-index: 999;
-    width: 100%;
-    opacity: 0;
-    position: fixed;
-    height: 100%;
   }
-  .popover-leave{
-    z-index: 999;
-    width: 100%;
-    opacity: 1;
-    position: fixed;
-    height: 100%;
-  }
-  .popover-enter{
-    transform: translate3d(0,100%,0);
+
+  .slidedown-leave-active {
+    .slideOutDown;
     z-index: 1000;
-    width: 100%;
-    position: fixed;
-    height: 100%;
+    .animateTotal
   }
 
   .slidedown-enter-active {
-    transition: all .3s ease-out;
+    // .slideInDown;
+    transition: .25s all linear;
+    .animateTotal;
     z-index: 999;
-    width: 100%;
-    opacity: 1;
-    position: fixed;
-    height: 100%;
-  }
-  .slidedown-leave-active {
-    transition: all .3s ease-out;
-    transform: translate3d(0,100%,0);
-    z-index: 1000;
-    width: 100%;
-    position: fixed;
-    height: 100%;
-  }
-  .slidedown-leave{
-    transform: translate3d(0,0%,0);
-    z-index: 1000;
-    width: 100%;
-    position: fixed;
-    height: 100%;
-  }
-  .slidedown-enter{
-    z-index: 999;
-    width: 100%;
-    opacity: 0;
-    position: fixed;
-    height: 100%;
   }
 
-  .push-enter-active {
-    transition: all .2s ease-out;
-    transform: translate3d(0%,0,0);
-    z-index:1001;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-  }
-  .push-leave-active {
-    transition: all .2s ease-out;
-    transform: translate3d(0%,0,0);
+  .push-enter-active,{
+    .slideInRight;
+    .animateTotal;
     z-index: 1000;
-    opacity:0;
-    position: fixed;
-    width: 100%;
-    height: 100%;
   }
-  .push-leave{
-    transform: translate3d(0%,0,0);
-    z-index: 1000;
-    opacity:1;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-  }
-  .push-enter{
-    transform: translate3d(100%,0,0);
-    z-index:1001;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+  .push-leave-active{
+    .slideOutLeft;
+    .animateTotal;
+    z-index: 999;
   }
 
-  .pop-enter-active {
-    transition: all .2s ease-out;
-    transform: translate3d(0%,0,0);
-    opacity:1;
-    z-index:1000;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+  .pop-leave-active{
+    .slideOutRight;
+    .animateTotal;
+    z-index: 1000;
   }
-  .pop-leave-active {
-    transition: all .2s ease-out;
-    transform: translate3d(100%,0,0);
-    z-index: 10001;
-    position: fixed;
-    width: 100%;
-    height: 100%;
+  .pop-enter-active,{
+    .slideInLeft;
+    .animateTotal;
+    z-index: 999;
   }
-  .pop-leave{
-    transform: translate3d(0%,0,0);
-    z-index: 10001;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-  }
-  .pop-enter{
-    transform: translate3d(0%,0,0);
-    z-index:1000;
-    opacity:0;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-  }
-  
 </style>

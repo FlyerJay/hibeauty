@@ -10,12 +10,12 @@
     .slide-up-leave,.slide-up-enter-active {
         opacity: 1;
         transform: translate3d(0, 0%, 0);
-        transition: .2s all linear;
+        transition: .3s all ease-in;
     }
     .slide-up-enter,.slide-up-leave-active {
         opacity: 0;
         transform: translate3d(0, 100%, 0);
-        transition: .2s all linear;
+        transition: .3s all ease-out;
     }
     .snowyet-tip{
         position: fixed;
@@ -25,19 +25,23 @@
         text-align: center;
         width: 100%;
         bottom: 0;
-        background-color: #f8f8f9;
+        background-color: #fff;
         color: #5cadff;
         &.snowyet-tip-info {
             color: #5cadff;
+            background-color: #d4f2f9;
         }
         &.snowyet-tip-error {
             color: #ed3f14;
+            background-color: #f7dfd9;
         }
         &.snowyet-tip-warning {
             color: #ff9900;
+            background-color: #fcf7e6;
         }
         &.snowyet-tip-success {
-            color: #41bfaa
+            color: #41bfaa;
+            background-color: #d0f5ef;
         }
     }
 </style>

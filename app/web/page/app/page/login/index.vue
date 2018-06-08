@@ -19,7 +19,7 @@
 <style lang="less" scoped>
     @import "../../../../asset/style/mixin-px.less";
     .login{
-        min-height: 100vh;
+        min-height: 100%;
         background-color: #f7f7f7;
         overflow: hidden;
         .register-link{
@@ -109,9 +109,17 @@ export default {
             let regId = /[0-9a-zA-Z]{4,15}/;
             let regPwd = /[0-9a-zA-Z_@]{8,15}/;
             if(!regId.test(this.loginParam.loginId)) {
+                this.$tip({
+                    message: '账号格式不正确，大小写字母、数字，4-15位',
+                    type: 'error'
+                })
                 return false;
             }
             if(!regPwd.test(this.loginParam.password)) {
+                this.$tip({
+                    message: '密码格式不正确，大小写字母、数字或@_，8-15位',
+                    type: 'error'
+                })
                 return false;
             }
             var param = {
@@ -121,6 +129,11 @@ export default {
             this.$store.dispatch('USER_LOGIN', param).then(rs => {
                 if(rs.data.code === 200) {
                     this.$router.push({path: this.jumpPage});
+                }else{
+                    this.$tip({
+                    message: rs.data.msg,
+                    type: 'error'
+                })
                 }
             })
         }

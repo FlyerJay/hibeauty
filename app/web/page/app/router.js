@@ -5,6 +5,7 @@ import Index from './page/index';
 import Register from './page/register';
 import Login from './page/login';
 import Mine from './page/mine';
+import MineEdit from './page/mine/edit';
 import Collection from './page/collection';
 
 import store from './store/app';
@@ -34,13 +35,17 @@ const router = new VueRouter({
       component: Mine
     },
     {
+      path: '/mine/edit',
+      component: MineEdit
+    },
+    {
       path: '/collection',
       component: Collection
     }
   ]
 });
 
-const routeFilters = ['/mine', '/collection'];
+const routeFilters = ['/mine', '/collection', '/mine/edit'];
 
 router.beforeEach((to, from, next) => {
   if (Vue.prototype.$isServer) return;
@@ -54,7 +59,7 @@ router.beforeEach((to, from, next) => {
         store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slidedown');
       }
       if (to.path === '/login' && from.path !== '/register') {
-        store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'popover');
+        store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slideup');
       }
       next();
     }
@@ -64,7 +69,7 @@ router.beforeEach((to, from, next) => {
       store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slidedown');
     }
     if (to.path === '/login' && from.path !== '/register') {
-      store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'popover');
+      store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slideup');
     }
     next();
   }
