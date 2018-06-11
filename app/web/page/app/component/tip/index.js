@@ -11,6 +11,7 @@ let zIndex = 1003;
 const Tip = function(opts) {
   if (Vue.prototype.$isServer) return;
   opts = opts || {};
+  opts.type === 'error' ? opts.transitionAnimate = 'error-up' : '';
   if (typeof opts === 'string') {
     opts = {
       message: opts
@@ -28,7 +29,7 @@ const Tip = function(opts) {
   });
 
   instance.id = id;
-  instance.vm = instance.$mount();
+  instance.vm = instance.$mount(); // 手动挂载获取到实例
   document.body.appendChild(instance.vm.$el);
   instance.vm.visible = true;
   instance.dom = instance.vm.$el;

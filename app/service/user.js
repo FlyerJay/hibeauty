@@ -40,6 +40,13 @@ class UserService extends Service {
         if(user) return { code: 200, data: user };
         return { code: -1, msg: '获取用户信息出错了！' }
     }
+
+    async edit(opts) {
+        let { loginId } = this.ctx.userInfo;
+        let user = await this.ctx.model.User.updateUser(loginId, opts);
+        if(user) return { code: 200, data: user };
+        return { code: -1, msg: '更新信息出错了！' };
+    }
 }
 
 module.exports = UserService;

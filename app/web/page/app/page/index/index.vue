@@ -31,12 +31,15 @@
             albumList() {
                 return this.$store.state.albumList;
             },
+
             album() {
                 return this.$store.state.album;
             },
+
             albumListTotal() {
                 return this.$store.state.albumListTotal;
             },
+            
             isLoadAbel() {
                 return this.page * this.pageSize < this.albumListTotal;
             }
@@ -58,13 +61,16 @@
             appendAlbum() { //添加到相册列表
                 return this.$store.dispatch('FETCH_ALBUM_LIST', {page: ++this.page, append: true});
             },
+
             refreshAlbum() { //刷新相册列表
                 this.page = 1;
                 return this.$store.dispatch('FETCH_ALBUM_LIST', {page: this.page})
             },
+
             onLoading() {
                 return this.appendAlbum();
             },
+
             onRefresh() {
                 return this.refreshAlbum();
             }

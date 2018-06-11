@@ -21,6 +21,10 @@ class UserController extends Controller {
         ctx.cookies.set('access_token', null);
         ctx.redirect('/');
     }
+    async edit() {
+        const { ctx, service } = this;
+        ctx.body = await ctx.service.user.edit(ctx.request.body);
+    }
 }
 
 module.exports = UserController;

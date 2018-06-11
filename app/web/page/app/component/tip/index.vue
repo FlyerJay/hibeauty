@@ -1,5 +1,5 @@
 <template>
-    <transition name="slide-up">
+    <transition :name="transitionAnimate">
         <div :class="['snowyet-tip', typeClass]" v-show="visible">
             {{message}}
         </div>
@@ -7,15 +7,26 @@
 </template>
 <style lang="less" scoped>
     @import "../../../../asset/style/mixin-px.less";
-    .slide-up-leave,.slide-up-enter-active {
-        opacity: 1;
-        transform: translate3d(0, 0%, 0);
-        transition: .3s all ease-in;
+    .errorIn{
+        animation: shake .2s .2s linear, slideInUp .2s 0s linear;
     }
-    .slide-up-enter,.slide-up-leave-active {
-        opacity: 0;
-        transform: translate3d(0, 100%, 0);
-        transition: .3s all ease-out;
+    .otherIn{
+        animation: slideInUp .2s 0s linear;;
+    }
+    .slideOutDown{
+        animation: slideOutDown .2s ease-in;
+    }
+    .slide-up-enter-active {
+        .otherIn;
+    }
+    .slide-up-leave-active {
+        .slideOutDown;
+    }
+    .error-up-enter-active {
+        .errorIn;
+    }
+    .error-up-leave-active {
+        .slideOutDown;
     }
     .snowyet-tip{
         position: fixed;
@@ -61,7 +72,8 @@ export default {
             type: 'info',
             closed: false,
             timer: null,
-            onClose: null
+            onClose: null,
+            transitionAnimate: 'slide-up'
         }
     },
     computed: {
@@ -73,13 +85,13 @@ export default {
         closed(newVal) {
             if(newVal) {
                 this.visible = false;
-                this.$el.addEventListener('transitionend', this.destroyElement);
+                this.$el.addEventListener('animationend', this.destroyElement);
             }
         }
     },
     methods: {
         destroyElement() {
-            this.$el.removeEventListener('transitionend', this.destroyElement);
+            this.$el.removeEventListener('animationend', this.destroyElement);
             this.$el.parentNode.removeChild(this.$el);
             this.$destroy(true);
         },

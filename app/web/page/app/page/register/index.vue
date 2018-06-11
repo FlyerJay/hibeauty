@@ -74,6 +74,7 @@
 <script>
 import SHeader from '../../component/header';
 import { aesEncrypt } from '../../util/crypto';
+const noop = function() {};
 export default {
     data () {
         return {
@@ -115,7 +116,7 @@ export default {
                         message: rs.data.msg,
                         type: 'success',
                         onClose() {
-                            me.$router.go(-1);
+                            me.goBack();
                         }
                     });
                 }else{
@@ -126,7 +127,14 @@ export default {
                 }
                 
             });
+        },
+        
+        goBack() {
+            this.$router.go(-1);
         }
+    },
+    destroyed() {
+        this.goBack = noop;
     }
 }
 </script>

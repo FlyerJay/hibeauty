@@ -75,7 +75,6 @@
     export default {
         methods: {
             open (index, items, options = {
-                // captionEl: false,
                 fullscreenEl: false,
                 history: false,
                 shareEl: false,
@@ -98,6 +97,7 @@
                 this.photoswipe = new PhotoSwipe(this.$el, PhotoSwipeDefaultUI, items, opts)
                 this.photoswipe.init()
             },
+
             close () {
                 this.photoswipe.close()
             }

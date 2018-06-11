@@ -125,6 +125,18 @@ module.exports = app => {
         return exist ? false : await this.create(userInfo);
     }
 
+    User.updateUser = async function(loginId, opts) {
+        if (!loginId) return false;
+        let query = { loginId: { $eq: loginId } };
+        let user = await this.findOne({ where: query });
+        for(let key in opts) {
+            if(opts[key]) {
+                user[key] = opts[key];
+            }
+        }
+        return await user.save();
+    }
+
     // 随机生成用户昵称
     function randomNickName() {
         const firstName = ['上官', '司马', '轩辕', '南宫', '欧阳', '端木', '夏侯', '皇甫', '慕容'];

@@ -18,9 +18,6 @@
   if(!Vue.prototype.$isServer) {
     Vue.prototype.$bus = new Vue();
     Vue.prototype.$tip = Tip;
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   FastClick.attach(document.body);
-    // }, false)
   }
   export default {
     data() {
@@ -84,19 +81,19 @@
   }
 
   .slideInRight{
-    animation: slideInRight .3s linear;
+    animation: slideInRight .3s ease;
   }
 
   .slideOutLeft{
-    animation: slideOutLeft .3s linear;
+    animation: slideOutLeft .3s ease;
   }
 
   .slideOutRight{
-    animation: slideOutRight .3s linear;
+    animation: slideOutRight .3s ease;
   }
 
   .slideInLeft{
-    animation: slideInLeft .3s linear;
+    animation: slideInLeft .3s ease;
   }
 
   .slideInUp{
@@ -130,7 +127,6 @@
   }
 
   .slideup-leave-active {
-    // .slideOutUp;
     transition: .25s all linear;
     .animateTotal;
     z-index: 999;
@@ -143,7 +139,6 @@
   }
 
   .slidedown-enter-active {
-    // .slideInDown;
     transition: .25s all linear;
     .animateTotal;
     z-index: 999;

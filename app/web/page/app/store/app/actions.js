@@ -8,7 +8,7 @@ import { getCookie } from '../../util/cookie';
 
 Vue.use(Vuex);
 let host;
-if (typeof document === 'object') {
+if (!Vue.prototype.$isServer) {
   host = '/hibeauty';
 } else {
   host = 'http://127.0.0.1:7002/hibeauty';
@@ -53,6 +53,11 @@ const actions = {
   USER_LOGIN: ({ dispatch }, params) => {
     const _csrf = getCookie('csrfToken');
     return axios.post(`${host}/api/login`, Object.assign(params, { _csrf }));
+  },
+
+  USER_EDIT: ({ dispatch }, params) => {
+    const _csrf = getCookie('csrfToken');
+    return axios.post(`${host}/api/user/edit`, Object.assign(params, { _csrf }));
   },
 
   CHANGE_PAGE_TURN_ANIMATE: ({ commit, dispatch, state }, animate) => {
