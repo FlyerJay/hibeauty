@@ -6,24 +6,28 @@
   </layout>
 </template>
 <script type="text/babel">
-  import Vue from "vue";
-  import PhotoSwipe from "./component/photoswipe";
-  import Tip from "./component/tip";
-  import { sync } from "vuex-router-sync";
-  import store from "./store/app";
-  import router from "./router";
+  import Vue from 'vue';
+  import PhotoSwipe from './component/photoswipe';
+  import Tip from './component/tip';
+  import { sync } from 'vuex-router-sync';
+  import store from './store/app';
+  import router from './router';
   
   sync(store, router);
   Vue.use(PhotoSwipe);
-  if(!Vue.prototype.$isServer) {
+  if (!Vue.prototype.$isServer) {
     Vue.prototype.$bus = new Vue();
     Vue.prototype.$tip = Tip;
   }
+
+  const ROUTE = '$route';
+  function noop() {}
+  
   export default {
     data() {
       return {
         routesHistory: [], // 记录页面访问历史
-      }
+      };
     },
     router,
     store,
@@ -33,35 +37,36 @@
       }
     },
     watch: {
-      '$route'(to, from) {
+      [ROUTE](to, from) {
         let animate;
-        let routeIndex = this.routesHistory.indexOf(to.path);
+        const routeIndex = this.routesHistory.indexOf(to.path);
         if (routeIndex === -1) {
           animate = 'push';
-          if(to.path === '/') {
+          if (to.path === '/') {
             this.routesHistory = ['/'];
-          }else{
+          } else {
             this.routesHistory.push(to.path);
           }
         } else {
           animate = 'pop';
-          if(to.path === '/') {
+          if (to.path === '/') {
             this.routesHistory = ['/'];
-          }else{
+          } else {
             this.routesHistory = this.routesHistory.slice(0, routeIndex + 1);
           }
         }
-        if(to.path === '/login' && from.path !== '/register' || from.path === '/login' && to.path !== '/register') {
+        if (to.path === '/login' && from.path !== '/register' || from.path === '/login' && to.path !== '/register') {
+          noop();
         } else {
           this.$store.dispatch('CHANGE_PAGE_TURN_ANIMATE', animate);
         }
       }
     },
     mounted() {
-      if(this.$route.path === '/login') { // 登录页不能是首屏
+      if (this.$route.path === '/login') { // 登录页不能是首屏
         this.$router.push('/');
         this.routesHistory.push('/');
-      }else{
+      } else {
         this.routesHistory.push(this.$route.path);
       }
     },

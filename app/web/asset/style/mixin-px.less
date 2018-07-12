@@ -1,21 +1,21 @@
 .px(@name, @px){
-    @{name}: @px / 2;
+  @{name}: @px / 2;
 }
 .px2dpr(@name, @px){
-    @{name}: @px / 2 * 1px;
-  
-    [data-dpr="2"] & {
-      @{name}: @px * 1px;
-    }
-  
-    [data-dpr="3"] & {
-      @{name}: @px / 2 * 3px;
-    }
+  @{name}: @px / 2 * 1px;
+
+  [data-dpr="2"] & {
+    @{name}: @px * 1px;
+  }
+
+  [data-dpr="3"] & {
+    @{name}: @px / 2 * 3px;
+  }
 }
   
 @screen-width: 750;
-    .px2rem(@name, @px){
-    @{name}: @px / (@screen-width/10) * 1rem;
+  .px2rem(@name, @px){
+  @{name}: @px / (@screen-width/10) * 1rem;
 }
   
   

@@ -1,0 +1,338 @@
+<template>
+    <div :class="className">
+        <div :class="`${className}-toolbar`">
+            <div :class="`${className}-toolbar-prev`" @click="onPrev">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-prev"></use>
+                </svg>
+            </div>
+            <div :class="`${className}-display-date`" @click="changeChooseType">
+                <template v-if="chooseType == 2">
+                    {{years[0]}}-{{years[years.length-1]}}
+                </template>
+                <template v-else>
+                    {{setting.year}}年{{setting.month}}月
+                </template>
+            </div>
+            <div :class="`${className}-toolbar-next`" @click="onNext">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-next"></use>
+                </svg>
+            </div>
+        </div>
+        <transition-group name="zoom">
+            <div v-if="chooseType === 0" key="week">
+                <div :class="`${className}-week`">
+                    <div :class="`${className}-week-cell`" v-for="(item, index) in weeks" :key="index">{{item}}</div>
+                </div>
+                <div :class="`${className}-date`">
+                    <div :class="`${className}-date-week`" v-for="(week, index) in monthDays" :key="index">
+                        <div class="snowyet-datepicker-date-cell" v-for="(day, subIndex) in week" :key="subIndex" :class="{'datepicker-current-date': day.formatDate === setting.currentDate, 'datepicker-selected-date': day.formatDate === setting.dateTime}" @click="onDateClick(day)">
+                            {{day.date}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div v-if="chooseType === 1" key="month">
+                <div :class="`${className}-month`" class="clearfix">
+                    <div :class="`${className}-month-cell notyear`" v-for="(item, index) in prevMonths" :key="'prev'+index" @click="selectPrevMonth(item)">
+                        {{item}}月
+                    </div>
+                    <div :class="`${className}-month-cell`" v-for="(item, index) in months" :key="index" @click="selectMonth(item)">
+                        {{item}}月
+                    </div>
+                    <div :class="`${className}-month-cell notyear`" v-for="(item, index) in nextMonths" :key="'next'+index" @click="selectNextMonth(item)">
+                        {{item}}月
+                    </div>
+                </div>
+            </div>
+            <div v-if="chooseType === 2" key="year">
+                <div :class="`${className}-year`" class="clearfix">
+                    <div :class="`${className}-year-cell`" v-for="(item, index) in years" :key="index" @click="selectYear(item)">
+                        {{item}}
+                    </div>
+                </div>
+            </div>
+        </transition-group>
+    </div>
+</template>
+<script>
+import dateHelper from './helper.js';
+
+const SETTING_MONTH = 'setting.month';
+const SETTING_YEAR = 'setting.year';
+
+
+export default {
+  data() {
+    return {
+      weeks: ['一', '二', '三', '四', '五', '六', '日'],
+      months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      prevMonths: [9, 10, 11, 12],
+      nextMonths: [1, 2, 3, 4],
+      monthDays: [],
+      years: [],
+      setting: {
+        year: '',
+        month: '',
+        date: '',
+        dateTime: '',
+        currentDate: ''
+      },
+      className: 'snowyet-datepicker',
+      chooseType: 0
+    };
+  },
+  created() {
+    // 获取当前时间
+    if (!this.setting.currentDate) {
+      this.setting.currentDate = dateHelper.getCurrentDate();
+    }
+    // 如果没有初始化时间就用今天作为默认时间
+    const dateTime = this.setting.dateTime || this.setting.currentDate;
+    const year = (this.setting.year = this.setting.year
+      ? this.setting.year
+      : new Date(dateTime).getFullYear());
+    const month = (this.setting.month = this.setting.month
+      ? this.setting.month
+      : new Date(dateTime).getMonth() + 1);
+    this.setting.date = new Date(dateTime).getDate();
+    this.monthDays = dateHelper.formatDateByWeek(year, month);
+  },
+  watch: {
+    [SETTING_MONTH](val) {
+      this.updateCalendar();
+    },
+    [SETTING_YEAR](val) {
+      this.updateCalendar();
+    },
+    chooseType(val) {
+      if (val === 2) {
+        this.computeYearRange(this.setting.year);
+      }
+    }
+  },
+  methods: {
+    onPrev() {
+      switch (this.chooseType) {
+        case 0:
+          this.prevMont();
+          break;
+        case 1:
+          this.prevYear();
+          break;
+        case 2:
+          this.prevYearRange();
+          break;
+        default:
+          this.prevMont();
+          break;
+      }
+    },
+
+    onNext() {
+      switch (this.chooseType) {
+        case 0:
+          this.nextMont();
+          break;
+        case 1:
+          this.nextYear();
+          break;
+        case 2:
+          this.nextYearRange();
+          break;
+        default:
+          this.nextMont();
+          break;
+      }
+    },
+
+    onDateClick(day) {
+      if (day.formatDate === 'none') return;
+      this.setting.dateTime = day.formatDate;
+    },
+
+    prevMont() {
+      this.setting.month > 1
+        ? this.setting.month--
+        : (this.setting.year--, (this.setting.month = 12));
+    },
+
+    nextMont() {
+      this.setting.month < 12
+        ? this.setting.month++
+        : (this.setting.year++, (this.setting.month = 1));
+    },
+
+    prevYear() {
+      this.setting.year--;
+    },
+
+    nextYear() {
+      this.setting.year++;
+    },
+
+    prevYearRange() {
+      let yearStart = this.years[0];
+      const yearRange = [];
+      yearStart -= 20;
+      for (let i = yearStart; i < yearStart + 20; i++) {
+        yearRange.push(i);
+      }
+      this.years = yearRange;
+    },
+
+    nextYearRange() {
+      let yearStart = this.years[0];
+      const yearRange = [];
+      yearStart += 20;
+      for (let i = yearStart; i < yearStart + 20; i++) {
+        yearRange.push(i);
+      }
+      this.years = yearRange;
+    },
+
+    updateCalendar() {
+      const year = this.setting.year;
+      const month = this.setting.month;
+      this.monthDays = dateHelper.formatDateByWeek(year, month);
+    },
+
+    changeChooseType() {
+      this.chooseType = ++this.chooseType % 3;
+    },
+
+    selectYear(year) {
+      this.setting.year = year;
+      this.chooseType--;
+    },
+
+    selectMonth(month) {
+      this.setting.month = month;
+      this.chooseType--;
+    },
+
+    selectPrevMonth(month) {
+      this.setting.month = month;
+      this.setting.year--;
+      this.chooseType--;
+    },
+
+    selectNextMonth(month) {
+      this.setting.month = month;
+      this.setting.year++;
+      this.chooseType--;
+    },
+
+    computeYearRange(year) {
+      const yearArray = String(year).split('');
+      yearArray.pop();
+      yearArray.push('0');
+      const yearStart = Number(yearArray.join(''));
+      const yearEnd = yearStart + 20;
+      const yearRange = [];
+      for (let i = yearStart; i < yearEnd; i++) {
+        yearRange.push(i);
+      }
+      this.years = yearRange;
+    }
+  }
+};
+</script>
+<style lang="less" scoped>
+@import "../../../../asset/style/mixin-px.less";
+.zoom-enter-active {
+  animation: zoomIn 0.3s ease;
+}
+.snowyet-datepicker {
+  height: 100%;
+  .px2rem(padding-left, 30);
+  .px2rem(padding-right, 30);
+  .snowyet-datepicker-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .px2rem(height, 100);
+    .px2rem(line-height, 100);
+    .px2rem(margin-bottom, 20);
+    .snowyet-datepicker-toolbar-prev,
+    .snowyet-datepicker-toolbar-next {
+      height: 100%;
+      .px2rem(width, 150);
+      text-align: center;
+      .icon {
+        color: #41bfaa;
+      }
+    }
+    .snowyet-datepicker-display-date {
+      height: 100%;
+      flex-grow: 1;
+      text-align: center;
+      .px2rem(font-size, 26);
+      color: #666;
+    }
+  }
+  .snowyet-datepicker-week {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    .snowyet-datepicker-week-cell {
+      flex-grow: 1;
+      .px2rem(height, 80);
+      .px2rem(line-height, 80);
+      .px2rem(width, 100);
+      text-align: center;
+    }
+  }
+  .snowyet-datepicker-date {
+    .snowyet-datepicker-date-week {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      .snowyet-datepicker-date-cell {
+        flex-grow: 1;
+        .px2rem(height, 80);
+        .px2rem(line-height, 80);
+        .px2rem(width, 100);
+        text-align: center;
+        box-sizing: border-box;
+        color: #888;
+        &.datepicker-current-date {
+          color: #41bfaa;
+          font-weight: bold;
+        }
+        &.datepicker-selected-date {
+          background-color: #41bfaa;
+          color: #fff;
+        }
+      }
+    }
+  }
+  .snowyet-datepicker-month {
+    .snowyet-datepicker-month-cell {
+      float: left;
+      width: 25%;
+      .px2rem(height, 100);
+      .px2rem(line-height, 100);
+      text-align: center;
+      color: #888;
+      &.notyear {
+        color: #ccc;
+      }
+    }
+  }
+  .snowyet-datepicker-year {
+    .snowyet-datepicker-year-cell {
+      float: left;
+      width: 25%;
+      .px2rem(height, 100);
+      .px2rem(line-height, 100);
+      .px2rem(font-size, 24);
+      text-align: center;
+      color: #888;
+    }
+  }
+}
+</style>

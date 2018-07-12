@@ -4,16 +4,16 @@
  * @author flyerjay
  */
 
-"use strict";
-var jwt = require('jwt-simple');
+'use strict';
+const jwt = require('jwt-simple');
 
-const secrets = Buffer.from("fe1a1915a379f3be5394b64d14794932",'hex');
+const secrets = Buffer.from('fe1a1915a379f3be5394b64d14794932', 'hex');
 
 module.exports = {
-    encode(playload) {
-        return jwt.encode(playload, secrets);
-    },
-    decode(token) {
-        return jwt.decode(token, secrets);
-    }
-}
+  encode(playload) {
+    return jwt.encode(playload, secrets);
+  },
+  decode(token) {
+    return jwt.decode(token, secrets);
+  }
+};

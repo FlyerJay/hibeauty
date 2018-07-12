@@ -32,7 +32,7 @@ module.exports = app => {
     domainWhiteList.push(`http://${localIP}:${port}`);
   });
 
-  exports.security = { 
+  exports.security = {
     domainWhiteList
   };
 

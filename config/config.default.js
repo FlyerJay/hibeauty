@@ -35,7 +35,7 @@ module.exports = app => {
     port: '3306',
     username: 'flyerjay',
     password: '080728',
-  }
+  };
 
   exports.keys = '123456';
 
@@ -43,7 +43,7 @@ module.exports = app => {
     'access', 'authentication'
   ];
 
-  exports.security = { 
+  exports.security = {
     csrf: {
       queryName: '_csrf',
       bodyName: '_csrf'

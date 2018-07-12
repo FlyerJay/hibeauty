@@ -66,46 +66,61 @@
     </div>
 </template>
 <script>
-    import 'photoswipe/dist/photoswipe.css'
-    import 'photoswipe/dist/default-skin/default-skin.css'
+import 'photoswipe/dist/photoswipe.css';
+import 'photoswipe/dist/default-skin/default-skin.css';
 
-    import PhotoSwipe from 'photoswipe/dist/photoswipe'
-    import PhotoSwipeDefaultUI from 'photoswipe/dist/photoswipe-ui-default'
+import PhotoSwipe from 'photoswipe/dist/photoswipe';
+import PhotoSwipeDefaultUI from 'photoswipe/dist/photoswipe-ui-default';
 
-    export default {
-        methods: {
-            open (index, items, options = {
-                fullscreenEl: false,
-                history: false,
-                shareEl: false,
-                tapToClose: true,
-                maxSpreadZoom: 5
-            }) {
-                const opts = Object.assign({
-                    index: index,
-                    getThumbBoundsFn (index) {
-                        const thumbnail = document.querySelectorAll('.preview-img-item')[index]
-                        const pageYScroll = window.pageYOffset || document.documentElement.scrollTop
-                        const rect = thumbnail.getBoundingClientRect()
-                        return {
-                            x: rect.left,
-                            y: rect.top + pageYScroll,
-                            w: rect.width
-                        }
-                    }
-                }, options)
-                this.photoswipe = new PhotoSwipe(this.$el, PhotoSwipeDefaultUI, items, opts)
-                this.photoswipe.init()
-            },
+export default {
+  methods: {
+    open(
+      index,
+      items,
+      options = {
+        fullscreenEl: false,
+        history: false,
+        shareEl: false,
+        tapToClose: true,
+        maxSpreadZoom: 5
+      }
+    ) {
+      const opts = Object.assign(
+        {
+          index,
+          getThumbBoundsFn(index) {
+            const thumbnail = document.querySelectorAll('.preview-img-item')[
+              index
+            ];
+            const pageYScroll =
+              window.pageYOffset || document.documentElement.scrollTop;
+            const rect = thumbnail.getBoundingClientRect();
+            return {
+              x: rect.left,
+              y: rect.top + pageYScroll,
+              w: rect.width
+            };
+          }
+        },
+        options
+      );
+      this.photoswipe = new PhotoSwipe(
+        this.$el,
+        PhotoSwipeDefaultUI,
+        items,
+        opts
+      );
+      this.photoswipe.init();
+    },
 
-            close () {
-                this.photoswipe.close()
-            }
-        }
+    close() {
+      this.photoswipe.close();
     }
+  }
+};
 </script>
 <style scoped lang='less'>
-    .pswp{
-        z-index:10000;
-    }
+.pswp {
+  z-index: 10000;
+}
 </style>

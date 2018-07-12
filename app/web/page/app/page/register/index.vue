@@ -15,128 +15,127 @@
     </div>
 </template>
 <style lang="less" scoped>
-    @import "../../../../asset/style/mixin-px.less";
-    .register{
-        min-height: 100%;
-        background-color: #f7f7f7;
-        overflow: hidden;
-        .user-form{
-            .px2rem(margin-top, 400);
-            border-top: 1px solid #f1f1f1;
-            .input-control{
-                background-color: #fff;
-                .px2rem(height, 100);
-                .px2rem(line-height, 100);
-                .px2rem(padding-left, 30);
-                .px2rem(padding-right, 30);
-                .px2rem(font-size, 28);
-                border-bottom: 1px solid #f1f1f1;
-                .append{
-                    float: left;
-                    .px2rem(width, 80);
-                    text-align: justify;
-                    color: #999;
-                }
-                input{
-                    border: none;
-                    outline: none;
-                    .px2rem(width, 500);
-                }
-            }
-            .register-btn{
-                .px2rem(height, 90);
-                .px2rem(line-height, 90);
-                .px2rem(margin, 30);
-                .px2rem(font-size, 32);
-                .px2rem(border-radius, 10);
-                color: #fff;
-                background-color: #41bfaa;
-                text-align: center;
-            }
-        }
-        ::-webkit-input-placeholder{
-            color:#ddd;
-        }
-        :-moz-placeholder{
-            color:#ddd;
-        }
-        ::-moz-placeholder{
-            color:#ddd;
-        }
-        :-ms-input-placeholder{
-            color:#ddd;
-        }
-        input:-webkit-autofill {
-            -webkit-box-shadow: 0 0 0px 1000px white inset;
-        }
+@import "../../../../asset/style/mixin-px.less";
+.register {
+  min-height: 100%;
+  background-color: #f7f7f7;
+  overflow: hidden;
+  .user-form {
+    .px2rem(margin-top, 400);
+    border-top: 1px solid #f1f1f1;
+    .input-control {
+      background-color: #fff;
+      .px2rem(height, 100);
+      .px2rem(line-height, 100);
+      .px2rem(padding-left, 30);
+      .px2rem(padding-right, 30);
+      .px2rem(font-size, 28);
+      border-bottom: 1px solid #f1f1f1;
+      .append {
+        float: left;
+        .px2rem(width, 80);
+        text-align: justify;
+        color: #999;
+      }
+      input {
+        border: none;
+        outline: none;
+        .px2rem(width, 500);
+      }
     }
+    .register-btn {
+      .px2rem(height, 90);
+      .px2rem(line-height, 90);
+      .px2rem(margin, 30);
+      .px2rem(font-size, 32);
+      .px2rem(border-radius, 10);
+      color: #fff;
+      background-color: #41bfaa;
+      text-align: center;
+    }
+  }
+  ::-webkit-input-placeholder {
+    color: #ddd;
+  }
+  :-moz-placeholder {
+    color: #ddd;
+  }
+  ::-moz-placeholder {
+    color: #ddd;
+  }
+  :-ms-input-placeholder {
+    color: #ddd;
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+}
 </style>
 <script>
 import SHeader from '../../component/header';
 import { aesEncrypt } from '../../util/crypto';
 const noop = function() {};
 export default {
-    data () {
-        return {
-            registerParam: {
-                loginId: '',
-                password: ''
+  data() {
+    return {
+      registerParam: {
+        loginId: '',
+        password: ''
+      }
+    };
+  },
+  components: {
+    SHeader
+  },
+  methods: {
+    register() {
+      const regId = /[0-9a-zA-Z]{4,15}/;
+      const regPwd = /[0-9a-zA-Z_@]{8,15}/;
+      if (!regId.test(this.registerParam.loginId)) {
+        this.$tip({
+          message: '账号格式不正确，大小写字母、数字，4-15位',
+          type: 'error'
+        });
+        return false;
+      }
+      if (!regPwd.test(this.registerParam.password)) {
+        this.$tip({
+          message: '密码格式不正确，大小写字母、数字或@_，8-15位',
+          type: 'error'
+        });
+        return false;
+      }
+      const param = {
+        loginId: this.registerParam.loginId,
+        password: aesEncrypt(this.registerParam.password)
+      };
+      const me = this;
+      this.$store.dispatch('REGISTER_USER', param).then(rs => {
+        if (rs.data.code === 200) {
+          this.$tip({
+            message: rs.data.msg,
+            type: 'success',
+            onClose() {
+              me.goBack();
             }
+          });
+        } else {
+          this.$tip({
+            message: rs.data.msg,
+            type: 'error'
+          });
         }
+      });
     },
-    components: {
-        SHeader
-    },
-    methods: {
-        register() {
-            let regId = /[0-9a-zA-Z]{4,15}/;
-            let regPwd = /[0-9a-zA-Z_@]{8,15}/;
-            if(!regId.test(this.registerParam.loginId)) {
-                this.$tip({
-                    message: '账号格式不正确，大小写字母、数字，4-15位',
-                    type: 'error'
-                })
-                return false;
-            }
-            if(!regPwd.test(this.registerParam.password)) {
-                this.$tip({
-                    message: '密码格式不正确，大小写字母、数字或@_，8-15位',
-                    type: 'error'
-                })
-                return false;
-            }
-            var param = {
-                loginId: this.registerParam.loginId,
-                password: aesEncrypt(this.registerParam.password)
-            }
-            var me = this;
-            this.$store.dispatch('REGISTER_USER', param).then(rs => {
-                if (rs.data.code === 200) {
-                    this.$tip({
-                        message: rs.data.msg,
-                        type: 'success',
-                        onClose() {
-                            me.goBack();
-                        }
-                    });
-                }else{
-                    this.$tip({
-                        message: rs.data.msg,
-                        type: 'error'
-                    });
-                }
-                
-            });
-        },
-        
-        goBack() {
-            this.$router.go(-1);
-        }
-    },
-    destroyed() {
-        this.goBack = noop;
+
+    goBack() {
+      this.$router.go(-1);
     }
-}
+  },
+  destroyed() {
+    this.goBack = noop;
+  }
+};
 </script>
 
 
