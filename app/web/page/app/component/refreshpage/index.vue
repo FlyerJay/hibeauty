@@ -40,10 +40,15 @@
 </template>
 <script>
 export default {
+  /**
+   * onLoading: 加载的具体实现，@return 为Promise的函数;
+   * onRefresh: 刷新的具体实现，@return 为Promise的函数;
+   * isLoadAbel：下拉刷新和上滑加载总开关;
+   * upglideAble: 上滑加载开关;
+   */
   props: {
     onLoading: {
-      // 加载的具体实现，必须是Promise
-      type: Function,
+      type: Function, // type: Promise,
       default() {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
@@ -53,8 +58,7 @@ export default {
       }
     },
     onRefresh: {
-      // 刷新的具体实现，必须是Promise
-      type: Function,
+      type: Function, // type: Promise,
       default() {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
@@ -72,15 +76,26 @@ export default {
       default: true
     }
   },
+
+  /**
+   * upglideMode:上滑状态0.继续上滑、1.释放可加载、2.加载中;
+   * slideMode: 下拉状态0.继续下拉、1.释放可刷新、2.刷新中;
+   * touchStart: 触摸开始;
+   * touchEnd: 触摸结束;
+   * scrollTop: 距离顶部距离;
+   * scrollOb: 滚动条观察者;
+   * hasMounted: 页面是否已挂载;
+   */
+
   data() {
     return {
-      upglideMode: 0, // 上滑状态0.继续上滑、1.释放可加载、2.加载中
-      slideMode: 0, // 下拉状态0.继续下拉、1.释放可刷新、2.刷新中
-      touchStart: 0, // 触摸开始
-      touchEnd: 0, // 触摸结束
-      scrollTop: 0, // 距离顶部距离
-      scrollOb: '', // 滚动条观察者
-      hasMounted: false // 页面是否已挂载
+      upglideMode: 0,
+      slideMode: 0,
+      touchStart: 0,
+      touchEnd: 0,
+      scrollTop: 0,
+      scrollOb: '',
+      hasMounted: false
     };
   },
   computed: {
@@ -94,7 +109,7 @@ export default {
   },
   mounted() {
     this.hasMounted = true;
-    // 移动端不支持onscoll事件，使用固定时间间隔获取scrollTop
+    // 移动端不支持onscoll事件，使用固定时间间隔获取scrollTop（其实是支持的，需要在body上监听，在pc上调试时又无法触发-_-！）
     this.scrollOb = window.setInterval(() => {
       // 移动端是以body作为滚动元素，而pc以根节点作为滚动元素，这一点很迷，可能和我的页面结构有关系
       this.scrollTop =

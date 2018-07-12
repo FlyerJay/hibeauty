@@ -27,7 +27,7 @@
                 </div>
                 <div :class="`${className}-date`">
                     <div :class="`${className}-date-week`" v-for="(week, index) in monthDays" :key="index">
-                        <div class="snowyet-datepicker-date-cell" v-for="(day, subIndex) in week" :key="subIndex" :class="{'datepicker-current-date': day.formatDate === setting.currentDate, 'datepicker-selected-date': day.formatDate === setting.dateTime}" @click="onDateClick(day)">
+                        <div class="snowyet-calendar-date-cell" v-for="(day, subIndex) in week" :key="subIndex" :class="{'calendar-current-date': day.formatDate === setting.currentDate, 'calendar-selected-date': day.formatDate === setting.dateTime}" @click="onDateClick(day)">
                             {{day.date}}
                         </div>
                     </div>
@@ -64,6 +64,7 @@ const SETTING_YEAR = 'setting.year';
 
 
 export default {
+  name: 'calendar',
   data() {
     return {
       weeks: ['一', '二', '三', '四', '五', '六', '日'],
@@ -79,7 +80,7 @@ export default {
         dateTime: '',
         currentDate: ''
       },
-      className: 'snowyet-datepicker',
+      className: 'snowyet-calendar',
       chooseType: 0
     };
   },
@@ -244,19 +245,19 @@ export default {
 .zoom-enter-active {
   animation: zoomIn 0.3s ease;
 }
-.snowyet-datepicker {
+.snowyet-calendar {
   height: 100%;
   .px2rem(padding-left, 30);
   .px2rem(padding-right, 30);
-  .snowyet-datepicker-toolbar {
+  .snowyet-calendar-toolbar {
     display: flex;
     flex-direction: row;
     align-items: center;
     .px2rem(height, 100);
     .px2rem(line-height, 100);
     .px2rem(margin-bottom, 20);
-    .snowyet-datepicker-toolbar-prev,
-    .snowyet-datepicker-toolbar-next {
+    .snowyet-calendar-toolbar-prev,
+    .snowyet-calendar-toolbar-next {
       height: 100%;
       .px2rem(width, 150);
       text-align: center;
@@ -264,7 +265,7 @@ export default {
         color: #41bfaa;
       }
     }
-    .snowyet-datepicker-display-date {
+    .snowyet-calendar-display-date {
       height: 100%;
       flex-grow: 1;
       text-align: center;
@@ -272,12 +273,12 @@ export default {
       color: #666;
     }
   }
-  .snowyet-datepicker-week {
+  .snowyet-calendar-week {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    .snowyet-datepicker-week-cell {
+    .snowyet-calendar-week-cell {
       flex-grow: 1;
       .px2rem(height, 80);
       .px2rem(line-height, 80);
@@ -285,13 +286,13 @@ export default {
       text-align: center;
     }
   }
-  .snowyet-datepicker-date {
-    .snowyet-datepicker-date-week {
+  .snowyet-calendar-date {
+    .snowyet-calendar-date-week {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      .snowyet-datepicker-date-cell {
+      .snowyet-calendar-date-cell {
         flex-grow: 1;
         .px2rem(height, 80);
         .px2rem(line-height, 80);
@@ -299,19 +300,19 @@ export default {
         text-align: center;
         box-sizing: border-box;
         color: #888;
-        &.datepicker-current-date {
+        &.calendar-current-date {
           color: #41bfaa;
           font-weight: bold;
         }
-        &.datepicker-selected-date {
+        &.calendar-selected-date {
           background-color: #41bfaa;
           color: #fff;
         }
       }
     }
   }
-  .snowyet-datepicker-month {
-    .snowyet-datepicker-month-cell {
+  .snowyet-calendar-month {
+    .snowyet-calendar-month-cell {
       float: left;
       width: 25%;
       .px2rem(height, 100);
@@ -323,8 +324,8 @@ export default {
       }
     }
   }
-  .snowyet-datepicker-year {
-    .snowyet-datepicker-year-cell {
+  .snowyet-calendar-year {
+    .snowyet-calendar-year-cell {
       float: left;
       width: 25%;
       .px2rem(height, 100);

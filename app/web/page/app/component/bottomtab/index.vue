@@ -39,8 +39,7 @@ export default {
   methods: {
     onRouteClick(event) {
       if (
-        event.currentTarget.parentNode.className.indexOf('router-link-active') >
-        -1
+        event.currentTarget.parentNode.className.indexOf('router-link-active') > -1
       ) {
         this.$bus.$emit('refresh');
       }
