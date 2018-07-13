@@ -48,7 +48,6 @@ export default {
 };
 </script>
 <style scoped lang="less">
-@import "../../../../asset/style/mixin-px.less";
 .bottom-tab {
   max-width: 675px;
   width: 100%;

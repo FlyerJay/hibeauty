@@ -54,7 +54,6 @@
     </div>
 </template>
 <style lang="less" scoped>
-@import "../../../../asset/style/mixin-px.less";
 .mine {
   background-color: #f1f1f1;
   height: 100%;

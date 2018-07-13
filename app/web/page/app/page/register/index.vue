@@ -15,7 +15,6 @@
     </div>
 </template>
 <style lang="less" scoped>
-@import "../../../../asset/style/mixin-px.less";
 .register {
   min-height: 100%;
   background-color: #f7f7f7;

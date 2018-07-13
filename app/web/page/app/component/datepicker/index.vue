@@ -241,7 +241,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "../../../../asset/style/mixin-px.less";
 .zoom-enter-active {
   animation: zoomIn 0.3s ease;
 }

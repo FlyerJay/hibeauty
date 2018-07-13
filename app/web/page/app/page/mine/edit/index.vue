@@ -94,7 +94,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "../../../../../asset/style/mixin-px.less";
 .mine-edit {
   min-height: 100%;
   background-color: #f7f7f7;

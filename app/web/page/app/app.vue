@@ -74,7 +74,6 @@
 </script>
 <style lang="less">
   @import "../../asset/css/global.css";
-  @import "../../asset/style/mixin-px.less";
   #app{
     height: 100%;
   }

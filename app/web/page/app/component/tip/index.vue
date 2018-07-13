@@ -6,7 +6,6 @@
     </transition>
 </template>
 <style lang="less" scoped>
-@import "../../../../asset/style/mixin-px.less";
 .errorIn {
   animation: shake 0.2s 0.2s linear, slideInUp 0.2s 0s linear;
 }

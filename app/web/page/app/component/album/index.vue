@@ -37,7 +37,6 @@ export default {
 };
 </script>
 <style scoped lang="less">
-@import "../../../../asset/style/mixin-px.less";
 .album {
   float: left;
   width: 33%;

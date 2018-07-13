@@ -12,7 +12,6 @@
     </div>
 </template>
 <style lang="less" scoped>
-@import "../../../../asset/style/mixin-px.less";
 .snowyet-header {
   position: fixed;
   top: 0;

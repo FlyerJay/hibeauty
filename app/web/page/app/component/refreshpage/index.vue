@@ -288,7 +288,6 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-@import "../../../../asset/style/mixin-px.less";
 .refresh-page {
   min-height: 100%;
   .upglide-widget,
