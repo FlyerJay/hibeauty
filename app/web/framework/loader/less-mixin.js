@@ -7,7 +7,7 @@ module.exports = function(source) {
   this.cacheable();
   const config = loaderUtils.getOptions(this);
 
-  const compass = '@import "' + path.relative(path.dirname(this.resourcePath), config.mixinPath) + '";';
+  const compass = '@import "' + path.relative(path.dirname(this.resourcePath), config.mixinPath) + '";'; // 相对路径
 
   return source.replace(/(<style.+lang=['"]less['"]\s?.*>)/g, `$1\n${compass}`);
 };

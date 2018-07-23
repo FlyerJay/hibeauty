@@ -7,7 +7,6 @@ module.exports = {
     include: ['app/web/page'],
     exclude: ['app/web/page/[a-z]+/component', 'app/web/page/elementjs'],
     loader: {
-      lessMixin: 'app/web/framework/vue/loader/less-mixin.js',
       client: 'app/web/framework/vue/entry/client-loader.js',
       server: 'app/web/framework/vue/entry/server-loader.js',
     }
@@ -33,7 +32,7 @@ module.exports = {
       use: [
         'vue-loader',
         {
-          loader: path.resolve(__dirname, './app/web/framework/loader/less-mixin.js'),
+          loader: path.resolve(__dirname, './app/web/framework/loader/less-mixin.js'), // 在vue-loader加载之前处理.vue文件，往每个style里追加全局引用
           options: {
             mixinPath: path.resolve(__dirname, './app/web/asset/style/mixin-px.less'),
           }
@@ -43,7 +42,6 @@ module.exports = {
   },
   optimization: {},
   done() {
-    console.log(this.loaders);
     console.log('如果启动成功后, Chrome控制台浏览器脚本报错, 可以尝试执行 npm run clean 清除缓存解决');
   }
 };

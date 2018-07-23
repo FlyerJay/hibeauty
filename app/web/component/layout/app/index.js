@@ -37,7 +37,7 @@ export default {
     <meta name="x5-fullscreen" content="true">
     <meta name="full-screen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <script src="http://118.190.207.142//static/js/flexible.js"></script>
+    <script src="http://i.snowyet.cc/static/js/flexible.js"></script>
     <script src="//at.alicdn.com/t/font_673098_1njolli5vrh.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet"/>

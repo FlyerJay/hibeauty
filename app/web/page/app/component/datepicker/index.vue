@@ -7,7 +7,7 @@
                 </svg>
             </div>
             <div :class="`${className}-display-date`" @click="changeChooseType">
-                <template v-if="chooseType == 2">
+                <template v-if="chooseType === 2">
                     {{years[0]}}-{{years[years.length-1]}}
                 </template>
                 <template v-else>
@@ -21,7 +21,7 @@
             </div>
         </div>
         <transition-group name="zoom">
-            <div v-if="chooseType === 0" key="week">
+            <div v-if="chooseType === 0" key="week" class="snowye-canlendar-content">
                 <div :class="`${className}-week`">
                     <div :class="`${className}-week-cell`" v-for="(item, index) in weeks" :key="index">{{item}}</div>
                 </div>
@@ -33,7 +33,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="chooseType === 1" key="month">
+            <div v-if="chooseType === 1" key="month" class="snowye-canlendar-content">
                 <div :class="`${className}-month`" class="clearfix">
                     <div :class="`${className}-month-cell notyear`" v-for="(item, index) in prevMonths" :key="'prev'+index" @click="selectPrevMonth(item)">
                         {{item}}月
@@ -46,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="chooseType === 2" key="year">
+            <div v-if="chooseType === 2" key="year" class="snowye-canlendar-content">
                 <div :class="`${className}-year`" class="clearfix">
                     <div :class="`${className}-year-cell`" v-for="(item, index) in years" :key="index" @click="selectYear(item)">
                         {{item}}
@@ -116,9 +116,6 @@ export default {
   methods: {
     onPrev() {
       switch (this.chooseType) {
-        case 0:
-          this.prevMont();
-          break;
         case 1:
           this.prevYear();
           break;
@@ -133,9 +130,6 @@ export default {
 
     onNext() {
       switch (this.chooseType) {
-        case 0:
-          this.nextMont();
-          break;
         case 1:
           this.nextYear();
           break;
@@ -151,6 +145,7 @@ export default {
     onDateClick(day) {
       if (day.formatDate === 'none') return;
       this.setting.dateTime = day.formatDate;
+      this.$emit('select-date', day);
     },
 
     prevMont() {
@@ -242,12 +237,21 @@ export default {
 </script>
 <style lang="less" scoped>
 .zoom-enter-active {
-  animation: zoomIn 0.3s ease;
+  animation: zoomIn .3s ease;
+}
+.zoom-leave {
+  opacity: 0;
+}
+.zoom-leave-acitve {
+  transition: all .3s ease;
+  opacity: 0;
 }
 .snowyet-calendar {
   height: 100%;
   .px2rem(padding-left, 30);
   .px2rem(padding-right, 30);
+  .px2rem(min-height, 680);
+  position: relative;
   .snowyet-calendar-toolbar {
     display: flex;
     flex-direction: row;
@@ -271,6 +275,13 @@ export default {
       .px2rem(font-size, 26);
       color: #666;
     }
+  }
+  .snowye-canlendar-content{
+    .px2rem(min-height, 560);
+    .px2rem(left, 30);
+    .px2rem(right, 30);
+    .px2rem(top, 120);
+    position: absolute;
   }
   .snowyet-calendar-week {
     display: flex;

@@ -22,27 +22,32 @@
             </div>
             <div class="edit-info-item clearfix">
                 <label for="birthday">生日</label>
-                <input type="text" id="birthday" name="birthday" placeholder="请选择生日" v-model="editUserInfo.birthday">
+                <input type="text" id="birthday" name="birthday" placeholder="请选择生日" v-model="editUserInfo.birthday" @focus="popupShow = true">
             </div>
         </div>
-        <date-picker></date-picker>
+        <popup v-model="popupShow">
+          <date-picker @select-date="selectDate"></date-picker>
+        </popup>
     </div>
 </template>
 <script>
 import SHeader from '../../../component/header';
 import DatePicker from '../../../component/datepicker';
+import Popup from '../../../component/popup/index.vue';
 const noop = function() {};
 export default {
   data() {
     return {
       editUserInfo: {
         nickName: ''
-      }
+      },
+      popupShow: false
     };
   },
   components: {
     SHeader,
-    DatePicker
+    DatePicker,
+    Popup
   },
   computed: {
     userInfo() {
@@ -87,8 +92,13 @@ export default {
           });
         });
     },
+
     goBack() {
       this.$router.go(-1);
+    },
+
+    selectDate(date) {
+      this.popupShow = false;
     }
   }
 };

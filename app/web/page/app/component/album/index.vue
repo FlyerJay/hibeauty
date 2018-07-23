@@ -1,15 +1,15 @@
 <template>
     <!-- 正式环境启用 -->
-    <!-- <img class="album" :src="'http://118.190.207.142//static/images/' + cover" :alt="title" @click="viewAlbum"> -->
+    <!-- <img class="album" :src="'http://i.snowyet.cc/static/images/' + cover" :alt="title" @click="viewAlbum"> -->
     <!-- 开发阶段和谐一下图片 -->
-    <img class="album" :src="'http://118.190.207.142//static/naruto.jpg'" :alt="title" @click.stop="viewAlbum">
+    <img class="album" :src="'http://i.snowyet.cc/static/naruto.jpg'" :alt="title" @click.stop="viewAlbum">
 </template>
 <script>
 export default {
   props: ['albumI', 'cover', 'title', 'albumId'],
   data() {
     return {
-      staticURI: 'http://118.190.207.142//static/images/',
+      staticURI: 'http://i.snowyet.cc/static/images/',
       thumbnailList: []
     };
   },
