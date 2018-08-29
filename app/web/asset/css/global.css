@@ -3,6 +3,8 @@
 html,body{
     font-size: 14px;
     height: 100%;
+    /* 关闭300ms的点击延迟 */
+    touch-action: manipulation;
 }
 
 .clearfix::after,.clearfix:before{

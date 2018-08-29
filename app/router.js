@@ -14,6 +14,7 @@ module.exports = app => {
   // 相册图片相关接口
   app.get('/hibeauty/api/album', 'album.album');
   app.get('/hibeauty/api/album/:id', 'album.picture');
+  app.get('/hibeauty/api/wxsign', 'wechat.sign');
 
   app.get('(/.+)?', app.controller.app.index);
 };

@@ -79,7 +79,7 @@
   }
 
   .page-container{
-    max-width: 675px;
+    max-width: 640px;
     margin: 0 auto;
     height: 100%;
   }

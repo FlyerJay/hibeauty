@@ -49,7 +49,7 @@ export default {
 </script>
 <style scoped lang="less">
 .bottom-tab {
-  max-width: 675px;
+  max-width: 640px;
   width: 100%;
   .px2rem(height, 80);
   position: fixed;

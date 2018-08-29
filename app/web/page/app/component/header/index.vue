@@ -21,6 +21,10 @@
   .px2rem(line-height, 90);
   background-color: #fff;
   border-bottom: 1px solid #eee;
+  @media screen and (min-width: 640px) {
+    width: 640px;
+    margin: 0 auto;
+  }
   .header-lbtn,
   .header-rbtn {
     float: left;
