@@ -20,7 +20,7 @@
     },
 
     mounted() {
-      axios.get('/hibeauty/api/wxsign', { url: '' }).then(rs => {
+      axios.get('/hibeauty/api/wxsign', { url: window.location.href }).then(rs => {
         const config = Object.assign({}, rs.data, { jsApiList, debug: true });
         wx.config(config);
       });
