@@ -41,7 +41,7 @@ export default {
     <script src="//at.alicdn.com/t/font_673098_1njolli5vrh.js"></script>
     <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link href="https://cdn.bootcss.com/animate.css/3.5.2/animate.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet"/>
     </head>
     <body :class="baseClass">
     ${tpl}

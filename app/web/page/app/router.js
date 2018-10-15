@@ -7,8 +7,6 @@ import Login from './page/login';
 import Mine from './page/mine';
 import MineEdit from './page/mine/edit';
 import Collection from './page/collection';
-import Crypto from './page/crypto';
-import Share from './page/share';
 
 import store from './store/app';
 
@@ -43,14 +41,6 @@ const router = new VueRouter({
     {
       path: '/collection',
       component: Collection
-    },
-    {
-      path: '/crypto',
-      component: Crypto
-    },
-    {
-      path: '/share',
-      component: Share
     }
   ]
 });
