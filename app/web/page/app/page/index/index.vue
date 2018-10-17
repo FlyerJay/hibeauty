@@ -1,90 +1,100 @@
 <template>
-    <div class="index">
-        <refresh-page :onLoading="onLoading" :isLoadAbel="isLoadAbel" :onRefresh="onRefresh" ref="refreshPage">
-            <div class="album-list clearfix">
-                <album v-for="(item, index) in albumList" :key="index" :cover="item.albumCover" :title="item.title" :albumId="item.albumId"></album>
-                <div class="preview-img-list" style="display:none;">
-                    <img class="preview-img-item" v-for="(item, index) in album" :key="index" :src="item">
-                </div>
-            </div>
-        </refresh-page>
-        <bottom-tab></bottom-tab>
+  <div class="index">
+    <header>
+      <div class="title">点滴守护</div>
+      <i class="iconfont icon-add" @click="goMap"></i>
+    </header>
+
+    <div class="defend-btn-wrapper" :class="{'active': isOpen}">
+      <button @click="changeOpenState">
+        <span v-if="isOpen">
+          守护中
+        </span>
+        <span v-else>
+          开启
+        </span>
+      </button>
     </div>
+
+    <aside>
+      <p v-if="isOpen">保持应用开启，有助于更好地预警你的安全状态</p>
+      <p v-else>即刻开启点滴守护，预警你的安全状态</p>
+    </aside>
+  </div>
 </template>
 <script>
-import Album from '../../component/album';
-import RefreshPage from '../../component/refreshpage';
-import BottomTab from '../../component/bottomtab';
 export default {
   data() {
     return {
-      page: 1,
-      pageSize: 30
+      isOpen: false,
     };
   },
   components: {
-    Album,
-    RefreshPage,
-    BottomTab
-  },
-  computed: {
-    albumList() {
-      return this.$store.state.albumList;
-    },
-
-    album() {
-      return this.$store.state.album;
-    },
-
-    albumListTotal() {
-      return this.$store.state.albumListTotal;
-    },
-
-    isLoadAbel() {
-      return this.page * this.pageSize < this.albumListTotal;
-    }
   },
   preFetch({ state, dispatch, commit }) {
-    return Promise.all([dispatch('FETCH_ALBUM_LIST', { page: this.page })]);
+    // return Promise.all([dispatch('FETCH_ALBUM_LIST', { page: this.page })]);
   },
   mounted() {
-    // 强制刷新
-    this.$bus.$on('refresh', () => {
-      this.$refs.refreshPage && this.$refs.refreshPage.forceRefresh();
-    });
-    if (this.albumList.length === 0) {
-      this.refreshAlbum();
-    }
   },
   methods: {
-    appendAlbum() {
-      // 添加到相册列表
-      return this.$store.dispatch('FETCH_ALBUM_LIST', {
-        page: ++this.page,
-        append: true
-      });
+    changeOpenState() {
+      this.isOpen = !this.isOpen;
     },
 
-    refreshAlbum() {
-      // 刷新相册列表
-      this.page = 1;
-      return this.$store.dispatch('FETCH_ALBUM_LIST', { page: this.page });
-    },
-
-    onLoading() {
-      return this.appendAlbum();
-    },
-
-    onRefresh() {
-      return this.refreshAlbum();
+    goMap() {
+      this.$router.push('/bmap');
     }
   }
 };
 </script>
 <style scoped lang="less">
-.album-list {
-  overflow-y: auto;
-  background-color: #f7f7f7;
-  min-height: 100%;
-}
+  header{
+    .px2rem(height, 100);
+    .px2rem(line-height, 100);
+    text-align: center;
+    .px2rem(font-size, 32);
+    position: relative;
+    background-color: #2db7f5;
+    color: #fff;
+    .iconfont{
+      position: absolute;
+      .px2rem(right, 30);
+      .px2rem(top, 0);
+      font-weight: bold;
+    }
+  }
+
+  .defend-btn-wrapper{
+    .px2rem(width, 300);
+    .px2rem(height, 300);
+    .px2rem(line-height, 300);
+    margin: 0 auto;
+    .px2rem(margin-top, 300);
+    .px2rem(border-radius, 150);
+    overflow: hidden;
+    box-shadow: 1px 1px 30px #888;
+    button{
+      border: none;
+      outline: none;
+      background-color: #fff;
+      width: 100%;
+      height: 100%;
+      .px2rem(font-size, 48);
+      
+    }
+    &.active{
+      box-shadow: 1px 1px 50px #888;
+      button{
+        background-color: #2db7f5;
+        color: #fff;
+      }
+    }
+  }
+
+  aside{
+    .px2rem(margin-top, 50);
+    .px2rem(font-size, 28);
+    text-align: center;
+    color: #2db7f5;
+  }
 </style>

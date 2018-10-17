@@ -10,13 +10,13 @@ export default {
   },
   computed: {
     vTitle() {
-      return this.$root.title || this.title || 'hibeauty-你想要的这里都有';
+      return this.$root.title || this.title || '点滴守护-基于个人行为数据进行AI深度学习的生命安全预警产品';
     },
     vKeywords() {
-      return this.$root.keywords || this.keywords || 'hibeauty,雪依旧,tatel Zhang,性感美女,图片分享，福利';
+      return this.$root.keywords || this.keywords || '点滴守护,个人行为数据,AI深度学习,生命安全预警';
     },
     vDescription() {
-      return this.$root.description || this.description || 'hibeauty-你想要的这里都有';
+      return this.$root.description || this.description || '点滴守护-基于个人行为数据进行AI深度学习的生命安全预警产品';
     },
     baseClass() {
       return this.$root.baseClass;
@@ -38,10 +38,10 @@ export default {
     <meta name="full-screen" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <script src="http://i.snowyet.cc/static/js/flexible.js"></script>
-    <script src="//at.alicdn.com/t/font_673098_1njolli5vrh.js"></script>
-    <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link href="//at.alicdn.com/t/font_876244_fp56w0rgzh.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=3bgputczmGg6qfykGa3DX68BAijgstuP"></script>
     </head>
     <body :class="baseClass">
     ${tpl}

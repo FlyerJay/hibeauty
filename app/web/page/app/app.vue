@@ -55,21 +55,9 @@
             this.routesHistory = this.routesHistory.slice(0, routeIndex + 1);
           }
         }
-        if (to.path === '/login' && from.path !== '/register' || from.path === '/login' && to.path !== '/register') {
-          noop();
-        } else {
-          this.$store.dispatch('CHANGE_PAGE_TURN_ANIMATE', animate);
-        }
+        this.$store.dispatch('CHANGE_PAGE_TURN_ANIMATE', animate);
       }
-    },
-    mounted() {
-      if (this.$route.path === '/login') { // 登录页不能是首屏
-        this.$router.push('/');
-        this.routesHistory.push('/');
-      } else {
-        this.routesHistory.push(this.$route.path);
-      }
-    },
+    }
   };
 </script>
 <style lang="less">
@@ -82,6 +70,7 @@
     max-width: 640px;
     margin: 0 auto;
     height: 100%;
+    background-color: #dcdee2;
   }
 
   .slideInRight{
