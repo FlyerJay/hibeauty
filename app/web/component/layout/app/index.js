@@ -42,6 +42,8 @@ export default {
     <link href="//at.alicdn.com/t/font_876244_fp56w0rgzh.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet"/>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=3bgputczmGg6qfykGa3DX68BAijgstuP"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css"/>
     </head>
     <body :class="baseClass">
     ${tpl}
