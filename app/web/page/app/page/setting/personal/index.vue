@@ -3,12 +3,11 @@
     <d-header></d-header>
     <van-cell-group>
       <van-field left-icon="like" v-model="personal.name" placeholder="姓名" :clearable="true"/>
-      <!-- <van-field left-icon="more" v-model="personal.sex" placeholder="性别" :clearable="true"/> -->
       <d-select left-icon="more" v-model="personal.sex" placeholder="性别" :clearable="true" :options="sexList"></d-select>
       <van-field left-icon="browsing-history" v-model="personal.age" placeholder="年龄" :clearable="true"/>
-      <van-field left-icon="receive-gift" v-model="personal.marry" placeholder="婚姻状况" :clearable="true"/>
-      <van-field left-icon="underway" v-model="personal.health" placeholder="健康状况" :clearable="true"/>
-      <van-field left-icon="warn" v-model="personal.job" placeholder="职业状况" :clearable="true"/>
+      <d-select left-icon="receive-gift" v-model="personal.marry" placeholder="婚姻状况" :clearable="true" :options="marryList"></d-select>
+      <d-select left-icon="underway" v-model="personal.health" placeholder="健康状况" :clearable="true" :options="healthList"></d-select>
+      <d-select left-icon="warn" v-model="personal.job" placeholder="职业状况" :clearable="true" :options="jobList"></d-select>
     </van-cell-group>
   </div>
 </template>
@@ -31,7 +30,10 @@ export default {
         health: '', // 健康状况
         job: '', // 职业状况
       },
-      sexList: ['男', '女', '不明']
+      sexList: ['男', '女', '不明'],
+      marryList: ['未婚', '已婚'],
+      healthList: ['很好', '良好', '不太好', '糟糕'],
+      jobList: ['在职', '待业']
     };
   },
 

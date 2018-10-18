@@ -9,8 +9,8 @@
     <van-cell-group>
       <van-field left-icon="location" v-model="address.company" placeholder="公司地址" :clearable="true"/>
       <van-field left-icon="checked" v-model="address.institution" placeholder="工作制度" :clearable="true"/>
-      <van-field left-icon="underway" v-model="address.start" placeholder="上班时间" :clearable="true"/>
-      <van-field left-icon="underway" v-model="address.end" placeholder="下班时间" :clearable="true"/>
+      <d-datepicker left-icon="underway" v-model="address.start" placeholder="上班时间" :clearable="true"></d-datepicker>
+      <d-datepicker left-icon="underway" v-model="address.end" placeholder="下班时间" :clearable="true"></d-datepicker>
     </van-cell-group>
   </div>
 </template>
@@ -20,6 +20,7 @@ import Field from 'vant/lib/field';
 import 'vant/lib/vant-css/cell.css';
 import 'vant/lib/vant-css/field.css';
 import Header from '../../../component/header';
+import DatePicker from '../../../component/datepicker';
 import { mapState } from 'vuex';
 export default {
   data() {
@@ -49,7 +50,8 @@ export default {
   components: {
     'van-cell-group': CellGroup,
     'van-field': Field,
-    'd-header': Header
+    'd-header': Header,
+    'd-datepicker': DatePicker
   },
 
   destroyed() {

@@ -166,4 +166,60 @@
     .animateTotal;
     z-index: 999;
   }
+
+  .iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon-contact:before {
+    content: "\e626";
+  }
+
+  .icon-type:before {
+    content: "\e6a5";
+  }
+
+  .icon-area:before {
+    content: "\e6ba";
+  }
+
+  .icon-user:before {
+    content: "\e645";
+  }
+
+  .icon-time:before {
+    content: "\e61d";
+  }
+
+  .icon-security:before {
+    content: "\e602";
+  }
+
+  .icon-ins:before {
+    content: "\e601";
+  }
+
+  .icon-phone:before {
+    content: "\e604";
+  }
+
+  .icon-trail:before {
+    content: "\e74b";
+  }
+
+  .icon-location:before {
+    content: "\e63a";
+  }
+
+  .icon-add:before {
+    content: "\e600";
+  }
+
+  .van-icon-trail::before{
+    content: "\e74b";
+  }
 </style>

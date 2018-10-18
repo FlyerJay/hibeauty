@@ -1,7 +1,8 @@
 <template>
-  <div class="d-select">
+  <div class="d-datepicker">
     <van-field 
       v-model="currentValue" 
+      class="d-select" 
       :icon="icon" 
       :clearable="clearable" 
       :placeholder="placeholder" 
@@ -14,31 +15,31 @@
     <van-popup 
       v-model="popupShow"
       position="bottom">
-      <van-picker 
-        :columns="options" 
-        :show-toolbar="true"
+      <van-datetime-picker
+        v-model="datetimeValue"
+        :type="type"
         @cancel="popupShow = false"
         @confirm="popupShow = false"
-        @change="onPickerChange">
-      </van-picker>
+        @change="onPickerChange"
+        ref="picker">
+      </van-datetime-picker>
     </van-popup>
   </div>
 </template>
 <script>
 import Field from 'vant/lib/field';
-import Picker from 'vant/lib/picker';
 import Popup from 'vant/lib/popup';
-import 'vant/lib/vant-css/picker.css';
+import DatetimePicker from 'vant/lib/datetime-picker';
 import 'vant/lib/vant-css/field.css';
 import 'vant/lib/vant-css/popup.css';
+import 'vant/lib/vant-css/picker.css';
 
-const CURRENT_VALUE = 'currentValue';
 const VALUE = 'value';
 export default {
   components: {
     'van-field': Field,
-    'van-picker': Picker,
-    'van-popup': Popup
+    'van-popup': Popup,
+    'van-datetime-picker': DatetimePicker
   },
 
   props: {
@@ -62,18 +63,17 @@ export default {
       type: String,
       default: ''
     },
-    options: {
-      type: Array,
-      default() {
-        return [];
-      }
+    type: {
+      type: String,
+      default: 'time'
     }
   },
 
   data() {
     return {
       currentValue: this.value,
-      popupShow: false
+      popupShow: false,
+      datetimeValue: this.value
     };
   },
 
@@ -81,39 +81,38 @@ export default {
     [VALUE](val) {
       this.setCurrentValue(val);
     }
-    // [CURRENT_VALUE](val) {
-    //   this.setCurrentValue(val);
-    // }
   },
 
   methods: {
     setCurrentValue(val) {
       this.$emit('input', val);
       this.currentValue = val;
+      this.datetimeValue = val;
     },
 
     onPickerChange(picker, values) {
-      this.setCurrentValue(values);
+      this.setCurrentValue(picker.getValues().join(':'));
     },
 
     popupPicker() {
-      if (!this.currentValue) {
-        this.currentValue = this.options[0];
-      }
       this.popupShow = true;
+      if (!this.currentValue) {
+        this.setCurrentValue('00:00');
+      }
     }
-  }
+  },
 };
 </script>
 <style lang="less">
-  .d-select{
+  .d-datepicker{
     .van-picker__columns{
       display: block;
       .van-picker-column{
         float: left;
-        width: 100%;
+        width: 50%;
       }
     }
   }
 </style>
+
 

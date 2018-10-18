@@ -39,11 +39,9 @@ export default {
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <script src="http://i.snowyet.cc/static/js/flexible.js"></script>
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link href="//at.alicdn.com/t/font_876244_fp56w0rgzh.css" rel="stylesheet"/>
+    <link href="//at.alicdn.com/t/font_876244_zj5y9z7mvul.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet"/>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=PQqGeZAK52BwzpGyv2NKhlWb6wE79ls8"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
-    <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css"/>
     </head>
     <body :class="baseClass">
     ${tpl}
