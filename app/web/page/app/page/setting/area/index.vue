@@ -77,11 +77,11 @@ export default {
       this.map.addEventListener('click', function(event) {
         points.push(event.point);
 
-        if (points.length > 1) {
+        if (points.length > 0) {
           if (me.area) {
             me.map.removeOverlay(me.area);
           }
-          me.area = new BMap.Polygon(points);
+          me.area = new BMap.Polygon(points, me.styleOptions);
           me.map.addOverlay(me.area);
         }
       });
