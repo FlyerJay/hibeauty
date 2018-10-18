@@ -9,12 +9,16 @@ import mutations from './mutations';
 Vue.use(Vuex);
 
 const state = {
-  albumList: [],
-  albumListTotal: 0,
-  album: [],
-  pageTurnAnimate: 'default',
-  jumpPage: '/',
-  userInfo: {}
+  olduser: false, // 是否老用户
+  personal: {}, // 用户信息
+  address: {}, // 地址信息
+  area: {}, // 活动区域
+  contact: {
+    home: {},
+    other: {}
+  }, // 联系人信息
+  trail: {}, // 活动轨迹
+  pageTurnAnimate: 'default' // 页面过渡动画
 };
 
 export default new Vuex.Store({

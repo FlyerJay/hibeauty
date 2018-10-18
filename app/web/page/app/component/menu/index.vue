@@ -1,11 +1,11 @@
 <template>
   <!-- 右侧边栏菜单 -->
-  <div class="menu" :v-if="show">
+  <div class="d-menu" :v-if="show">
     <van-cell-group>
       <van-cell is-link icon="more" to="/personal">个人信息</van-cell>
       <van-cell is-link icon="location" to="/address">地址信息</van-cell>
-      <van-cell is-link icon="shopping-cart" to="/area">活跃区域</van-cell>
       <van-cell is-link icon="phone" to="/contact">联系人人信息</van-cell>
+      <van-cell is-link icon="shopping-cart" to="/area">活跃区域</van-cell>
       <van-cell is-link icon="phone" to="/trail">轨迹回放</van-cell>
     </van-cell-group>
   </div>
@@ -26,7 +26,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-  .menu{
+  .d-menu{
     .px2rem(width, 400);
     .px2rem(right, 0);
     .px2rem(top, 0);
@@ -38,7 +38,7 @@ export default {
   }
 </style>
 <style lang="less">
-  .menu{
+  .d-menu{
     .van-cell{
       .van-icon{
         color: #2db7f5;

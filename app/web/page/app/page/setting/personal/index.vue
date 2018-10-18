@@ -3,7 +3,8 @@
     <d-header></d-header>
     <van-cell-group>
       <van-field left-icon="like" v-model="personal.name" placeholder="姓名" :clearable="true"/>
-      <van-field left-icon="more" v-model="personal.sex" placeholder="性别" :clearable="true"/>
+      <!-- <van-field left-icon="more" v-model="personal.sex" placeholder="性别" :clearable="true"/> -->
+      <d-select left-icon="more" v-model="personal.sex" placeholder="性别" :clearable="true" :options="sexList"></d-select>
       <van-field left-icon="browsing-history" v-model="personal.age" placeholder="年龄" :clearable="true"/>
       <van-field left-icon="receive-gift" v-model="personal.marry" placeholder="婚姻状况" :clearable="true"/>
       <van-field left-icon="underway" v-model="personal.health" placeholder="健康状况" :clearable="true"/>
@@ -17,6 +18,8 @@ import Field from 'vant/lib/field';
 import 'vant/lib/vant-css/cell.css';
 import 'vant/lib/vant-css/field.css';
 import Header from '../../../component/header';
+import Select from '../../../component/select';
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -27,14 +30,31 @@ export default {
         marry: '', // 婚姻状况
         health: '', // 健康状况
         job: '', // 职业状况
-      }
+      },
+      sexList: ['男', '女', '不明']
     };
+  },
+
+  computed: {
+    // 读取缓存中的数据
+    ...mapState({
+      _personal: state => state.personal
+    })
+  },
+
+  mounted() {
+    this.personal = this._personal;
   },
 
   components: {
     'van-cell-group': CellGroup,
     'van-field': Field,
-    'd-header': Header
+    'd-header': Header,
+    'd-select': Select,
+  },
+
+  destroyed() {
+    this.$store.commit('SAVE_PERSONAL', this.personal);
   }
 };
 </script>

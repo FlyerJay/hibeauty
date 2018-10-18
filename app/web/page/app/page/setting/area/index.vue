@@ -3,6 +3,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
@@ -19,7 +20,14 @@ export default {
       },
       drawingManager: {}, // 绘制工具
       area: '', // 活跃区域
+      areaList: '', // 活跃区域列表
     };
+  },
+
+  computed: {
+    ...mapState({
+      _area: state => state.area
+    })
   },
 
   mounted() {
@@ -31,6 +39,9 @@ export default {
     this.markerPosition();
     // 添加绘制工具
     // this.addDrawingManager();
+    // 初始化活跃区域
+    this.initArea();
+    // 绑定事件
     this.bindEvents();
   },
 
@@ -54,6 +65,14 @@ export default {
       const marker = new BMap.Marker(this.point);
       marker.enableDragging();
       this.map.addOverlay(marker);
+    },
+
+    initArea() {
+      this.areaList = this._area;
+      if (this.areaList.type === 'polygon') {
+        this.area = new BMap.Polygon(this.areaList.points, this.styleOptions);
+        this.map.addOverlay(this.area);
+      }
     },
 
     addDrawingManager() {
@@ -84,6 +103,16 @@ export default {
           me.area = new BMap.Polygon(points, me.styleOptions);
           me.map.addOverlay(me.area);
         }
+      });
+    }
+  },
+
+  destroyed() {
+    const me = this;
+    if (me.area.getPath) {
+      this.$store.commit('SAVE_AREA', {
+        type: 'polygon',
+        points: me.area.getPath()
       });
     }
   }

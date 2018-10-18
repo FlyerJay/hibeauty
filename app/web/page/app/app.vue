@@ -7,6 +7,7 @@
 </template>
 <script type="text/babel">
   import Vue from 'vue';
+  import storage from './util/storage.js';
   import { sync } from 'vuex-router-sync';
   import store from './store/app';
   import router from './router';
@@ -24,7 +25,7 @@
   export default {
     data() {
       return {
-        routesHistory: [], // 记录页面访问历史
+        routesHistory: ['/'], // 记录页面访问历史
       };
     },
     router,
@@ -55,6 +56,14 @@
         }
         this.$store.dispatch('CHANGE_PAGE_TURN_ANIMATE', animate);
       }
+    },
+
+    beforeMount() {
+      this.$store.dispatch('FLUSH_APPLICATION_DATA');
+      // if (!this.$store.state.olduser) {
+      //   this.$router.push('/firstin');
+      //   this.$store.commit('MARK_AS_OLDUSER');
+      // }
     }
   };
 </script>

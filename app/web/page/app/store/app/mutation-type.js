@@ -1,8 +1,10 @@
 'use strict';
 
-export const SET_ALBUM_LIST = 'SET_ALBUM_LIST';
-export const SET_ALBUM_DETAIL = 'SET_ALBUM_DETAIL';
-export const APPEND_TO_ALBUM_LIST = 'APPEND_TO_ALBUM_LIST';
-export const CHANGE_PAGE_TURN_ANIMATE = 'CHANGE_PAGE_TURN_ANIMATE';
-export const SET_JUMP_PAGE = 'SET_JUMP_PAGE';
-export const SET_USER_INFO = 'SET_USER_INFO';
+export const MARK_AS_OLDUSER = 'MARK_AS_OLDUSER'; // 标记为老用户
+export const SAVE_PERSONAL = 'SAVE_PERSONAL'; // 保存用户信息
+export const SAVE_ADDRESS = 'SAVE_ADDRESS'; // 保存地址信息
+export const SAVE_AREA = 'SAVE_AREA'; // 保存活动区域
+export const SAVE_TRAIL = 'SAVE_TRAIL'; // 保存轨迹
+export const SAVE_CONTACT = 'SAVE_CONTACT'; // 保存联系人
+
+export const CHANGE_PAGE_TURN_ANIMATE = 'CHANGE_PAGE_TURN_ANIMATE'; // 翻页动画

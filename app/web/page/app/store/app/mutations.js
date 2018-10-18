@@ -1,33 +1,45 @@
 'use strict';
 
 import {
-  SET_ALBUM_LIST,
-  SET_ALBUM_DETAIL,
-  APPEND_TO_ALBUM_LIST,
-  CHANGE_PAGE_TURN_ANIMATE,
-  SET_JUMP_PAGE,
-  SET_USER_INFO
+  MARK_AS_OLDUSER,
+  SAVE_PERSONAL,
+  SAVE_ADDRESS,
+  SAVE_AREA,
+  SAVE_TRAIL,
+  SAVE_CONTACT,
+  CHANGE_PAGE_TURN_ANIMATE
 } from './mutation-type';
 
+import Vue from 'vue';
+const vm = new Vue();
+
 const mutations = {
-  [SET_ALBUM_LIST](state, items) {
-    state.albumList = items.data;
-    state.albumListTotal = items.pageInfo.totalCount;
+  [SAVE_PERSONAL](state, personal) {
+    state.personal = personal;
+    !Vue.prototype.$isServer && vm.$storage.set('personal', personal);
   },
-  [APPEND_TO_ALBUM_LIST](state, items) {
-    state.albumList = state.albumList.concat(items.data);
+  [SAVE_ADDRESS](state, address) {
+    state.address = address;
+    !Vue.prototype.$isServer && vm.$storage.set('address', address);
   },
-  [SET_ALBUM_DETAIL](state, data) {
-    state.album = data.data.slice(1, data.data.length);
+  [SAVE_AREA](state, area) {
+    state.area = area;
+    !Vue.prototype.$isServer && vm.$storage.set('area', area);
+  },
+  [SAVE_TRAIL](state, trail) {
+    state.trail = trail;
+    !Vue.prototype.$isServer && vm.$storage.set('trail', trail);
+  },
+  [SAVE_CONTACT](state, contact) {
+    state.contact = contact;
+    !Vue.prototype.$isServer && vm.$storage.set('contact', contact);
   },
   [CHANGE_PAGE_TURN_ANIMATE](state, animate) {
     state.pageTurnAnimate = animate;
   },
-  [SET_JUMP_PAGE](state, jump) {
-    state.jumpPage = jump;
-  },
-  [SET_USER_INFO](state, userInfo) {
-    state.userInfo = userInfo.data;
+  [MARK_AS_OLDUSER](state) {
+    state.firstIn = false;
+    !Vue.prototype.$isServer && vm.$storage.set('olduser', true);
   }
 };
 export default mutations;

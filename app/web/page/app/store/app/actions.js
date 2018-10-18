@@ -7,65 +7,32 @@ import axios from 'axios';
 import { getCookie } from '../../util/cookie';
 
 Vue.use(Vuex);
-let host;
-if (!Vue.prototype.$isServer) {
-  host = '/hibeauty';
-} else {
-  host = 'http://127.0.0.1:7002/hibeauty';
-}
-
+const vm = new Vue();
 const actions = {
+  // 初始化应用数据
+  FLUSH_APPLICATION_DATA: ({ commit, dispatch, state }, params) => {
+    if (!Vue.prototype.$isServer) {
+      const personal = vm.$storage.get('personal');
+      const address = vm.$storage.get('address');
+      const contact = vm.$storage.get('contact');
+      const trail = vm.$storage.get('trail');
+      const area = vm.$storage.get('area');
+      const olderuser = vm.$storage.get('olderuser');
 
-  FETCH_ALBUM_LIST: ({ commit, dispatch, state }, params) => {
-    return axios.get(`${host}/api/album`, { params })
-      .then(response => {
-        const data = response.data;
-        if (params.append) {
-          commit(Type.APPEND_TO_ALBUM_LIST, data);
-        } else {
-          commit(Type.SET_ALBUM_LIST, data);
-        }
-        return data;
-      });
+      personal && commit('SAVE_PERSONAL', personal);
+      address && commit('SAVE_ADDRESS', address);
+      contact && commit('SAVE_CONTACT', contact);
+      trail && commit('SAVE_TRAIL', trail);
+      area && commit('SAVE_AREA', area);
+      olderuser && commit('MARK_AS_OLDUSER');
+
+      console.log('成功刷新数据');
+    }
   },
 
-  FETCH_ALBUM_DETAIL: ({ commit, dispatch, state }, id) => {
-    return axios.get(`${host}/api/album/${id}`)
-      .then(response => {
-        const data = response.data;
-        commit(Type.SET_ALBUM_DETAIL, data);
-      });
-  },
-
-  FETCH_USER_INFO: ({ commit, dispatch, state }) => {
-    return axios.get(`${host}/api/user/detail`)
-      .then(response => {
-        const data = response.data;
-        commit(Type.SET_USER_INFO, data);
-      });
-  },
-
-  REGISTER_USER: ({ dispatch }, params) => {
-    const _csrf = getCookie('csrfToken');
-    return axios.post(`${host}/api/register`, Object.assign(params, { _csrf }));
-  },
-
-  USER_LOGIN: ({ dispatch }, params) => {
-    const _csrf = getCookie('csrfToken');
-    return axios.post(`${host}/api/login`, Object.assign(params, { _csrf }));
-  },
-
-  USER_EDIT: ({ dispatch }, params) => {
-    const _csrf = getCookie('csrfToken');
-    return axios.post(`${host}/api/user/edit`, Object.assign(params, { _csrf }));
-  },
-
+  // 切换页面动画效果
   CHANGE_PAGE_TURN_ANIMATE: ({ commit, dispatch, state }, animate) => {
     commit(Type.CHANGE_PAGE_TURN_ANIMATE, animate);
-  },
-
-  SET_JUMP_PAGE: ({ commit, dispatch, state }, jump) => {
-    commit(Type.SET_JUMP_PAGE, jump);
   },
 };
 

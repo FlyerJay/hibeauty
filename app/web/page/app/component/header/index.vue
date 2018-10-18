@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="d-header">
     <div class="title">点滴守护</div>
     <i class="iconfont icon-add" @click="onNextBtnClick" v-if="nextBtn"></i>
   </header>
@@ -16,7 +16,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-  .header{
+  .d-header{
     .px2rem(height, 100);
     .px2rem(line-height, 100);
     text-align: center;

@@ -2,15 +2,15 @@
   <div class="address">
     <d-header></d-header>
     <van-cell-group>
-      <van-field left-icon="location" v-model="address.name" placeholder="居住地址" :clearable="true"/>
-      <van-field left-icon="more" v-model="address.sex" placeholder="小区安保" :clearable="true"/>
-      <van-field left-icon="browsing-history" v-model="address.age" placeholder="居住方式" :clearable="true"/>
+      <van-field left-icon="location" v-model="address.home" placeholder="居住地址" :clearable="true"/>
+      <van-field left-icon="more" v-model="address.security" placeholder="小区安保" :clearable="true"/>
+      <van-field left-icon="browsing-history" v-model="address.type" placeholder="居住方式" :clearable="true"/>
     </van-cell-group>
     <van-cell-group>
-      <van-field left-icon="location" v-model="address.marry" placeholder="公司地址" :clearable="true"/>
-      <van-field left-icon="checked" v-model="address.health" placeholder="工作制度" :clearable="true"/>
-      <van-field left-icon="underway" v-model="address.job" placeholder="上班时间" :clearable="true"/>
-      <van-field left-icon="underway" v-model="address.job" placeholder="下班时间" :clearable="true"/>
+      <van-field left-icon="location" v-model="address.company" placeholder="公司地址" :clearable="true"/>
+      <van-field left-icon="checked" v-model="address.institution" placeholder="工作制度" :clearable="true"/>
+      <van-field left-icon="underway" v-model="address.start" placeholder="上班时间" :clearable="true"/>
+      <van-field left-icon="underway" v-model="address.end" placeholder="下班时间" :clearable="true"/>
     </van-cell-group>
   </div>
 </template>
@@ -20,24 +20,40 @@ import Field from 'vant/lib/field';
 import 'vant/lib/vant-css/cell.css';
 import 'vant/lib/vant-css/field.css';
 import Header from '../../../component/header';
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
       address: {
-        name: '', // 姓名
-        sex: '', // 性别
-        age: '', // 年龄
-        marry: '', // 婚姻状况
-        health: '', // 健康状况
-        job: '', // 职业状况
+        home: '', // 居住地址
+        security: '', // 小区安保
+        type: '', // 居住方式
+        company: '', // 公司地址
+        institution: '', // 公司制度
+        start: '', // 上班时间
+        end: '' // 下班时间
       }
     };
+  },
+
+  computed: {
+    ...mapState({
+      _address: state => state.address
+    })
+  },
+
+  mounted() {
+    this.address = this._address;
   },
 
   components: {
     'van-cell-group': CellGroup,
     'van-field': Field,
     'd-header': Header
+  },
+
+  destroyed() {
+    this.$store.commit('SAVE_ADDRESS', this.address);
   }
 };
 </script>

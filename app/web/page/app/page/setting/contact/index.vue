@@ -3,14 +3,14 @@
     <d-header></d-header>
     <h2>家庭联系人</h2>
     <van-cell-group>
-      <van-field left-icon="like" v-model="personal.name" placeholder="姓名" :clearable="true"/>
-      <van-field left-icon="more" v-model="personal.sex" placeholder="电话" :clearable="true"/>
+      <van-field left-icon="like" v-model="contact.home.name" placeholder="姓名" :clearable="true"/>
+      <van-field left-icon="more" v-model="contact.home.phone" placeholder="电话" :clearable="true"/>
     </van-cell-group>
 
     <h2>其他联系人</h2>
     <van-cell-group>
-      <van-field left-icon="like" v-model="personal.name" placeholder="姓名" :clearable="true"/>
-      <van-field left-icon="more" v-model="personal.sex" placeholder="电话" :clearable="true"/>
+      <van-field left-icon="like" v-model="contact.other.name" placeholder="姓名" :clearable="true"/>
+      <van-field left-icon="more" v-model="contact.other.phone" placeholder="电话" :clearable="true"/>
     </van-cell-group>
   </div>
 </template>
@@ -20,24 +20,41 @@ import Field from 'vant/lib/field';
 import 'vant/lib/vant-css/cell.css';
 import 'vant/lib/vant-css/field.css';
 import Header from '../../../component/header';
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
-      personal: {
-        name: '', // 姓名
-        sex: '', // 性别
-        age: '', // 年龄
-        marry: '', // 婚姻状况
-        health: '', // 健康状况
-        job: '', // 职业状况
+      contact: {
+        home: {
+          name: '',
+          phone: ''
+        },
+        other: {
+          name: '',
+          phone: ''
+        }
       }
     };
+  },
+
+  computed: {
+    ...mapState({
+      _contact: state => state.contact
+    })
+  },
+
+  mounted() {
+    this.contact = this._contact;
   },
 
   components: {
     'van-cell-group': CellGroup,
     'van-field': Field,
     'd-header': Header
+  },
+
+  destroyed() {
+    this.$store.commit('SAVE_CONTACT', this.contact);
   }
 };
 </script>
