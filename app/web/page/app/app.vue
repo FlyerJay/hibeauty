@@ -7,17 +7,15 @@
 </template>
 <script type="text/babel">
   import Vue from 'vue';
-  import PhotoSwipe from './component/photoswipe';
-  import Tip from './component/tip';
   import { sync } from 'vuex-router-sync';
   import store from './store/app';
   import router from './router';
+  import 'vant/lib/vant-css/base.css';
   
   sync(store, router);
-  Vue.use(PhotoSwipe);
   if (!Vue.prototype.$isServer) {
     Vue.prototype.$bus = new Vue();
-    Vue.prototype.$tip = Tip;
+    // Vue.use(Vant);
   }
 
   const ROUTE = '$route';
@@ -70,7 +68,8 @@
     max-width: 640px;
     margin: 0 auto;
     height: 100%;
-    background-color: #dcdee2;
+    background-color: #f7f7f7;
+    overflow: hidden;
   }
 
   .slideInRight{
@@ -137,7 +136,7 @@
     z-index: 999;
   }
 
-  .push-enter-active,{
+  .push-enter-active{
     .slideInRight;
     .animateTotal;
     z-index: 1000;

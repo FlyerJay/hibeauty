@@ -2,12 +2,14 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Index from './page/index';
+import FirstIn from './page/firstin';
 
-import Bmap from './page/bmap';
+import Personal from './page/setting/personal';
+import Address from './page/setting/address';
+import Contact from './page/setting/contact';
+import Area from './page/setting/area';
 
-// import store from './store/app';
-
-// import { getCookie } from './util/cookie';
+import Trail from './page/trail';
 
 Vue.use(VueRouter);
 
@@ -20,40 +22,30 @@ const router = new VueRouter({
       component: Index
     },
     {
-      path: '/bmap',
-      component: Bmap
+      path: '/area',
+      component: Area
+    },
+    {
+      path: '/firstin',
+      component: FirstIn
+    },
+    {
+      path: '/personal',
+      component: Personal
+    },
+    {
+      path: '/contact',
+      component: Contact
+    },
+    {
+      path: '/address',
+      component: Address
+    },
+    {
+      path: '/trail',
+      component: Trail
     }
   ]
 });
-
-// const routeFilters = ['/mine', '/collection', '/mine/edit'];
-
-// router.beforeEach((to, from, next) => {
-//   if (Vue.prototype.$isServer) return;
-//   if (routeFilters.indexOf(to.path) > -1) {
-//     const accessToken = getCookie('access_token');
-//     if (!accessToken) {
-//       store.dispatch('SET_JUMP_PAGE', to.path);
-//       next('/login');
-//     } else {
-//       if (from.path === '/login' && to.path !== '/register') {
-//         store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slidedown');
-//       }
-//       if (to.path === '/login' && from.path !== '/register') {
-//         store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slideup');
-//       }
-//       next();
-//     }
-//     next();
-//   } else {
-//     if (from.path === '/login' && to.path !== '/register') {
-//       store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slidedown');
-//     }
-//     if (to.path === '/login' && from.path !== '/register') {
-//       store.dispatch('CHANGE_PAGE_TURN_ANIMATE', 'slideup');
-//     }
-//     next();
-//   }
-// });
 
 export default router;

@@ -1,35 +1,42 @@
 <template>
   <div class="index">
-    <header>
-      <div class="title">点滴守护</div>
-      <i class="iconfont icon-add" @click="goMap"></i>
-    </header>
+    <div class="wrapper" ref="wrapper">
+      <d-header :nextBtn="true" :onNextBtnClick="toggleMenu"></d-header>
 
-    <div class="defend-btn-wrapper" :class="{'active': isOpen}">
-      <button @click="changeOpenState">
-        <span v-if="isOpen">
-          守护中
-        </span>
-        <span v-else>
-          开启
-        </span>
-      </button>
+      <div class="defend-btn-wrapper" :class="{'active': isOpen}">
+        <button @click="changeOpenState">
+          <span v-if="isOpen">
+            守护中
+          </span>
+          <span v-else>
+            开启
+          </span>
+        </button>
+      </div>
+
+      <aside>
+        <p v-if="isOpen">保持应用开启，有助于更好地预警你的安全状态</p>
+        <p v-else>即刻开启点滴守护，预警你的安全状态</p>
+      </aside>
     </div>
-
-    <aside>
-      <p v-if="isOpen">保持应用开启，有助于更好地预警你的安全状态</p>
-      <p v-else>即刻开启点滴守护，预警你的安全状态</p>
-    </aside>
+    <transition name="drawer">
+      <d-menu v-show="isMenu"></d-menu>
+    </transition>
   </div>
 </template>
 <script>
+import Header from '../../component/header';
+import Menu from '../../component/menu';
 export default {
   data() {
     return {
       isOpen: false,
+      isMenu: false
     };
   },
   components: {
+    'd-header': Header,
+    'd-menu': Menu,
   },
   preFetch({ state, dispatch, commit }) {
     // return Promise.all([dispatch('FETCH_ALBUM_LIST', { page: this.page })]);
@@ -41,26 +48,32 @@ export default {
       this.isOpen = !this.isOpen;
     },
 
-    goMap() {
-      this.$router.push('/bmap');
+    toggleMenu() {
+      const parentNode = this.$refs.wrapper;
+      const classNames = parentNode.className.split(' ');
+      const index = classNames.indexOf('show-menu');
+      if (index === -1) {
+        classNames.push('show-menu');
+      } else {
+        classNames.splice(index, 1);
+      }
+      parentNode.className = classNames.join(' ');
+      this.isMenu = !this.isMenu;
     }
   }
 };
 </script>
 <style scoped lang="less">
-  header{
-    .px2rem(height, 100);
-    .px2rem(line-height, 100);
-    text-align: center;
-    .px2rem(font-size, 32);
-    position: relative;
-    background-color: #2db7f5;
-    color: #fff;
-    .iconfont{
-      position: absolute;
-      .px2rem(right, 30);
-      .px2rem(top, 0);
-      font-weight: bold;
+  .index{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #f7f7f7;
+    .wrapper{
+      transition: all .3s ease;
+      &.show-menu{
+        transform: translateX(-200px);
+      }
     }
   }
 
@@ -96,5 +109,21 @@ export default {
     .px2rem(font-size, 28);
     text-align: center;
     color: #2db7f5;
+  }
+
+  .slideInRight{
+    animation: slideInRight .3s ease;
+  }
+
+  .slideOutRight{
+    animation: slideOutRight .3s ease;
+  }
+
+  .drawer-enter-active{
+    .slideInRight;
+  }
+
+  .drawer-leave-active{
+    .slideOutRight;
   }
 </style>

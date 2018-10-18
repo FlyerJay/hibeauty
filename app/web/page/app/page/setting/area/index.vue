@@ -1,5 +1,5 @@
 <template>
-  <div class="bmap" id="bmap">
+  <div class="area" id="area">
   </div>
 </template>
 <script>
@@ -34,7 +34,7 @@ export default {
 
   methods: {
     initBmap() {
-      this.map = new BMap.Map('bmap');
+      this.map = new BMap.Map('area');
       this.point = new BMap.Point(this.codinrate.x, this.codinrate.y);
       // 创建点坐标
       this.map.centerAndZoom(this.point, 15);
@@ -72,9 +72,10 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-  .bmap{
+  .area{
     height: 100%;
   }
 </style>
+
 
 
