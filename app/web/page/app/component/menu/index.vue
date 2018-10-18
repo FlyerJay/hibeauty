@@ -6,6 +6,7 @@
       <van-cell is-link icon="location" to="/address">地址信息</van-cell>
       <van-cell is-link icon="shopping-cart" to="/area">活跃区域</van-cell>
       <van-cell is-link icon="phone" to="/contact">联系人人信息</van-cell>
+      <van-cell is-link icon="phone" to="/trail">轨迹回放</van-cell>
     </van-cell-group>
   </div>
 </template>

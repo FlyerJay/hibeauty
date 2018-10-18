@@ -59,7 +59,7 @@ export default {
             const points = me.points = rs.getPlan(0).getRoute(0).getPath();
             // 画面移动到起点和终点的中间
             const centerPoint = me.centerPoint = new BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
-            me.map.panTo(centerPoint);
+            // me.map.panTo(centerPoint);
             // 连接所有点
             // me.map.addOverlay(new BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
             me.car = new BMap.Marker(points[0]);

@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <div class="wrapper" ref="wrapper">
+    <div class="wrapper" ref="wrapper" :class="{ 'show-menu': isMenu }">
       <d-header :nextBtn="true" :onNextBtnClick="toggleMenu"></d-header>
 
       <div class="defend-btn-wrapper" :class="{'active': isOpen}">
@@ -49,15 +49,15 @@ export default {
     },
 
     toggleMenu() {
-      const parentNode = this.$refs.wrapper;
-      const classNames = parentNode.className.split(' ');
-      const index = classNames.indexOf('show-menu');
-      if (index === -1) {
-        classNames.push('show-menu');
-      } else {
-        classNames.splice(index, 1);
-      }
-      parentNode.className = classNames.join(' ');
+      // const parentNode = this.$refs.wrapper;
+      // const classNames = parentNode.className.split(' ');
+      // const index = classNames.indexOf('show-menu');
+      // if (index === -1) {
+      //   classNames.push('show-menu');
+      // } else {
+      //   classNames.splice(index, 1);
+      // }
+      // parentNode.className = classNames.join(' ');
       this.isMenu = !this.isMenu;
     }
   }
@@ -73,6 +73,10 @@ export default {
       transition: all .3s ease;
       &.show-menu{
         transform: translateX(-200px);
+      }
+      .iconfont{
+        transition: all .3s ease;
+        display: inline-block;
       }
     }
   }
@@ -127,3 +131,16 @@ export default {
     .slideOutRight;
   }
 </style>
+<style lang="less">
+  .index{
+    .wrapper{
+      &.show-menu{
+        .iconfont{
+          
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+</style>
+

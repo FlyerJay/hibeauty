@@ -18,6 +18,7 @@ export default {
         strokeStyle: 'solid' // 边线的样式，solid或dashed。
       },
       drawingManager: {}, // 绘制工具
+      area: '', // 活跃区域
     };
   },
 
@@ -29,7 +30,8 @@ export default {
     // 标注所在位置
     this.markerPosition();
     // 添加绘制工具
-    this.addDrawingManager();
+    // this.addDrawingManager();
+    this.bindEvents();
   },
 
   methods: {
@@ -66,6 +68,22 @@ export default {
         polylineOptions: this.styleOptions, // 线的样式
         polygonOptions: this.styleOptions, // 多边形的样式
         rectangleOptions: this.styleOptions // 矩形的样式
+      });
+    },
+
+    bindEvents() {
+      const me = this;
+      const points = [];
+      this.map.addEventListener('click', function(event) {
+        points.push(event.point);
+
+        if (points.length > 1) {
+          if (me.area) {
+            me.map.removeOverlay(me.area);
+          }
+          me.area = new BMap.Polygon(points);
+          me.map.addOverlay(me.area);
+        }
       });
     }
   }
