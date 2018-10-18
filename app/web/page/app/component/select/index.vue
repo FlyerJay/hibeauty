@@ -7,7 +7,9 @@
       :clearable="clearable" 
       :placeholder="placeholder" 
       :left-icon="leftIcon"
-      @focus="popupShow = true">
+      :readonly="true"
+      @focus="popupShow = true"
+      >
     </van-field>
     <input type="hidden" :value="currentValue">
     <van-popup 
