@@ -18,6 +18,7 @@ const actions = {
       const trail = vm.$storage.get('trail');
       const area = vm.$storage.get('area');
       const olderuser = vm.$storage.get('olderuser');
+      const opendefence = vm.$storage.get('opendefence');
 
       personal && commit('SAVE_PERSONAL', personal);
       address && commit('SAVE_ADDRESS', address);
@@ -25,6 +26,7 @@ const actions = {
       trail && commit('SAVE_TRAIL', trail);
       area && commit('SAVE_AREA', area);
       olderuser && commit('MARK_AS_OLDUSER');
+      opendefence && commit('CHANGE_DEFENCE_STATE', opendefence);
 
       console.log('成功刷新数据');
     }

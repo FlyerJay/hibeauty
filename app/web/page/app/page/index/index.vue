@@ -3,9 +3,9 @@
     <div class="wrapper" ref="wrapper" :class="{ 'show-menu': isMenu }">
       <d-header :nextBtn="true" :onNextBtnClick="toggleMenu"></d-header>
 
-      <div class="defend-btn-wrapper" :class="{'active': isOpen}">
+      <div class="defend-btn-wrapper" :class="{'active': opendefence}">
         <button @click="changeOpenState">
-          <span v-if="isOpen">
+          <span v-if="opendefence">
             守护中
           </span>
           <span v-else>
@@ -15,7 +15,7 @@
       </div>
 
       <aside>
-        <p v-if="isOpen">保持应用开启，有助于更好地预警你的安全状态</p>
+        <p v-if="opendefence">保持应用开启，有助于更好地预警你的安全状态</p>
         <p v-else>即刻开启点滴守护，预警你的安全状态</p>
       </aside>
     </div>
@@ -27,37 +27,37 @@
 <script>
 import Header from '../../component/header';
 import Menu from '../../component/menu';
+import { mapState } from 'vuex';
 export default {
   data() {
     return {
-      isOpen: false,
+      opendefence: false,
       isMenu: false
     };
   },
+
+  computed: {
+    ...mapState({
+      _opendefence: state => state.opendefence
+    })
+  },
+
   components: {
     'd-header': Header,
     'd-menu': Menu,
   },
-  preFetch({ state, dispatch, commit }) {
-    // return Promise.all([dispatch('FETCH_ALBUM_LIST', { page: this.page })]);
-  },
+
   mounted() {
+    this.opendefence = this._opendefence;
   },
+
   methods: {
     changeOpenState() {
-      this.isOpen = !this.isOpen;
+      this.opendefence = !this.opendefence;
+      this.$store.commit('CHANGE_DEFENCE_STATE', this.opendefence);
     },
 
     toggleMenu() {
-      // const parentNode = this.$refs.wrapper;
-      // const classNames = parentNode.className.split(' ');
-      // const index = classNames.indexOf('show-menu');
-      // if (index === -1) {
-      //   classNames.push('show-menu');
-      // } else {
-      //   classNames.splice(index, 1);
-      // }
-      // parentNode.className = classNames.join(' ');
       this.isMenu = !this.isMenu;
     }
   }

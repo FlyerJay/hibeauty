@@ -1,9 +1,12 @@
 <template>
-  <div class="area" id="area">
+  <div class="area">
+    <d-tip :level="level"></d-tip>
+    <div id="map"></div>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex';
+import Tip from '../../../component/tip';
 export default {
   data() {
     return {
@@ -21,36 +24,67 @@ export default {
       drawingManager: {}, // 绘制工具
       area: '', // 活跃区域
       areaList: '', // 活跃区域列表
+      address: '', // 用户位置信息
+      warnArea: '', // 警告区域
+      dangerArea: '', // 危险区域
+      alertDialog: true, // 是否弹框
+      level: 0, // 安全等级
     };
   },
 
   computed: {
     ...mapState({
-      _area: state => state.area
+      _area: state => state.area,
+      _address: state => state.address
     })
   },
 
+  components: {
+    'd-tip': Tip,
+  },
+
   mounted() {
+    this.address = this._address;
     // 初始化百度地图
     this.initBmap();
-    // 初始化地图控件
-    this.initControl();
-    // 标注所在位置
-    this.markerPosition();
-    // 添加绘制工具
-    // this.addDrawingManager();
-    // 初始化活跃区域
-    this.initArea();
-    // 绑定事件
-    this.bindEvents();
   },
 
   methods: {
     initBmap() {
-      this.map = new BMap.Map('area');
-      this.point = new BMap.Point(this.codinrate.x, this.codinrate.y);
+      console.log(11);
+      if (typeof BMap === 'undefined') {
+        return setTimeout(() => {
+          this.initBmap();
+        }, 200);
+      }
+      this.map = new BMap.Map('map');
+      this.home = {
+        x: this.address.homelocation.lng,
+        y: this.address.homelocation.lat
+      };
+      this.company = {
+        x: this.address.companylocation.lng,
+        y: this.address.companylocation.lat
+      };
+      this.center = {
+        x: (this.home.x + this.company.x) / 2,
+        y: (this.home.y + this.company.y) / 2
+      };
+      this.homePoint = new BMap.Point(this.home.x, this.home.y);
+      this.companyPoint = new BMap.Point(this.company.x, this.company.y);
+      this.point = new BMap.Point(this.center.x, this.center.y);
+
+      // console.log(this.computeEuclidDistance(this.home, this.center));
+      // // this.point = new BMap.Point(this.codinrate.x, this.codinrate.y);
       // 创建点坐标
-      this.map.centerAndZoom(this.point, 15);
+      this.map.centerAndZoom(this.point, 11);
+
+      // 初始化地图控件
+      this.initControl();
+      // 标注所在位置
+      this.markerPosition();
+      // 画出路径
+      this.drawRoutePath();
     },
 
     initControl() {
@@ -62,9 +96,28 @@ export default {
     },
 
     markerPosition() {
-      const marker = new BMap.Marker(this.point);
-      marker.enableDragging();
-      this.map.addOverlay(marker);
+      // const marker = new BMap.Marker(this.point);
+      // this.map.addOverlay(marker);
+
+      // 标记家的位置
+      const homeMarker = new BMap.Marker(this.homePoint);
+      this.map.addOverlay(homeMarker);
+
+      // 标记公司位置
+      const companyMarker = new BMap.Marker(this.companyPoint);
+      this.map.addOverlay(companyMarker);
+
+      this.area = new BMap.Circle(new BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
+      this.dengerArea = new BMap.Circle(new BMap.Point(this.center.x, this.center.y),
+        this.computeEuclidDistance(this.center, this.home) * 2, Object.assign(this.styleOptions, {
+          strokeColor: 'red', // 边线颜色
+          fillColor: 'white', // 填充颜色。当参数为空时，圆形将没有填充效果。
+          fillOpacity: 0.1,
+        }));
+      // this.dengerArea = new BMap.Circle(new BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
+      this.map.addOverlay(this.area);
+      this.map.addOverlay(this.dengerArea);
+      // this.map.addOverlay(this.dengerArea);
     },
 
     initArea() {
@@ -104,6 +157,71 @@ export default {
           me.map.addOverlay(me.area);
         }
       });
+    },
+
+    // 计算两点间的欧式距离
+    computeEuclidDistance(pointX, pointY) {
+      return Math.sqrt(((pointX.x - pointY.x) * (pointX.x - pointY.x)) + ((pointX.y - pointY.y) * (pointX.y - pointY.y))) / 0.00001 * 1.5;
+    },
+
+    drawRoutePath() {
+      const me = this;
+      const map = this.map;
+      const destination1 = this.address.destination1;
+      const destination2 = this.address.destination2;
+      let flag = false;
+      const route = this.route = new BMap.DrivingRoute(map, {
+        // renderOptions: { map },
+        onSearchComplete(rs) {
+          if (route.getStatus() === BMAP_STATUS_SUCCESS) {
+            const points = me.points = rs.getPlan(0).getRoute(0).getPath();
+            // 画面移动到起点和终点的中间
+            const centerPoint = me.centerPoint = new BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
+            // me.map.panTo(centerPoint);
+            // 连接所有点
+            // me.map.addOverlay(new BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
+            me.car = new BMap.Marker(points[0]);
+            me.map.addOverlay(me.car);
+            // 回放轨迹
+            me.trailRoute(0, function() {
+              if (flag) return;
+              route.search(new BMap.Point(destination1.lng, destination1.lat), new BMap.Point(destination2.lng, destination2.lat));
+              flag = true;
+            });
+          }
+        }
+      });
+      route.search(this.companyPoint, new BMap.Point(destination1.lng, destination1.lat));
+    },
+
+    trailRoute(index = 0, callback) {
+      const points = this.points;
+      const point = points[index];
+      const car = this.car;
+      if (index > 0) {
+        this.map.addOverlay(new BMap.Polyline([points[index - 1], point], { strokeColor: 'red', strokeWeight: 3, strokeOpacity: 1 }));
+      }
+      car.setPosition(point);
+      index++;
+      if (index < points.length) {
+        this.timer = window.setTimeout(() => {
+          this.trailRoute(index, callback);
+        }, 30);
+      } else {
+        this.map.panTo(point);
+        callback && callback();
+      }
+
+      const isInArea = BMapLib.GeoUtils.isPointInCircle(point, this.area);
+      // const isInWarnArea = BMapLib.GeoUtils.isPointInCircle(point, this.warnArea);
+      const isInDangerArea = BMapLib.GeoUtils.isPointInCircle(point, this.dengerArea);
+      if (!isInDangerArea) {
+        // 非常危险，直接发短信
+        this.level = 2;
+      } else if (!isInArea) {
+        // 有危险，提示用户确认
+        this.level = 1;
+      }
     }
   },
 
@@ -121,6 +239,10 @@ export default {
 <style lang="less" scoped>
   .area{
     height: 100%;
+    #map{
+      height: 100%;
+      width: 100%;
+    }
   }
 </style>
 

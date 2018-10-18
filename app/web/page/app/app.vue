@@ -60,10 +60,10 @@
 
     beforeMount() {
       this.$store.dispatch('FLUSH_APPLICATION_DATA');
-      // if (!this.$store.state.olduser) {
-      //   this.$router.push('/firstin');
-      //   this.$store.commit('MARK_AS_OLDUSER');
-      // }
+      if (!this.$store.state.opendefence) {
+        this.$router.push('/firstin');
+        // this.$store.commit('MARK_AS_OLDUSER');
+      }
     }
   };
 </script>
@@ -175,48 +175,54 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .icon-contact:before {
+  .van-icon {
+    position: relative;
+    display: inline-block;
+    font-family: "iconfont", "vant-icon" !important;
+    font-size: 16px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .van-icon-contact:before {
     content: "\e626";
   }
 
-  .icon-type:before {
+  .van-icon-type:before {
     content: "\e6a5";
   }
 
-  .icon-area:before {
-    content: "\e6ba";
-  }
-
-  .icon-user:before {
+  .van-icon-user:before {
     content: "\e645";
   }
 
-  .icon-time:before {
+  .van-icon-time:before {
     content: "\e61d";
   }
 
-  .icon-security:before {
+  .van-icon-security:before {
     content: "\e602";
   }
 
-  .icon-ins:before {
+  .van-icon-ins:before {
     content: "\e601";
   }
 
-  .icon-phone:before {
+  .van-icon-phone:before {
     content: "\e604";
   }
 
-  .icon-trail:before {
-    content: "\e74b";
-  }
-
-  .icon-location:before {
+  .van-icon-location:before {
     content: "\e63a";
   }
 
   .icon-add:before {
     content: "\e600";
+  }
+
+  .van-icon-area::before{
+    content: "\e6ba";
   }
 
   .van-icon-trail::before{

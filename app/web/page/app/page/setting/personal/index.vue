@@ -2,7 +2,7 @@
   <div class="personal">
     <d-header></d-header>
     <van-cell-group>
-      <van-field left-icon="like" v-model="personal.name" placeholder="姓名" :clearable="true"/>
+      <van-field left-icon="user" v-model="personal.name" placeholder="姓名" :clearable="true"/>
       <d-select left-icon="more" v-model="personal.sex" placeholder="性别" :clearable="true" :options="sexList"></d-select>
       <van-field left-icon="browsing-history" v-model="personal.age" placeholder="年龄" :clearable="true"/>
       <d-select left-icon="receive-gift" v-model="personal.marry" placeholder="婚姻状况" :clearable="true" :options="marryList"></d-select>

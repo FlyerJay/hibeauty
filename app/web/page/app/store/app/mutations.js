@@ -7,7 +7,8 @@ import {
   SAVE_AREA,
   SAVE_TRAIL,
   SAVE_CONTACT,
-  CHANGE_PAGE_TURN_ANIMATE
+  CHANGE_PAGE_TURN_ANIMATE,
+  CHANGE_DEFENCE_STATE
 } from './mutation-type';
 
 import Vue from 'vue';
@@ -40,6 +41,10 @@ const mutations = {
   [MARK_AS_OLDUSER](state) {
     state.firstIn = false;
     !Vue.prototype.$isServer && vm.$storage.set('olduser', true);
+  },
+  [CHANGE_DEFENCE_STATE](state, status) {
+    state.opendefence = status;
+    !Vue.prototype.$isServer && vm.$storage.set('opendefence', status);
   }
 };
 export default mutations;

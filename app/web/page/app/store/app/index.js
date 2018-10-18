@@ -9,6 +9,7 @@ import mutations from './mutations';
 Vue.use(Vuex);
 
 const state = {
+  opendefence: false, // 是否开启守护
   olduser: false, // 是否老用户
   personal: {}, // 用户信息
   address: {}, // 地址信息

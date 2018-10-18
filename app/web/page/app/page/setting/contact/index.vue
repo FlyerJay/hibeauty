@@ -3,14 +3,14 @@
     <d-header></d-header>
     <h2>家庭联系人</h2>
     <van-cell-group>
-      <van-field left-icon="like" v-model="contact.home.name" placeholder="姓名" :clearable="true"/>
-      <van-field left-icon="more" v-model="contact.home.phone" placeholder="电话" :clearable="true"/>
+      <van-field left-icon="user" v-model="contact.home.name" placeholder="姓名" :clearable="true"/>
+      <van-field left-icon="phone" v-model="contact.home.phone" placeholder="电话" :clearable="true"/>
     </van-cell-group>
 
     <h2>其他联系人</h2>
     <van-cell-group>
-      <van-field left-icon="like" v-model="contact.other.name" placeholder="姓名" :clearable="true"/>
-      <van-field left-icon="more" v-model="contact.other.phone" placeholder="电话" :clearable="true"/>
+      <van-field left-icon="user" v-model="contact.other.name" placeholder="姓名" :clearable="true"/>
+      <van-field left-icon="phone" v-model="contact.other.phone" placeholder="电话" :clearable="true"/>
     </van-cell-group>
   </div>
 </template>

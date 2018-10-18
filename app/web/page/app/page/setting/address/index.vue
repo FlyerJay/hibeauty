@@ -3,14 +3,14 @@
     <d-header></d-header>
     <van-cell-group>
       <van-field left-icon="location" v-model="address.home" placeholder="居住地址" :clearable="true"/>
-      <van-field left-icon="more" v-model="address.security" placeholder="小区安保" :clearable="true"/>
-      <van-field left-icon="browsing-history" v-model="address.type" placeholder="居住方式" :clearable="true"/>
+      <van-field left-icon="security" v-model="address.security" placeholder="小区安保" :clearable="true"/>
+      <van-field left-icon="type" v-model="address.type" placeholder="居住方式" :clearable="true"/>
     </van-cell-group>
     <van-cell-group>
       <van-field left-icon="location" v-model="address.company" placeholder="公司地址" :clearable="true"/>
-      <van-field left-icon="checked" v-model="address.institution" placeholder="工作制度" :clearable="true"/>
-      <d-datepicker left-icon="underway" v-model="address.start" placeholder="上班时间" :clearable="true"></d-datepicker>
-      <d-datepicker left-icon="underway" v-model="address.end" placeholder="下班时间" :clearable="true"></d-datepicker>
+      <van-field left-icon="ins" v-model="address.institution" placeholder="工作制度" :clearable="true"/>
+      <d-datepicker left-icon="time" v-model="address.start" placeholder="上班时间" :clearable="true"></d-datepicker>
+      <d-datepicker left-icon="time" v-model="address.end" placeholder="下班时间" :clearable="true"></d-datepicker>
     </van-cell-group>
   </div>
 </template>
@@ -32,7 +32,9 @@ export default {
         company: '', // 公司地址
         institution: '', // 公司制度
         start: '', // 上班时间
-        end: '' // 下班时间
+        end: '', // 下班时间
+        homelocation: '', // 家坐标
+        companylocation: '', // 公司坐标
       }
     };
   },
