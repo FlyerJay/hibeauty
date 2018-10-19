@@ -3,11 +3,11 @@
     <d-header></d-header>
     <van-cell-group>
       <van-field left-icon="user" v-model="personal.name" placeholder="姓名" :clearable="true"/>
-      <d-select left-icon="more" v-model="personal.sex" placeholder="性别" :clearable="true" :options="sexList"></d-select>
-      <van-field left-icon="browsing-history" v-model="personal.age" placeholder="年龄" :clearable="true"/>
-      <d-select left-icon="receive-gift" v-model="personal.marry" placeholder="婚姻状况" :clearable="true" :options="marryList"></d-select>
-      <d-select left-icon="underway" v-model="personal.health" placeholder="健康状况" :clearable="true" :options="healthList"></d-select>
-      <d-select left-icon="warn" v-model="personal.job" placeholder="职业状况" :clearable="true" :options="jobList"></d-select>
+      <d-select left-icon="sex" v-model="personal.sex" placeholder="性别" :clearable="true" :options="sexList"></d-select>
+      <van-field left-icon="age" v-model="personal.age" placeholder="年龄" :clearable="true"/>
+      <d-select left-icon="marray" v-model="personal.marry" placeholder="婚姻状况" :clearable="true" :options="marryList"></d-select>
+      <d-select left-icon="health" v-model="personal.health" placeholder="健康状况" :clearable="true" :options="healthList"></d-select>
+      <d-select left-icon="job" v-model="personal.job" placeholder="职业状况" :clearable="true" :options="jobList"></d-select>
     </van-cell-group>
   </div>
 </template>

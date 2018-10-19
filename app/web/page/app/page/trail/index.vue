@@ -3,6 +3,7 @@
   <div class="trail" id="trail"></div>
 </template>
 <script>
+import mockData from '../../util/mockdata.js';
 export default {
   data() {
     return {
@@ -21,10 +22,13 @@ export default {
       ],
       route: '', // 路径
       timer: '', // 定时器
+      trailData: {}, // 回放数据
     };
   },
 
   mounted() {
+    const id = this.$route.query.id;
+    this.trailData = mockData[id].address;
     // 初始化百度地图
     this.initBmap();
     // 初始化地图控件
@@ -32,15 +36,15 @@ export default {
     // 创建路径
     this.createRoute();
     // 寻找路径
-    this.searchRoute();
+    // this.searchRoute();
   },
 
   methods: {
     initBmap() {
       this.map = new BMap.Map('trail');
-      this.point = new BMap.Point(this.codinrate.x, this.codinrate.y);
+      this.point = new BMap.Point(this.trailData.companylocation.lng, this.trailData.companylocation.lat);
       // 创建点坐标
-      this.map.centerAndZoom(this.point, 17);
+      this.map.centerAndZoom(this.point, 12);
     },
 
     initControl() {
@@ -52,7 +56,9 @@ export default {
     createRoute() {
       const me = this;
       const map = this.map;
-      const route = this.route = new BMap.WalkingRoute(map, {
+      const destination = this.trailData.destination;
+      let index = 0;
+      const route = this.route = new BMap.DrivingRoute(map, {
         // renderOptions: { map },
         onSearchComplete(rs) {
           if (route.getStatus() === BMAP_STATUS_SUCCESS) {
@@ -65,15 +71,20 @@ export default {
             me.car = new BMap.Marker(points[0]);
             me.map.addOverlay(me.car);
             // 回放轨迹
-            me.trailRoute();
+            me.trailRoute(0, function() {
+              if (!destination[index + 1]) return;
+              route.search(new BMap.Point(destination[index].lng, destination[index].lat), new BMap.Point(destination[index + 1].lng, destination[index + 1].lat));
+              index++;
+            });
           }
         }
       });
+      route.search(this.point, new BMap.Point(destination[index].lng, destination[index].lat));
     },
 
-    searchRoute() {
-      this.route.search(new BMap.Point(this.trails[0].x, this.trails[0].y), new BMap.Point(this.trails[1].x, this.trails[1].y));
-    },
+    // searchRoute() {
+    //   this.route.search(new BMap.Point(this.trails[0].x, this.trails[0].y), new BMap.Point(this.trails[1].x, this.trails[1].y));
+    // },
 
     trailRoute(index = 0) {
       const points = this.points;

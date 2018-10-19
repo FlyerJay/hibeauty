@@ -44,6 +44,7 @@ export default {
     updateMock(item) {
       this.$store.commit('SAVE_PERSONAL', item.personal);
       this.$store.commit('SAVE_ADDRESS', item.address);
+      this.$store.commit('SAVE_CONTACT', item.contact);
       this.$store.commit('CHANGE_DEFENCE_STATE', true);
       this.$router.push('/');
     }

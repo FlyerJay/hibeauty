@@ -51,7 +51,6 @@ export default {
 
   methods: {
     initBmap() {
-      console.log(11);
       if (typeof BMap === 'undefined') {
         return setTimeout(() => {
           this.initBmap();
@@ -167,9 +166,8 @@ export default {
     drawRoutePath() {
       const me = this;
       const map = this.map;
-      const destination1 = this.address.destination1;
-      const destination2 = this.address.destination2;
-      let flag = false;
+      const destination = this.address.destination;
+      let index = 0;
       const route = this.route = new BMap.DrivingRoute(map, {
         // renderOptions: { map },
         onSearchComplete(rs) {
@@ -184,14 +182,14 @@ export default {
             me.map.addOverlay(me.car);
             // 回放轨迹
             me.trailRoute(0, function() {
-              if (flag) return;
-              route.search(new BMap.Point(destination1.lng, destination1.lat), new BMap.Point(destination2.lng, destination2.lat));
-              flag = true;
+              if (!destination[index + 1]) return;
+              route.search(new BMap.Point(destination[index].lng, destination[index].lat), new BMap.Point(destination[index + 1].lng, destination[index + 1].lat));
+              index++;
             });
           }
         }
       });
-      route.search(this.companyPoint, new BMap.Point(destination1.lng, destination1.lat));
+      route.search(this.companyPoint, new BMap.Point(destination[index].lng, destination[index].lat));
     },
 
     trailRoute(index = 0, callback) {

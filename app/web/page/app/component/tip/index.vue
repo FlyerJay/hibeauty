@@ -49,11 +49,11 @@ export default {
 </script>
 <style lang="less" scoped>
   .tip{
-    .px2rem(height, 80);
-    .px2rem(line-height, 80);
+    .px2rem(height, 60);
+    .px2rem(line-height, 60);
     .px2rem(padding, 30);
-    .px2rem(padding-top, 10);
-    .px2rem(padding-bottom, 10);
+    .px2rem(padding-top, 20);
+    .px2rem(padding-bottom, 20);
     color: #fff;
     &.warning{
       background-color: #ff9900;
@@ -69,6 +69,7 @@ export default {
       button{
         .px2rem(padding-left, 20);
         .px2rem(padding-right, 20);
+        .px2rem(margin-left, 10);
         outline: none;
         border: none;
         &.error{

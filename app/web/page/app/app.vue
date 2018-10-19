@@ -201,6 +201,26 @@
     content: "\e61d";
   }
 
+  .van-icon-marray:before {
+    content: "\e72e";
+  }
+
+  .van-icon-age:before {
+    content: "\e849";
+  }
+
+  .van-icon-job:before {
+    content: "\e661";
+  }
+
+  .van-icon-sex:before {
+    content: "\e638";
+  }
+
+  .van-icon-health:before {
+    content: "\e625";
+  }
+
   .van-icon-security:before {
     content: "\e602";
   }
