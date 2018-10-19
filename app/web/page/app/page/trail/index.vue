@@ -4,22 +4,13 @@
 </template>
 <script>
 import mockData from '../../util/mockdata.js';
+import * as Icon from '../../util/customIcon.js';
+// const BMap = window.BMap;
 export default {
   data() {
     return {
-      codinrate: { x: 106.499074, y: 29.626498 }, // 定位坐标
       map: {}, // 地图实例
       point: {}, // 地图坐标点
-      trails: [
-        {
-          x: 106.499074,
-          y: 29.626498
-        },
-        {
-          x: 106.496797,
-          y: 29.629265
-        }
-      ],
       route: '', // 路径
       timer: '', // 定时器
       trailData: {}, // 回放数据
@@ -44,7 +35,7 @@ export default {
       this.map = new BMap.Map('trail');
       this.point = new BMap.Point(this.trailData.companylocation.lng, this.trailData.companylocation.lat);
       // 创建点坐标
-      this.map.centerAndZoom(this.point, 12);
+      this.map.centerAndZoom(this.point, 11);
     },
 
     initControl() {
@@ -68,7 +59,7 @@ export default {
             // me.map.panTo(centerPoint);
             // 连接所有点
             // me.map.addOverlay(new BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
-            me.car = new BMap.Marker(points[0]);
+            me.car = new BMap.Marker(points[0], { icon: Icon.walk, shadow: Icon.shadow });
             me.map.addOverlay(me.car);
             // 回放轨迹
             me.trailRoute(0, function() {
@@ -86,7 +77,7 @@ export default {
     //   this.route.search(new BMap.Point(this.trails[0].x, this.trails[0].y), new BMap.Point(this.trails[1].x, this.trails[1].y));
     // },
 
-    trailRoute(index = 0) {
+    trailRoute(index = 0, callback) {
       const points = this.points;
       const point = points[index];
       const car = this.car;
@@ -97,10 +88,11 @@ export default {
       index++;
       if (index < points.length) {
         this.timer = window.setTimeout(() => {
-          this.trailRoute(index);
-        }, 100);
+          this.trailRoute(index, callback);
+        }, 30);
       } else {
         this.map.panTo(point);
+        callback && callback();
       }
     }
   }

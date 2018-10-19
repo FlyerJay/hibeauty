@@ -7,6 +7,7 @@
 <script>
 import { mapState } from 'vuex';
 import Tip from '../../../component/tip';
+import * as Icon from '../../../util/customIcon.js';
 export default {
   data() {
     return {
@@ -18,7 +19,7 @@ export default {
         fillColor: 'green', // 填充颜色。当参数为空时，圆形将没有填充效果。
         strokeWeight: 3, // 边线的宽度，以像素为单位。
         strokeOpacity: 0.8, // 边线透明度，取值范围0 - 1。
-        fillOpacity: 0.6, // 填充的透明度，取值范围0 - 1。
+        fillOpacity: 0.1, // 填充的透明度，取值范围0 - 1。
         strokeStyle: 'solid' // 边线的样式，solid或dashed。
       },
       drawingManager: {}, // 绘制工具
@@ -99,11 +100,17 @@ export default {
       // this.map.addOverlay(marker);
 
       // 标记家的位置
-      const homeMarker = new BMap.Marker(this.homePoint);
+      const homeMarker = new BMap.Marker(this.homePoint, {
+        icon: Icon.home,
+        shadow: Icon.shadow
+      });
       this.map.addOverlay(homeMarker);
 
       // 标记公司位置
-      const companyMarker = new BMap.Marker(this.companyPoint);
+      const companyMarker = new BMap.Marker(this.companyPoint, {
+        icon: Icon.company,
+        shadow: Icon.shadow
+      });
       this.map.addOverlay(companyMarker);
 
       this.area = new BMap.Circle(new BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
@@ -178,7 +185,10 @@ export default {
             // me.map.panTo(centerPoint);
             // 连接所有点
             // me.map.addOverlay(new BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
-            me.car = new BMap.Marker(points[0]);
+            me.car = new BMap.Marker(points[0], {
+              icon: Icon.walk,
+              shadow: Icon.shadow
+            });
             me.map.addOverlay(me.car);
             // 回放轨迹
             me.trailRoute(0, function() {
