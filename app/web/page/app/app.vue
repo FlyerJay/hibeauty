@@ -60,11 +60,11 @@
 
     beforeMount() {
       this.$store.dispatch('FLUSH_APPLICATION_DATA');
-      this.$store.dispatch('SEND_DANGER_MESSAGE', {
-        mobile: 15178831138,
-        url: 'http://i.snowyet.cc/trail?id=0',
-        name: '费仁杰'
-      });
+      // this.$store.dispatch('SEND_DANGER_MESSAGE', {
+      //   mobile: 15178831138,
+      //   url: 'http://i.snowyet.cc/trail?id=0',
+      //   name: '费仁杰'
+      // });
       if (!this.$store.state.opendefence) {
         this.$router.push('/firstin');
         // this.$store.commit('MARK_AS_OLDUSER');
