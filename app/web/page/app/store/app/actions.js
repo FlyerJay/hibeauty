@@ -53,8 +53,18 @@ const actions = {
   SEND_DANGER_MESSAGE: ({ commit, dispatch, state }, params) => {
     return axios({
       method: 'post',
-      url: 'http://i.snowyet.cc/send',
-      data: params
+      url: '/send',
+      data: params,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      transformRequest: [function(data) {
+        let ret = '';
+        for (const it in data) {
+          ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&';
+        }
+        return ret;
+      }]
     });
   }
 };
