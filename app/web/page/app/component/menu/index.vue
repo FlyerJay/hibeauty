@@ -5,7 +5,8 @@
       <van-cell is-link icon="user" to="/personal">个人信息</van-cell>
       <van-cell is-link icon="location" to="/address">地址信息</van-cell>
       <van-cell is-link icon="phone" to="/contact">联系人人信息</van-cell>
-      <van-cell is-link icon="area" to="/area">活跃区域</van-cell>
+      <van-cell is-link icon="area" to="/area">行为监控</van-cell>
+      <van-cell icon="quit" @click="quit">清除缓存</van-cell>
       <!-- <van-cell is-link icon="trail" to="/trail">轨迹回放</van-cell> -->
     </van-cell-group>
   </div>
@@ -22,7 +23,15 @@ export default {
 
   props: {
     show: false
-  }
+  },
+
+  methods: {
+    quit() {
+      this.$store.dispatch('CLEAR_APPLICATION_DATA').then(() => {
+        this.$router.push('/firstin');
+      });
+    }
+  },
 };
 </script>
 <style lang="less" scoped>

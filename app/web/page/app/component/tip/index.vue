@@ -13,6 +13,8 @@
 </template>
 <script>
 const LEVEL = 'level';
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
@@ -40,9 +42,21 @@ export default {
     }
   },
 
+  computed: {
+    ...mapState({
+      personal: state => state.personal,
+      contact: state => state.contact,
+    })
+  },
+
   methods: {
     sendMessage() {
       // 发出危险短信
+      this.$store.dispatch('SEND_DANGER_MESSAGE', {
+        url: 'http://i.snowyet.cc?id=' + this.personal.index,
+        mobile: this.contact.home.phone || this.contact.other.phone,
+        name: this.personal.name
+      });
     }
   }
 };

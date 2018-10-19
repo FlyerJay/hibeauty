@@ -11,7 +11,7 @@
       <van-cell is-link icon="user" to="/personal">个人信息</van-cell>
       <van-cell is-link icon="location" to="/address">地址信息</van-cell>
       <van-cell is-link icon="phone" to="/contact">联系人人信息</van-cell>
-      <van-cell is-link icon="area" to="/area">活跃区域</van-cell>
+      <!-- <van-cell is-link icon="area" to="/area">活跃区域</van-cell> -->
     </van-cell-group>
 
     <div class="mock-list" v-for="(item, index) in mocks" :key="index">

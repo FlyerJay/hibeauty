@@ -32,10 +32,27 @@ const actions = {
     }
   },
 
+  // 清除应用数据
+  CLEAR_APPLICATION_DATA: ({ commit, dispatch, state }, params) => {
+    commit('SAVE_PERSONAL', {});
+    commit('SAVE_ADDRESS', {});
+    commit('SAVE_CONTACT', {});
+    commit('SAVE_TRAIL', {});
+    commit('SAVE_AREA', {});
+    commit('CHANGE_DEFENCE_STATE', false);
+
+    console.log('成功清除数据');
+  },
+
   // 切换页面动画效果
   CHANGE_PAGE_TURN_ANIMATE: ({ commit, dispatch, state }, animate) => {
     commit(Type.CHANGE_PAGE_TURN_ANIMATE, animate);
   },
+
+  // 发出危险短信
+  SEND_DANGER_MESSAGE: ({ commit, dispatch, state }, params) => {
+    return axios.post('http://i.snowyet.cc/send', params);
+  }
 };
 
 export default actions;

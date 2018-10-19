@@ -44,7 +44,9 @@ export default {
   },
 
   mounted() {
-    this.contact = this._contact;
+    // if (this._contact.home.phone || this._contact.other.phone) {
+    this.contact = Object.assign({}, this.contact, this._contact);
+    // }
   },
 
   components: {

@@ -57,7 +57,8 @@ export default {
           this.initBmap();
         }, 200);
       }
-      this.map = new BMap.Map('map');
+      this.map = new window.BMap.Map('map');
+      if (!this.address.homelocation) return;
       this.home = {
         x: this.address.homelocation.lng,
         y: this.address.homelocation.lat
@@ -70,12 +71,12 @@ export default {
         x: (this.home.x + this.company.x) / 2,
         y: (this.home.y + this.company.y) / 2
       };
-      this.homePoint = new BMap.Point(this.home.x, this.home.y);
-      this.companyPoint = new BMap.Point(this.company.x, this.company.y);
-      this.point = new BMap.Point(this.center.x, this.center.y);
+      this.homePoint = new window.BMap.Point(this.home.x, this.home.y);
+      this.companyPoint = new window.BMap.Point(this.company.x, this.company.y);
+      this.point = new window.BMap.Point(this.center.x, this.center.y);
 
       // console.log(this.computeEuclidDistance(this.home, this.center));
-      // // this.point = new BMap.Point(this.codinrate.x, this.codinrate.y);
+      // // this.point = new window.BMap.Point(this.codinrate.x, this.codinrate.y);
       // 创建点坐标
       this.map.centerAndZoom(this.point, 11);
 
@@ -88,39 +89,39 @@ export default {
     },
 
     initControl() {
-      this.map.addControl(new BMap.NavigationControl());
-      this.map.addControl(new BMap.ScaleControl());
-      this.map.addControl(new BMap.OverviewMapControl());
-      // this.map.addControl(new BMap.MapTypeControl());
+      this.map.addControl(new window.BMap.NavigationControl());
+      this.map.addControl(new window.BMap.ScaleControl());
+      this.map.addControl(new window.BMap.OverviewMapControl());
+      // this.map.addControl(new window.BMap.MapTypeControl());
       this.map.setCurrentCity('重庆');
     },
 
     markerPosition() {
-      // const marker = new BMap.Marker(this.point);
+      // const marker = new window.BMap.Marker(this.point);
       // this.map.addOverlay(marker);
 
       // 标记家的位置
-      const homeMarker = new BMap.Marker(this.homePoint, {
+      const homeMarker = new window.BMap.Marker(this.homePoint, {
         icon: Icon.home,
         shadow: Icon.shadow
       });
       this.map.addOverlay(homeMarker);
 
       // 标记公司位置
-      const companyMarker = new BMap.Marker(this.companyPoint, {
+      const companyMarker = new window.BMap.Marker(this.companyPoint, {
         icon: Icon.company,
         shadow: Icon.shadow
       });
       this.map.addOverlay(companyMarker);
 
-      this.area = new BMap.Circle(new BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
-      this.dengerArea = new BMap.Circle(new BMap.Point(this.center.x, this.center.y),
+      this.area = new window.BMap.Circle(new window.BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
+      this.dengerArea = new window.BMap.Circle(new window.BMap.Point(this.center.x, this.center.y),
         this.computeEuclidDistance(this.center, this.home) * 2, Object.assign(this.styleOptions, {
           strokeColor: 'red', // 边线颜色
           fillColor: 'white', // 填充颜色。当参数为空时，圆形将没有填充效果。
           fillOpacity: 0.1,
         }));
-      // this.dengerArea = new BMap.Circle(new BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
+      // this.dengerArea = new window.BMap.Circle(new window.BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
       this.map.addOverlay(this.area);
       this.map.addOverlay(this.dengerArea);
       // this.map.addOverlay(this.dengerArea);
@@ -129,18 +130,18 @@ export default {
     initArea() {
       this.areaList = this._area;
       if (this.areaList.type === 'polygon') {
-        this.area = new BMap.Polygon(this.areaList.points, this.styleOptions);
+        this.area = new window.BMap.Polygon(this.areaList.points, this.styleOptions);
         this.map.addOverlay(this.area);
       }
     },
 
     addDrawingManager() {
-      this.drawingManager = new BMapLib.DrawingManager(this.map, {
+      this.drawingManager = new window.BMapLib.DrawingManager(this.map, {
         isOpen: true, // 是否开启绘制模式
         enableDrawingTool: true, // 是否显示工具栏
         drawingToolOptions: {
-          anchor: BMAP_ANCHOR_TOP_RIGHT, // 位置
-          offset: new BMap.Size(5, 5), // 偏离值
+          anchor: window.BMAP_ANCHOR_TOP_RIGHT, // 位置
+          offset: new window.BMap.Size(5, 5), // 偏离值
         },
         circleOptions: this.styleOptions, // 圆的样式
         polylineOptions: this.styleOptions, // 线的样式
@@ -159,7 +160,7 @@ export default {
           if (me.area) {
             me.map.removeOverlay(me.area);
           }
-          me.area = new BMap.Polygon(points, me.styleOptions);
+          me.area = new window.BMap.Polygon(points, me.styleOptions);
           me.map.addOverlay(me.area);
         }
       });
@@ -175,17 +176,17 @@ export default {
       const map = this.map;
       const destination = this.address.destination;
       let index = 0;
-      const route = this.route = new BMap.DrivingRoute(map, {
+      const route = this.route = new window.BMap.DrivingRoute(map, {
         // renderOptions: { map },
         onSearchComplete(rs) {
-          if (route.getStatus() === BMAP_STATUS_SUCCESS) {
+          if (route.getStatus() === window.BMAP_STATUS_SUCCESS) {
             const points = me.points = rs.getPlan(0).getRoute(0).getPath();
             // 画面移动到起点和终点的中间
-            const centerPoint = me.centerPoint = new BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
+            const centerPoint = me.centerPoint = new window.BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
             // me.map.panTo(centerPoint);
             // 连接所有点
-            // me.map.addOverlay(new BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
-            me.car = new BMap.Marker(points[0], {
+            // me.map.addOverlay(new window.BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
+            me.car = new window.BMap.Marker(points[0], {
               icon: Icon.walk,
               shadow: Icon.shadow
             });
@@ -193,13 +194,13 @@ export default {
             // 回放轨迹
             me.trailRoute(0, function() {
               if (!destination[index + 1]) return;
-              route.search(new BMap.Point(destination[index].lng, destination[index].lat), new BMap.Point(destination[index + 1].lng, destination[index + 1].lat));
+              route.search(new window.BMap.Point(destination[index].lng, destination[index].lat), new window.BMap.Point(destination[index + 1].lng, destination[index + 1].lat));
               index++;
             });
           }
         }
       });
-      route.search(this.companyPoint, new BMap.Point(destination[index].lng, destination[index].lat));
+      route.search(this.companyPoint, new window.BMap.Point(destination[index].lng, destination[index].lat));
     },
 
     trailRoute(index = 0, callback) {
@@ -207,7 +208,7 @@ export default {
       const point = points[index];
       const car = this.car;
       if (index > 0) {
-        this.map.addOverlay(new BMap.Polyline([points[index - 1], point], { strokeColor: 'red', strokeWeight: 3, strokeOpacity: 1 }));
+        this.map.addOverlay(new window.BMap.Polyline([points[index - 1], point], { strokeColor: 'red', strokeWeight: 3, strokeOpacity: 1 }));
       }
       car.setPosition(point);
       index++;
@@ -220,9 +221,9 @@ export default {
         callback && callback();
       }
 
-      const isInArea = BMapLib.GeoUtils.isPointInCircle(point, this.area);
-      // const isInWarnArea = BMapLib.GeoUtils.isPointInCircle(point, this.warnArea);
-      const isInDangerArea = BMapLib.GeoUtils.isPointInCircle(point, this.dengerArea);
+      const isInArea = window.BMapLib.GeoUtils.isPointInCircle(point, this.area);
+      // const isInWarnArea = window.BMapLib.GeoUtils.isPointInCircle(point, this.warnArea);
+      const isInDangerArea = window.BMapLib.GeoUtils.isPointInCircle(point, this.dengerArea);
       if (!isInDangerArea) {
         // 非常危险，直接发短信
         this.level = 2;
