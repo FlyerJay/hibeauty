@@ -54,7 +54,12 @@ export default {
     .px2rem(padding, 30);
     .px2rem(padding-top, 20);
     .px2rem(padding-bottom, 20);
+    .px2rem(top, 0);
+    .px2rem(left, 0);
+    .px2rem(right, 0);
     color: #fff;
+    position: fixed;
+    z-index: 1000;
     &.warning{
       background-color: #ff9900;
     }
