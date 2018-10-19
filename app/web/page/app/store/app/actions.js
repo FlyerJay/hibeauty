@@ -51,7 +51,11 @@ const actions = {
 
   // 发出危险短信
   SEND_DANGER_MESSAGE: ({ commit, dispatch, state }, params) => {
-    return axios.post('http://i.snowyet.cc/send', params);
+    return axios({
+      method: 'post',
+      url: 'http://i.snowyet.cc/send',
+      data: params
+    });
   }
 };
 
