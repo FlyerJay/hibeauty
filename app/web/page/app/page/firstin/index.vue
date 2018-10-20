@@ -84,11 +84,12 @@ export default {
       color: #444;
       .mock-exp{
         float: left;
-        width: 33%;
+        width: 32%;
         .px2rem(height, 80);
         .px2rem(line-height, 80);
         background-color: #fff;
         text-align: center;
+        margin-left: 3%;
       }
     }
   }

@@ -71,14 +71,23 @@ export default {
         x: (this.home.x + this.company.x) / 2,
         y: (this.home.y + this.company.y) / 2
       };
-      this.homePoint = new window.BMap.Point(this.home.x, this.home.y);
-      this.companyPoint = new window.BMap.Point(this.company.x, this.company.y);
-      this.point = new window.BMap.Point(this.center.x, this.center.y);
+      if (!this.company.x) {
+        this.center = {
+          x: this.home.x,
+          y: this.home.y
+        };
+        this.homePoint = new window.BMap.Point(this.home.x, this.home.y);
+        this.point = new window.BMap.Point(this.center.x, this.center.y);
+      } else {
+        this.homePoint = new window.BMap.Point(this.home.x, this.home.y);
+        this.companyPoint = new window.BMap.Point(this.company.x, this.company.y);
+        this.point = new window.BMap.Point(this.center.x, this.center.y);
+      }
 
       // console.log(this.computeEuclidDistance(this.home, this.center));
       // // this.point = new window.BMap.Point(this.codinrate.x, this.codinrate.y);
       // 创建点坐标
-      this.map.centerAndZoom(this.point, 11);
+      this.map.centerAndZoom(this.point, this.address.scale);
 
       // 初始化地图控件
       this.initControl();
@@ -108,15 +117,17 @@ export default {
       this.map.addOverlay(homeMarker);
 
       // 标记公司位置
-      const companyMarker = new window.BMap.Marker(this.companyPoint, {
-        icon: Icon.company,
-        shadow: Icon.shadow
-      });
-      this.map.addOverlay(companyMarker);
+      if (this.companyPoint) {
+        const companyMarker = new window.BMap.Marker(this.companyPoint, {
+          icon: Icon.company,
+          shadow: Icon.shadow
+        });
+        this.map.addOverlay(companyMarker);
+      }
 
-      this.area = new window.BMap.Circle(new window.BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.home), this.styleOptions);
+      this.area = new window.BMap.Circle(new window.BMap.Point(this.center.x, this.center.y), this.computeEuclidDistance(this.center, this.company), this.styleOptions);
       this.dengerArea = new window.BMap.Circle(new window.BMap.Point(this.center.x, this.center.y),
-        this.computeEuclidDistance(this.center, this.home) * 2, Object.assign(this.styleOptions, {
+        this.computeEuclidDistance(this.center, this.company) * 2, Object.assign(this.styleOptions, {
           strokeColor: 'red', // 边线颜色
           fillColor: 'white', // 填充颜色。当参数为空时，圆形将没有填充效果。
           fillOpacity: 0.1,
@@ -136,7 +147,7 @@ export default {
     },
 
     addDrawingManager() {
-      this.drawingManager = new window.BMapLib.DrawingManager(this.map, {
+      this.drawingManager = new window.BMap.DrivingRoute(this.map, {
         isOpen: true, // 是否开启绘制模式
         enableDrawingTool: true, // 是否显示工具栏
         drawingToolOptions: {
@@ -168,6 +179,7 @@ export default {
 
     // 计算两点间的欧式距离
     computeEuclidDistance(pointX, pointY) {
+      if (!pointY.x) return 500;
       return Math.sqrt(((pointX.x - pointY.x) * (pointX.x - pointY.x)) + ((pointX.y - pointY.y) * (pointX.y - pointY.y))) / 0.00001 * 1.5;
     },
 
@@ -176,22 +188,26 @@ export default {
       const map = this.map;
       const destination = this.address.destination;
       const startpoint = this.address.startpoint;
+      const startPoint = new window.BMap.Point(startpoint.lng, startpoint.lat);
       let index = 0;
       me.car = new window.BMap.Marker(new window.BMap.Point(startpoint.lng, startpoint.lat), {
         icon: Icon.walk,
         shadow: Icon.shadow
       });
       me.map.addOverlay(me.car);
-      const route = this.route = new window.BMap.DrivingRoute(map, {
+      let routeType = '';
+      if (this.address.route === 'drive') {
+        routeType = window.BMap.DrivingRoute;
+      } else {
+        routeType = window.BMap.WalkingRoute;
+      }
+      const route = this.route = new routeType(map, {
         // renderOptions: { map },
         onSearchComplete(rs) {
           if (route.getStatus() === window.BMAP_STATUS_SUCCESS) {
             const points = me.points = rs.getPlan(0).getRoute(0).getPath();
             // 画面移动到起点和终点的中间
             const centerPoint = me.centerPoint = new window.BMap.Point((points[0].lng + points[points.length - 1].lng) / 2, (points[0].lat + points[points.length - 1].lat) / 2);
-            // me.map.panTo(centerPoint);
-            // 连接所有点
-            // me.map.addOverlay(new window.BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
             // 回放轨迹
             me.trailRoute(0, function() {
               if (destination[index].desc) {
@@ -202,13 +218,20 @@ export default {
                 });
                 me.map.openInfoWindow(infoWindow, new window.BMap.Point(destination[index].lng, destination[index].lat));
               }
-              if (!destination[index + 1]) return;
+              if (!destination[index + 1]) {
+                if (destination[index].danger) {
+                  me.car.setIcon(Icon.danger);
+                } else if (destination[index].warning) {
+                  me.setIcon(Icon.warning);
+                }
+                return;
+              }
               setTimeout(() => {
                 route.search(new window.BMap.Point(destination[index].lng, destination[index].lat), new window.BMap.Point(destination[index + 1].lng, destination[index + 1].lat));
                 me.map.closeInfoWindow();
                 if (destination[index].danger) {
                   const dangerMarker = new window.BMap.Marker(new window.BMap.Point(destination[index].lng, destination[index].lat), {
-                    icon: Icon.warning,
+                    icon: Icon.danger,
                     shadow: Icon.shadow
                   });
                   me.map.addOverlay(dangerMarker);
@@ -225,7 +248,7 @@ export default {
           }
         }
       });
-      route.search(this.companyPoint, new window.BMap.Point(destination[index].lng, destination[index].lat));
+      route.search(startPoint, new window.BMap.Point(destination[index].lng, destination[index].lat));
     },
 
     trailRoute(index = 0, callback) {
@@ -240,7 +263,7 @@ export default {
       if (index < points.length) {
         this.timer = window.setTimeout(() => {
           this.trailRoute(index, callback);
-        }, 30);
+        }, this.address.gutter);
       } else {
         this.map.panTo(point);
         callback && callback();
