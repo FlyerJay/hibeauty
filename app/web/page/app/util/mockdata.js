@@ -96,12 +96,12 @@ const users = [
       companylocation: { // 公司地址定位
       },
       startpoint: {
-        lng: 106.593349,
-        lat: 29.587503
+        lng: 106.595595,
+        lat: 29.587173
       },
       destination: [{ // 经过的点
-        lng: 106.593996,
-        lat: 29.586906,
+        lng: 106.594463,
+        lat: 29.588979,
         delay: 500,
         desc: '',
         danger: false,

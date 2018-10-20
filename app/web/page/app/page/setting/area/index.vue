@@ -220,6 +220,7 @@ export default {
               }
               if (!destination[index + 1]) {
                 if (destination[index].danger) {
+                  me.level = 2;
                   me.car.setIcon(Icon.danger);
                 } else if (destination[index].warning) {
                   me.setIcon(Icon.warning);
