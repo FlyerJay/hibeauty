@@ -45,14 +45,14 @@ const users = [
         lng: 106.642504,
         lat: 29.765379,
         delay: 3000,
-        desc: '在此停留超过4小时',
+        desc: '在此停留超过10分钟',
         danger: false,
         warning: true,
       }, {
         lng: 106.782712,
         lat: 29.767166,
         delay: 0,
-        desc: '在此停留超过2小时',
+        desc: '在此停留超过20分钟',
         danger: true,
         warning: true,
       }]
