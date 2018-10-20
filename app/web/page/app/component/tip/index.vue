@@ -53,7 +53,7 @@ export default {
     sendMessage() {
       // 发出危险短信
       this.$store.dispatch('SEND_DANGER_MESSAGE', {
-        url: 'http://i.snowyet.cc?id=' + this.personal.index,
+        url: 'http://i.snowyet.cc/trail?id=' + this.personal.index,
         mobile: this.contact.home.phone || this.contact.other.phone,
         name: this.personal.name
       });

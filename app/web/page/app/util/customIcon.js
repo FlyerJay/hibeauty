@@ -18,3 +18,5 @@ export const walk = generateIcon('http://i.snowyet.cc/static/img/p.gif');
 export const shadow = generateIcon('http://i.snowyet.cc/static/img/shadow.png');
 export const company = generateIcon('http://i.snowyet.cc/static/img/company.png');
 export const home = generateIcon('http://i.snowyet.cc/static/img/home.png');
+export const warning = generateIcon('http://i.snowyet.cc/static/img/warning1.png');
+export const danger = generateIcon('http://i.snowyet.cc/static/img/warning.png');

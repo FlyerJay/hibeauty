@@ -34,12 +34,24 @@ const users = [
         lng: 106.497267,
         lat: 29.627913
       },
+      startpoint: {
+        lng: 106.497267,
+        lat: 29.627913
+      },
       destination: [{ // 经过的点
-        lng: 106.467145,
-        lat: 29.767717
+        lng: 106.642504,
+        lat: 29.765379,
+        delay: 3000,
+        desc: '在此停留超过4小时',
+        danger: false,
+        warning: true,
       }, {
-        lng: 106.577795,
-        lat: 29.913189
+        lng: 106.782712,
+        lat: 29.767166,
+        delay: 0,
+        desc: '超过2小时没有行动',
+        danger: true,
+        warning: true,
       }]
     },
     contact: { // 联系人信息

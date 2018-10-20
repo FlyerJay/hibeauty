@@ -175,7 +175,13 @@ export default {
       const me = this;
       const map = this.map;
       const destination = this.address.destination;
+      const startpoint = this.address.startpoint;
       let index = 0;
+      me.car = new window.BMap.Marker(new window.BMap.Point(startpoint.lng, startpoint.lat), {
+        icon: Icon.walk,
+        shadow: Icon.shadow
+      });
+      me.map.addOverlay(me.car);
       const route = this.route = new window.BMap.DrivingRoute(map, {
         // renderOptions: { map },
         onSearchComplete(rs) {
@@ -186,16 +192,35 @@ export default {
             // me.map.panTo(centerPoint);
             // 连接所有点
             // me.map.addOverlay(new window.BMap.Polyline(points, { strokeColor: 'black', strokeWeight: 5, strokeOpacity: 1 }));
-            me.car = new window.BMap.Marker(points[0], {
-              icon: Icon.walk,
-              shadow: Icon.shadow
-            });
-            me.map.addOverlay(me.car);
             // 回放轨迹
             me.trailRoute(0, function() {
+              if (destination[index].desc) {
+                const infoWindow = new window.BMap.InfoWindow(destination[index].desc, {
+                  title: '',
+                  width: 80,
+                  height: 30,
+                });
+                me.map.openInfoWindow(infoWindow, new window.BMap.Point(destination[index].lng, destination[index].lat));
+              }
               if (!destination[index + 1]) return;
-              route.search(new window.BMap.Point(destination[index].lng, destination[index].lat), new window.BMap.Point(destination[index + 1].lng, destination[index + 1].lat));
-              index++;
+              setTimeout(() => {
+                route.search(new window.BMap.Point(destination[index].lng, destination[index].lat), new window.BMap.Point(destination[index + 1].lng, destination[index + 1].lat));
+                me.map.closeInfoWindow();
+                if (destination[index].danger) {
+                  const dangerMarker = new window.BMap.Marker(new window.BMap.Point(destination[index].lng, destination[index].lat), {
+                    icon: Icon.warning,
+                    shadow: Icon.shadow
+                  });
+                  me.map.addOverlay(dangerMarker);
+                } else if (destination[index].warning) {
+                  const warningMarker = new window.BMap.Marker(new window.BMap.Point(destination[index].lng, destination[index].lat), {
+                    icon: Icon.warning,
+                    shadow: Icon.shadow
+                  });
+                  me.map.addOverlay(warningMarker);
+                }
+                index++;
+              }, destination[index].delay);
             });
           }
         }
@@ -220,7 +245,6 @@ export default {
         this.map.panTo(point);
         callback && callback();
       }
-
       const isInArea = window.BMapLib.GeoUtils.isPointInCircle(point, this.area);
       // const isInWarnArea = window.BMapLib.GeoUtils.isPointInCircle(point, this.warnArea);
       const isInDangerArea = window.BMapLib.GeoUtils.isPointInCircle(point, this.dengerArea);
