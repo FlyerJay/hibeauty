@@ -49,8 +49,8 @@ const users = [
         danger: false,
         warning: true,
       }, {
-        lng: 106.782712,
-        lat: 29.767166,
+        lng: 106.696259,
+        lat: 29.849053,
         delay: 0,
         desc: '在此停留超过20分钟',
         danger: true,
@@ -81,34 +81,48 @@ const users = [
     address: { // 地址信息
       home: '重庆市南岸区弹子石新街34号', // 居住地址
       security: '有保安', // 小区安保
-      type: '保有住房', // 居住方式
-      company: '互联网产业园', // 公司地址
-      institution: '不上班', // 公司制度
+      type: '家庭保有住房', // 居住方式
+      company: '无', // 公司地址
+      institution: '无', // 公司制度
       start: '', // 上班时间
       end: '', // 下班时间
-      scale: 16,
+      scale: 17,
       route: 'walk',
       gutter: 100,
       homelocation: { // 家庭地址定位
-        lng: 106.593349,
-        lat: 29.587503
+        lng: 106.595815,
+        lat: 29.605608
       },
       companylocation: { // 公司地址定位
       },
       startpoint: {
-        lng: 106.595595,
-        lat: 29.587173
+        lng: 106.595815,
+        lat: 29.605608
       },
       destination: [{ // 经过的点
-        lng: 106.594463,
-        lat: 29.588979,
+        lng: 106.596583,
+        lat: 29.604968,
         delay: 500,
         desc: '',
         danger: false,
         warning: false,
       }, { // 经过的点
-        lng: 106.590151,
-        lat: 29.586357,
+        lng: 106.595613,
+        lat: 29.607163,
+        delay: 500,
+        desc: '',
+        danger: false,
+        warning: false,
+      }, { // 经过的点
+        lng: 106.594485,
+        lat: 29.60604,
+        delay: 500,
+        desc: '',
+        danger: false,
+        warning: false,
+      }, { // 经过的点
+        lng: 106.594611,
+        lat: 29.608191,
         delay: 3000,
         desc: '接近江河湖海、水塘等危险区域',
         danger: true,
