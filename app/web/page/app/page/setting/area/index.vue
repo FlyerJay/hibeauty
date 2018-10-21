@@ -94,7 +94,9 @@ export default {
       // 标注所在位置
       this.markerPosition();
       // 画出路径
-      this.drawRoutePath();
+      setTimeout(() => {
+        this.drawRoutePath();
+      }, 10000);
     },
 
     initControl() {
